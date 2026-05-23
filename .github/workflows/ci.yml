@@ -1,0 +1,140 @@
+# =====================================================================
+# CI — Osyanificación Plugin Moodle
+# =====================================================================
+# Workflow inicial para Sprint 0.
+#
+# Jobs activos AHORA:
+#   - validate-yaml: lint del docker-compose.yml y los workflows
+#
+# Jobs por activar (cuando aplique):
+#   - php-lint        → Sprint 2 (cuando haya .php files reales)
+#   - moodle-plugin-ci → Sprint 3 (cuando exista code/local/rankingfisei/version.php)
+#   - phpunit         → Sprint 3 (con primer test del leaderboard)
+#   - behat           → Sprint 3+ (tests E2E)
+# =====================================================================
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:  # permite correr manualmente desde Actions UI
+
+jobs:
+  # -------------------------------------------------------------------
+  # Validar sintaxis YAML del compose + workflows
+  # Es el lint mínimo viable mientras no hay código PHP.
+  # -------------------------------------------------------------------
+  validate-yaml:
+    name: Validate YAML
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install yamllint
+        run: pip install yamllint
+
+      - name: Lint docker-compose.yml
+        run: |
+          yamllint \
+            -d "{extends: relaxed, rules: {line-length: disable, comments: disable, document-start: disable}}" \
+            docker-compose.yml
+
+      - name: Lint workflows
+        run: |
+          yamllint \
+            -d "{extends: relaxed, rules: {line-length: disable, comments: disable, document-start: disable, truthy: disable}}" \
+            .github/workflows/
+
+  # -------------------------------------------------------------------
+  # Validar estructura del plugin (smoke test)
+  # Verifica que ciertos archivos existan a medida que se vayan creando.
+  # Por ahora solo chequea que la estructura de carpetas esté correcta.
+  # -------------------------------------------------------------------
+  validate-structure:
+    name: Validate Repo Structure
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify required directories exist
+        run: |
+          set -e
+          for dir in \
+            "code/local/rankingfisei" \
+            "code/blocks" \
+            "docs" \
+            "seeds" \
+            "presentation"; do
+            if [ ! -d "$dir" ]; then
+              echo "::error::Missing required directory: $dir"
+              exit 1
+            fi
+          done
+          echo "✅ All required directories exist"
+
+      - name: Verify required files exist
+        run: |
+          set -e
+          for file in \
+            "README.md" \
+            "LICENSE" \
+            "CONTRIBUTING.md" \
+            "KNOWN_ISSUES.md" \
+            ".gitignore" \
+            "docker-compose.yml" \
+            ".env.example"; do
+            if [ ! -f "$file" ]; then
+              echo "::error::Missing required file: $file"
+              exit 1
+            fi
+          done
+          echo "✅ All required files exist"
+
+  # -------------------------------------------------------------------
+  # SPRINT 3+ — descomentar cuando exista code/local/rankingfisei/version.php
+  # -------------------------------------------------------------------
+  # moodle-plugin-ci:
+  #   name: Moodle Plugin CI
+  #   runs-on: ubuntu-latest
+  #   if: hashFiles('code/local/rankingfisei/version.php') != ''
+  #   services:
+  #     postgres:
+  #       image: postgres:14
+  #       env:
+  #         POSTGRES_USER: postgres
+  #         POSTGRES_HOST_AUTH_METHOD: trust
+  #       ports: ['5432:5432']
+  #       options: --health-cmd pg_isready --health-interval 10s
+  #   strategy:
+  #     matrix:
+  #       php: ['8.1', '8.2']
+  #       moodle-branch: ['MOODLE_403_STABLE']
+  #       database: [pgsql]
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #       with:
+  #         path: plugin
+  #     - name: Setup PHP
+  #       uses: shivammathur/setup-php@v2
+  #       with:
+  #         php-version: ${{ matrix.php }}
+  #         extensions: pgsql, zip, gd, xmlrpc, soap
+  #         ini-values: max_input_vars=5000
+  #         coverage: none
+  #     - name: Install moodle-plugin-ci
+  #       run: composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^4
+  #     - name: Install Moodle
+  #       run: ci/bin/moodle-plugin-ci install --plugin plugin --db-host=127.0.0.1
+  #     - name: PHP Lint
+  #       run: ci/bin/moodle-plugin-ci phplint
+  #     - name: PHP Code Sniffer
+  #       run: ci/bin/moodle-plugin-ci codechecker
+  #     - name: PHPUnit
+  #       run: ci/bin/moodle-plugin-ci phpunit
+  #     - name: Behat
+  #       run: ci/bin/moodle-plugin-ci behat
