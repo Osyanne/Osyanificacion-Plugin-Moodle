@@ -212,58 +212,30 @@ reiniciar.
 
 ## 🌐 Sprint 5 — Exposición pública
 
-> ⏳ **TODO** — esta sección se completa cuando arranque Sprint 5. Por
-> ahora queda como placeholder con el plan A y el plan B documentados a
-> alto nivel.
-
 ### Cloudflare Tunnel (plan A)
 
-**Objetivo**: exponer el Moodle local bajo URL HTTPS pública sin abrir
-puertos, sin firewall, sin SSL setup. **0 costo**.
+> **Plan default** del proyecto desde Sprint 5. Expone Moodle local
+> bajo URL HTTPS pública sin abrir puertos, sin firewall, sin SSL setup.
+> **Costo: USD 0** (o ~USD 1-3/año con dominio fijo opcional).
 
-**Setup express (sin URL fija, suficiente para demos puntuales)**:
+Procedimiento operativo completo en
+[`plan-a-cloudflare-tunnel.md`](plan-a-cloudflare-tunnel.md) — incluye:
 
-```bash
-# 1. Instalar cloudflared (Windows con winget)
-winget install --id Cloudflare.cloudflared
+- Instalar `cloudflared` (Windows/Linux/macOS)
+- Modo 1: tunnel temporal en 5 min con URL random `trycloudflare.com` (para demos puntuales)
+- Modo 2: tunnel con URL fija usando dominio propio + cuenta Cloudflare free (30 min de setup)
+- Persistencia como servicio Windows / systemd
+- Operación día-de-demo paso a paso
+- Manejo de credenciales y rotación
+- Troubleshooting (DNS, certs, account suspended, errores comunes)
+- Comparación detallada Plan A vs Plan B con criterios de migración
 
-# 2. Levantar tunnel apuntando al Moodle local
-cloudflared tunnel --url http://localhost:8080
-```
+**Resumen de los 2 modos**:
 
-El comando imprime una URL temporal del tipo:
-`https://palabras-random-1234.trycloudflare.com`
-
-Esa URL queda viva mientras el comando esté corriendo y la laptop
-prendida. Ideal para mostrar la demo a quien sea sin desplegar nada.
-
-**Setup con URL fija** (opcional, ~USD 1-3/año en dominio):
-
-1. Comprar dominio en Namecheap (ej. `.online` ~USD 1/año)
-2. Crear cuenta en Cloudflare (gratis)
-3. Apuntar nameservers del dominio a Cloudflare
-4. `cloudflared tunnel login`
-5. `cloudflared tunnel create demo-osyanificacion`
-6. Crear archivo de config en `~/.cloudflared/config.yml`:
-   ```yaml
-   tunnel: <TUNNEL_ID>
-   credentials-file: ~/.cloudflared/<TUNNEL_ID>.json
-   ingress:
-     - hostname: demo.osyanificacion.online
-       service: http://localhost:8080
-     - service: http_status:404
-   ```
-7. `cloudflared tunnel route dns demo-osyanificacion demo.osyanificacion.online`
-8. `cloudflared tunnel run demo-osyanificacion`
-
-URL final: `https://demo.osyanificacion.online`
-
-**Operación día de demo (Fase 2)**:
-1. Prender laptop + Docker Desktop
-2. `docker compose up -d` y esperar bootstrap
-3. `cloudflared tunnel run demo-osyanificacion` (en otra terminal)
-4. Compartir URL con los stakeholders
-5. Al terminar: `Ctrl+C` en el tunnel y `docker compose stop`
+| Modo | Setup time | URL | Persiste | Para qué |
+|---|---|---|---|---|
+| **Temporal** | 5 min | `trycloudflare.com` random | Mientras corre el comando | Demos puntuales, prueba rápida |
+| **Fija** | 30 min | `demo.osyanificacion.online` | Sí, sobrevive reinicios | Sprint 5+, Fase 2 institución externa |
 
 ### Oracle Cloud Free Tier (plan B)
 
