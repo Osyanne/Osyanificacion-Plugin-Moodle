@@ -46,7 +46,10 @@
 **Próximo**:
 - Sprint 1-4: standby (Edison/Imanol lideran)
 - Sprint 3 (semanas 5-6): descomentar `moodle-plugin-ci` en `.github/workflows/ci.yml` cuando exista `code/local/osyanificacion/version.php` y haya primer test PHPUnit
-- Sprint 5 (semana 8): ejecutar Cloudflare Tunnel (instalar `cloudflared`, levantar tunnel, validar desde celular) + correr JMeter contra Docker local (50 users concurrentes, p95 < 500ms target) + optimizaciones de performance (opcache PHP, índices DB)
+- Sprint 5 (semana 8):
+  - Ejecutar Cloudflare Tunnel: instalar `cloudflared`, levantar tunnel, validar desde celular
+  - Correr JMeter contra Docker local: 50 users concurrentes, p95 < 500ms target
+  - Optimizaciones de performance: opcache PHP, índices DB
 - Sprint 6 (semanas 9-10): aportar métricas de estabilidad para README + slides
 - **Opcional pendiente**: PR 3 (doc plan JMeter preview Sprint 5 #8) — sin urgencia
 
@@ -73,7 +76,9 @@
 - 🟢 **Lidera Sprint 1** — réplica visual UTA arrancando ahora (próximo paso humano según `docs/plan-fase-1.md`)
 
 **Próximo**:
-- Sprint 1 (semana 2): aplicar paleta UTA (`#233A83` primary, `#F2F3F7` bg, `#1D2125` text, border-radius `8px`), instalar/configurar `format_tiles`, screenshots comparativos UTA real vs local, decisión Boost-custom vs Moove (este último requiere licencia)
+- Sprint 1 (semana 2): aplicar paleta UTA (`#233A83` primary, `#F2F3F7` bg, `#1D2125` text, border-radius `8px`),
+  instalar/configurar `format_tiles`, screenshots comparativos UTA real vs local,
+  decisión Boost-custom vs Moove (este último requiere licencia)
 - Sprint 3: templates Mustache del leaderboard relativo ±5 con highlight "TÚ" en dorado (paridad con mockups del proyecto)
 - Sprint 4: UI de recompensas escalonadas (3 niveles)
 - Sprint 6: video demo 3-5 min (OBS) + slide deck 8-10 slides en PDF
@@ -100,10 +105,13 @@
 
 > Cosas que el equipo debe saber antes de empezar trabajo nuevo.
 
-- **2026-05-22**: `bitnami/moodle:4.3` ya no es pulleable sin Bitnami Secure. Usamos `bitnamilegacy/*` (ver `KNOWN_ISSUES.md` INFRA-001). Si alguien clona en frío y le falla `docker compose up`, mirá ahí primero.
+- **2026-05-22**: `bitnami/moodle:4.3` ya no es pulleable sin Bitnami Secure. Usamos `bitnamilegacy/*`
+  (ver `KNOWN_ISSUES.md` INFRA-001). Si alguien clona en frío y le falla `docker compose up`, mirá ahí primero.
 - **2026-05-23**: **Sprint 0 oficialmente cerrado**. Próximo paso humano: Edison arranca Sprint 1 (réplica visual UTA). Plan completo en [`docs/plan-fase-1.md`](docs/plan-fase-1.md).
-- **2026-05-23**: Lectura obligatoria del equipo antes de Sprint 2: `docs/plan-fase-1.md` (545 líneas, mapa de 7 sprints) + `docs/benchmarking-level-up-xp.md` (168 líneas, por qué wrappeamos en lugar de fork modificado).
-- **2026-05-23**: `MOODLE_SITE_NAME` cambió en `.env.example` a "Gamificación demo". Si querés que tu Moodle local muestre el nombre nuevo, actualizá tu `.env` local y `docker compose restart moodle`.
+- **2026-05-23**: Lectura obligatoria del equipo antes de Sprint 2: `docs/plan-fase-1.md` (545 líneas, mapa de
+  7 sprints) + `docs/benchmarking-level-up-xp.md` (168 líneas, por qué wrappeamos en lugar de fork modificado).
+- **2026-05-23**: `MOODLE_SITE_NAME` cambió en `.env.example` a "Gamificación demo". Si querés que tu Moodle
+  local muestre el nombre nuevo, actualizá tu `.env` local y `docker compose restart moodle`.
 
 ---
 
