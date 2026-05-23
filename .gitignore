@@ -1,0 +1,111 @@
+# ========================================
+# Moodle / PHP
+# ========================================
+
+# Composer
+/vendor/
+composer.lock
+composer.phar
+
+# PHP
+*.log
+
+# Moodle local config
+config.php
+moodledata/
+*.bak
+
+# Moodle plugin build artifacts
+build/
+
+# ========================================
+# Docker
+# ========================================
+
+# Datos persistentes locales (no commitear)
+moodledata/
+mariadb-data/
+mailhog-data/
+
+# Variables de entorno locales
+.env
+.env.local
+.env.*.local
+
+# Override files
+docker-compose.override.yml
+
+# ========================================
+# IDE / Editor
+# ========================================
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# JetBrains (PhpStorm)
+.idea/
+*.iml
+
+# Vim
+*.swp
+*.swo
+.*.sw[a-z]
+
+# ========================================
+# OS
+# ========================================
+
+# Windows
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+
+# ========================================
+# Tests / coverage
+# ========================================
+
+.phpunit.result.cache
+phpunit.xml
+coverage/
+.coverage
+*.cov
+
+# Behat
+behat.yml
+behat-data/
+
+# ========================================
+# Build / dist
+# ========================================
+
+dist/
+*.zip
+*.tar.gz
+
+# ========================================
+# Secrets (NUNCA commitear)
+# ========================================
+
+# Credenciales
+*.pem
+*.key
+secrets/
+credentials.json
+
+# Cloudflare Tunnel auth
+.cloudflared/
+cert.pem
