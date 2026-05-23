@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup Leaderboard ±5 — Osyanificación (paleta SDG)</title>
+<style>
+  :root {
+    --sdg-black:         #000000;
+    --sdg-near-black:    #1A1A1A;
+    --sdg-dark-gray:     #4A4A4A;
+    --sdg-mid-gray:      #767676;
+    --sdg-light-gray:    #D9D9D9;
+    --sdg-very-light:    #F5F5F5;
+    --sdg-white:         #FFFFFF;
+    --sdg-accent:        #C5A572;
+    --sdg-accent-light:  #E8D9B8;
+    --sdg-accent-dark:   #8B7548;
+    --sdg-card-radius:   4px;
+    --sdg-shadow-sm:     0 1px 0 rgba(0, 0, 0, 0.04);
+    --sdg-shadow-md:     0 2px 4px rgba(0, 0, 0, 0.06);
+    --sdg-border:        1px solid var(--sdg-light-gray);
+    --sdg-font-stack:    -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, sans-serif;
+    --sdg-font-mono:     ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sdg-font-stack);
+    background-color: var(--sdg-very-light);
+    color: var(--sdg-near-black);
+    line-height: 1.5;
+    padding: 2rem;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .mockup-note {
+    background-color: var(--sdg-accent-light);
+    border-left: 4px solid var(--sdg-accent);
+    color: var(--sdg-accent-dark);
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+    border-radius: 0 var(--sdg-card-radius) var(--sdg-card-radius) 0;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    color: var(--sdg-black);
+    margin-bottom: 0.25rem;
+  }
+
+  .subtitle {
+    color: var(--sdg-mid-gray);
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ============ TABLA LEADERBOARD ============ */
+  .leaderboard {
+    background-color: var(--sdg-white);
+    border: var(--sdg-border);
+    border-radius: var(--sdg-card-radius);
+    box-shadow: var(--sdg-shadow-sm);
+    overflow: hidden;
+  }
+
+  .leaderboard-header {
+    display: grid;
+    grid-template-columns: 60px 1fr 100px 100px;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background-color: var(--sdg-black);
+    color: var(--sdg-white);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+
+  .leaderboard-row {
+    display: grid;
+    grid-template-columns: 60px 1fr 100px 100px;
+    gap: 1rem;
+    padding: 0.875rem 1rem;
+    border-bottom: var(--sdg-border);
+    align-items: center;
+    transition: background-color 0.15s;
+  }
+
+  .leaderboard-row:last-child {
+    border-bottom: none;
+  }
+
+  .leaderboard-row:hover {
+    background-color: var(--sdg-very-light);
+  }
+
+  .leaderboard-row--current {
+    background-color: var(--sdg-accent-light) !important;
+    border-left: 4px solid var(--sdg-accent);
+    padding-left: calc(1rem - 4px);
+    font-weight: 700;
+  }
+
+  .leaderboard-row--current .name::before {
+    content: "TÚ → ";
+    color: var(--sdg-accent-dark);
+    font-size: 0.75rem;
+    margin-right: 0.25rem;
+  }
+
+  .rank {
+    font-family: var(--sdg-font-mono);
+    color: var(--sdg-mid-gray);
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .leaderboard-row--current .rank {
+    color: var(--sdg-accent-dark);
+  }
+
+  .avatar-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background-color: var(--sdg-dark-gray);
+    color: var(--sdg-white);
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+  }
+
+  .name {
+    color: var(--sdg-near-black);
+  }
+
+  .level {
+    color: var(--sdg-dark-gray);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .xp {
+    color: var(--sdg-black);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  .leaderboard-footer {
+    padding: 0.75rem 1rem;
+    background-color: var(--sdg-very-light);
+    color: var(--sdg-mid-gray);
+    font-size: 0.75rem;
+    text-align: center;
+    border-top: var(--sdg-border);
+  }
+
+  /* ============ INFO BOX ============ */
+  .info-box {
+    background-color: var(--sdg-white);
+    border: var(--sdg-border);
+    border-radius: var(--sdg-card-radius);
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    color: var(--sdg-dark-gray);
+  }
+
+  .info-box h3 {
+    color: var(--sdg-black);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .info-box ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .info-box li {
+    padding: 0.25rem 0;
+    border-bottom: var(--sdg-border);
+  }
+
+  .info-box li:last-child {
+    border-bottom: none;
+  }
+
+  .info-box li strong {
+    color: var(--sdg-near-black);
+    display: inline-block;
+    min-width: 8rem;
+  }
+
+  /* Toggle entre absoluto y relativo */
+  .toggle {
+    display: inline-flex;
+    background-color: var(--sdg-very-light);
+    border: var(--sdg-border);
+    border-radius: var(--sdg-card-radius);
+    margin-bottom: 1rem;
+    padding: 2px;
+  }
+
+  .toggle button {
+    background: transparent;
+    border: none;
+    padding: 0.375rem 0.875rem;
+    font-size: 0.875rem;
+    color: var(--sdg-mid-gray);
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background-color 0.15s, color 0.15s;
+    font-family: inherit;
+  }
+
+  .toggle button.active {
+    background-color: var(--sdg-black);
+    color: var(--sdg-white);
+    font-weight: 600;
+  }
+
+  .toggle button:not(.active):hover {
+    color: var(--sdg-black);
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="mockup-note">
+    📐 <strong>MOCKUP STANDALONE</strong> — vista expandida del
+    leaderboard ±5 con highlight "TÚ" en dorado. Paleta Santo Domingo
+    de Guzmán (B&N + acento dorado puntual).
+  </div>
+
+  <h1>Tabla de clasificación</h1>
+  <p class="subtitle">
+    (SOF) Algoritmos y Lógica de Programación - DEMO · Vista
+    relativa ±5 vecinos
+  </p>
+
+  <!-- Toggle entre absoluto y relativo -->
+  <div class="toggle">
+    <button>Absoluto (top 100)</button>
+    <button class="active">Relativo (±5)</button>
+  </div>
+
+  <!-- Tabla del leaderboard -->
+  <div class="leaderboard">
+
+    <div class="leaderboard-header">
+      <div>Rank</div>
+      <div>Estudiante</div>
+      <div>Nivel</div>
+      <div style="text-align: right;">XP</div>
+    </div>
+
+    <div class="leaderboard-row">
+      <div class="rank">#1</div>
+      <div>
+        <span class="avatar-circle">MF</span>
+        <span class="name">María Fernández López</span>
+      </div>
+      <div class="level">7</div>
+      <div class="xp">150</div>
+    </div>
+
+    <div class="leaderboard-row">
+      <div class="rank">#2</div>
+      <div>
+        <span class="avatar-circle">PS</span>
+        <span class="name">Pedro Sánchez Torres</span>
+      </div>
+      <div class="level">5</div>
+      <div class="xp">80</div>
+    </div>
+
+    <!-- Usuario actual destacado -->
+    <div class="leaderboard-row leaderboard-row--current">
+      <div class="rank">#3</div>
+      <div>
+        <span class="avatar-circle" style="background-color: var(--sdg-accent-dark);">CP</span>
+        <span class="name">Carlos Pérez García</span>
+      </div>
+      <div class="level">3</div>
+      <div class="xp">50</div>
+    </div>
+
+    <div class="leaderboard-row">
+      <div class="rank">#4</div>
+      <div>
+        <span class="avatar-circle">AC</span>
+        <span class="name">Ana Cruz Vargas</span>
+      </div>
+      <div class="level">3</div>
+      <div class="xp">50</div>
+    </div>
+
+    <div class="leaderboard-row">
+      <div class="rank">#5</div>
+      <div>
+        <span class="avatar-circle">LH</span>
+        <span class="name">Luis Hidalgo Salinas</span>
+      </div>
+      <div class="level">1</div>
+      <div class="xp">10</div>
+    </div>
+
+    <div class="leaderboard-footer">
+      Mostrando 5 estudiantes · 2 arriba, vos, 2 abajo
+    </div>
+
+  </div>
+
+  <!-- Info: por qué relativo -->
+  <div class="info-box">
+    <h3>¿Por qué leaderboard relativo ±5?</h3>
+    <ul>
+      <li>
+        <strong>Reduce comparación tóxica:</strong>
+        no ves a quien está muy adelante o muy atrás
+      </li>
+      <li>
+        <strong>Mantiene competencia sana:</strong>
+        ves a los más cercanos a vos
+      </li>
+      <li>
+        <strong>Basado en evidencia:</strong>
+        Hanus &amp; Fox (2015), Ortiz-Rojas et al. (2025)
+      </li>
+      <li>
+        <strong>Nativo en Level Up XP:</strong>
+        campo <code>block_xp_config.neighbours</code>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+</body>
+</html>

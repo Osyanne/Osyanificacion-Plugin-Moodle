@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup Dashboard — Osyanificación (paleta SDG)</title>
+<style>
+  :root {
+    --sdg-black:         #000000;
+    --sdg-near-black:    #1A1A1A;
+    --sdg-dark-gray:     #4A4A4A;
+    --sdg-mid-gray:      #767676;
+    --sdg-light-gray:    #D9D9D9;
+    --sdg-very-light:    #F5F5F5;
+    --sdg-white:         #FFFFFF;
+    --sdg-accent:        #C5A572;
+    --sdg-accent-light:  #E8D9B8;
+    --sdg-accent-dark:   #8B7548;
+    --sdg-card-radius:   4px;
+    --sdg-shadow-sm:     0 1px 0 rgba(0, 0, 0, 0.04);
+    --sdg-shadow-md:     0 2px 4px rgba(0, 0, 0, 0.06);
+    --sdg-border:        1px solid var(--sdg-light-gray);
+    --sdg-font-stack:    -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+                         "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sdg-font-stack);
+    background-color: var(--sdg-very-light);
+    color: var(--sdg-near-black);
+    line-height: 1.5;
+    font-size: 16px;
+  }
+
+  /* ============ NAVBAR ============ */
+  .navbar {
+    background-color: var(--sdg-black);
+    color: var(--sdg-white);
+    padding: 0.875rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--sdg-dark-gray);
+  }
+
+  .navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 1rem;
+  }
+
+  .navbar-nav {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+
+  .navbar-nav a {
+    color: var(--sdg-very-light);
+    text-decoration: none;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .navbar-nav a:hover,
+  .navbar-nav a.active {
+    color: var(--sdg-white);
+    border-bottom-color: var(--sdg-white);
+  }
+
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--sdg-dark-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 0.75rem;
+  }
+
+  .edit-mode {
+    background-color: var(--sdg-white);
+    color: var(--sdg-black);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--sdg-card-radius);
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  /* ============ BREADCRUMB ============ */
+  .breadcrumb {
+    background-color: var(--sdg-white);
+    border-bottom: var(--sdg-border);
+    padding: 0.75rem 2rem;
+    font-size: 0.875rem;
+    color: var(--sdg-mid-gray);
+  }
+
+  .breadcrumb a {
+    color: var(--sdg-near-black);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  /* ============ LAYOUT PRINCIPAL ============ */
+  .container {
+    max-width: 1200px;
+    margin: 1.5rem auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 1.5rem;
+  }
+
+  /* ============ COURSE HEADER ============ */
+  .course-header {
+    background-color: var(--sdg-white);
+    border: var(--sdg-border);
+    border-radius: var(--sdg-card-radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--sdg-shadow-sm);
+  }
+
+  .course-header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--sdg-black);
+    margin-bottom: 0.5rem;
+  }
+
+  .course-header .tabs {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    border-bottom: var(--sdg-border);
+  }
+
+  .course-header .tabs a {
+    padding: 0.5rem 0;
+    color: var(--sdg-dark-gray);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .course-header .tabs a.active,
+  .course-header .tabs a:hover {
+    color: var(--sdg-black);
+    border-bottom-color: var(--sdg-black);
+  }
+
+  /* ============ TILES (formato_tiles) ============ */
+  .tiles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .tile {
+    background-color: var(--sdg-white);
+    border: var(--sdg-border);
+    border-radius: var(--sdg-card-radius);
+    padding: 1.25rem;
+    box-shadow: var(--sdg-shadow-sm);
+    cursor: pointer;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .tile:hover {
+    box-shadow: var(--sdg-shadow-md);
+    border-color: var(--sdg-mid-gray);
+  }
+
+  .tile-number {
+    display: inline-block;
+    background-color: var(--sdg-black);
+    color: var(--sdg-white);
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 1.75rem;
+    font-weight: 700;
+    font-size: 0.875rem;
+    margin-right: 0.5rem;
+  }
+
+  .tile-title {
+    display: inline-block;
+    font-weight: 600;
+    color: var(--sdg-black);
+    font-size: 1rem;
+    vertical-align: middle;
+  }
+
+  .tile-meta {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--sdg-mid-gray);
+  }
+
+  .tile-meta strong {
+    color: var(--sdg-dark-gray);
+  }
+
+  /* ============ SIDEBAR — Bloque XP ============ */
+  .sidebar {
+    /* sticky para que el bloque XP siga visible al scroll */
+    align-self: start;
+    position: sticky;
+    top: 1rem;
+  }
+
+  .xp-widget {
+    background-color: var(--sdg-white);
+    border: var(--sdg-border);
+    border-radius: var(--sdg-card-radius);
+    box-shadow: var(--sdg-shadow-sm);
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .xp-widget-title {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--sdg-mid-gray);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .xp-level-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--sdg-black);
+    color: var(--sdg-white);
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .xp-total {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--sdg-black);
+    margin-bottom: 0.25rem;
+  }
+
+  .xp-next {
+    font-size: 0.75rem;
+    color: var(--sdg-mid-gray);
+    margin-bottom: 1rem;
+  }
+
+  .xp-progress-bar {
+    height: 6px;
+    background-color: var(--sdg-light-gray);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+  }
+
+  .xp-progress-fill {
+    height: 100%;
+    background-color: var(--sdg-black);
+    width: 42%;
+    transition: width 0.3s ease-out;
+  }
+
+  /* ---- Sección RANKING ---- */
+  .xp-section {
+    margin-top: 1.25rem;
+    text-align: left;
+  }
+
+  .xp-section-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--sdg-mid-gray);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    border-bottom: var(--sdg-border);
+    padding-bottom: 0.25rem;
+  }
+
+  .leaderboard-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.25rem;
+    border-bottom: var(--sdg-border);
+    font-size: 0.875rem;
+  }
+
+  .leaderboard-row:last-child {
+    border-bottom: none;
+  }
+
+  .leaderboard-row--current-user {
+    background-color: var(--sdg-accent-light);
+    border-left: 3px solid var(--sdg-accent);
+    padding-left: 0.5rem;
+    font-weight: 700;
+  }
+
+  .leaderboard-row--current-user .username::before {
+    content: "TÚ → ";
+    color: var(--sdg-accent-dark);
+    font-weight: 700;
+    font-size: 0.75rem;
+  }
+
+  .leaderboard-rank {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: var(--sdg-mid-gray);
+    font-size: 0.75rem;
+    min-width: 1.5rem;
+  }
+
+  .leaderboard-name {
+    flex: 1;
+    color: var(--sdg-near-black);
+  }
+
+  .leaderboard-xp {
+    color: var(--sdg-dark-gray);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- Footer del bloque XP ---- */
+  .xp-footer {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: var(--sdg-border);
+    display: flex;
+    justify-content: space-around;
+    font-size: 0.75rem;
+    color: var(--sdg-mid-gray);
+  }
+
+  .xp-footer a {
+    color: var(--sdg-mid-gray);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .xp-footer a:hover {
+    color: var(--sdg-black);
+  }
+
+  /* ============ ANOTACIÓN DEL MOCKUP ============ */
+  .mockup-note {
+    background-color: var(--sdg-accent-light);
+    border-left: 4px solid var(--sdg-accent);
+    color: var(--sdg-accent-dark);
+    padding: 0.75rem 1rem;
+    margin: 1rem 2rem;
+    font-size: 0.875rem;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 900px) {
+    .container {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="mockup-note">
+  📐 <strong>MOCKUP STANDALONE</strong> — visualización de cómo se vería
+  el Dashboard del curso con paleta Santo Domingo de Guzmán aplicada.
+  No es Moodle real, es solo HTML+CSS para Edison y el equipo.
+</div>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar">
+  <div class="navbar-brand">OSYANIFICACIÓN</div>
+  <ul class="navbar-nav">
+    <li><a href="#">Página Principal</a></li>
+    <li><a href="#">Área personal</a></li>
+    <li><a href="#" class="active">Mis cursos</a></li>
+    <li><a href="#">Administración</a></li>
+  </ul>
+  <div class="navbar-right">
+    <span class="edit-mode">Modo edición</span>
+    <div class="avatar">AU</div>
+  </div>
+</nav>
+
+<!-- ============ BREADCRUMB ============ -->
+<div class="breadcrumb">
+  <a href="#">Página Principal</a> /
+  <a href="#">Mis cursos</a> /
+  <a href="#">(SOF) Ingeniería en Software - DEMO</a> /
+  ALG-DEMO
+</div>
+
+<!-- ============ CONTENIDO PRINCIPAL ============ -->
+<div class="container">
+
+  <!-- ----- Columna principal ----- -->
+  <main>
+
+    <!-- Curso header con tabs -->
+    <section class="course-header">
+      <h1>(SOF) Algoritmos y Lógica de Programación - DEMO</h1>
+      <div class="tabs">
+        <a href="#" class="active">Curso</a>
+        <a href="#">Configuración</a>
+        <a href="#">Participantes</a>
+        <a href="#">Calificaciones</a>
+        <a href="#">Informes</a>
+      </div>
+    </section>
+
+    <!-- Tiles del curso -->
+    <section class="tiles-grid">
+
+      <div class="tile">
+        <span class="tile-number">1</span>
+        <span class="tile-title">Tema 1: Fundamentos</span>
+        <div class="tile-meta">
+          <strong>1 actividad</strong> · Tarea<br>
+          Apertura: 23 may · Cierre: 1 jun
+        </div>
+      </div>
+
+      <div class="tile">
+        <span class="tile-number">2</span>
+        <span class="tile-title">Tema 2: Variables</span>
+        <div class="tile-meta">
+          <strong>1 actividad</strong> · Quiz
+        </div>
+      </div>
+
+      <div class="tile">
+        <span class="tile-number">3</span>
+        <span class="tile-title">Tema 3: Estructuras de control</span>
+        <div class="tile-meta">
+          <strong>1 actividad</strong> · Apunte PDF
+        </div>
+      </div>
+
+      <div class="tile">
+        <span class="tile-number">4</span>
+        <span class="tile-title">Tema 4: Recursividad</span>
+        <div class="tile-meta">
+          <strong>1 actividad</strong> · Video
+        </div>
+      </div>
+
+      <div class="tile">
+        <span class="tile-number">5</span>
+        <span class="tile-title">Tema 5: Práctica</span>
+        <div class="tile-meta">
+          <strong>1 actividad</strong> · Foro
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ----- Sidebar (bloque XP) ----- -->
+  <aside class="sidebar">
+
+    <div class="xp-widget">
+      <div class="xp-widget-title">¡Subes de nivel!</div>
+
+      <div class="xp-level-badge">3</div>
+      <div class="xp-total">50 XP</div>
+      <div class="xp-next">Próximo nivel en 70 XP</div>
+
+      <div class="xp-progress-bar">
+        <div class="xp-progress-fill"></div>
+      </div>
+
+      <!-- Sección RANKING — leaderboard ±5 -->
+      <div class="xp-section">
+        <div class="xp-section-title">Ranking</div>
+
+        <div class="leaderboard-row">
+          <span class="leaderboard-rank">1</span>
+          <span class="leaderboard-name">María F.</span>
+          <span class="leaderboard-xp">150</span>
+        </div>
+
+        <div class="leaderboard-row">
+          <span class="leaderboard-rank">2</span>
+          <span class="leaderboard-name">Pedro S.</span>
+          <span class="leaderboard-xp">80</span>
+        </div>
+
+        <div class="leaderboard-row leaderboard-row--current-user">
+          <span class="leaderboard-rank">3</span>
+          <span class="leaderboard-name username">Carlos P.</span>
+          <span class="leaderboard-xp">50</span>
+        </div>
+
+        <div class="leaderboard-row">
+          <span class="leaderboard-rank">4</span>
+          <span class="leaderboard-name">Ana C.</span>
+          <span class="leaderboard-xp">50</span>
+        </div>
+
+        <div class="leaderboard-row">
+          <span class="leaderboard-rank">5</span>
+          <span class="leaderboard-name">Luis H.</span>
+          <span class="leaderboard-xp">10</span>
+        </div>
+      </div>
+
+      <!-- Footer del bloque -->
+      <div class="xp-footer">
+        <a href="#">Info</a>
+        <a href="#">Ranking</a>
+        <a href="#">Reporte</a>
+        <a href="#">Config</a>
+      </div>
+
+    </div>
+
+  </aside>
+
+</div>
+
+</body>
+</html>
