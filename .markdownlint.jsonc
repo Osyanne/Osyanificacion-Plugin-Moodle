@@ -48,5 +48,13 @@
   "MD001": false,
 
   // Trailing spaces en líneas vacías de Markdown — irrelevante para git
-  "MD009": false
+  "MD009": false,
+
+  // No requerir h1 al inicio (PR templates empiezan con ## Resumen,
+  // STATUS.md tampoco necesita un h1 redundante con el filename)
+  "MD041": false,
+
+  // Permitir blockquotes consecutivos separados por línea en blanco
+  // (los usamos para separar "qué es" y "cómo usar" en docs)
+  "MD028": false
 }

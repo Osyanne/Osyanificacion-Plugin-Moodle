@@ -1,0 +1,69 @@
+name: 💡 Feature request / mejora
+description: Proponer una mejora, feature nueva, o cambio de scope
+title: "[FEAT] "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Antes de proponer, verificá que la idea no esté ya en el plan de la Fase 1
+        ([nota de Obsidian del equipo](https://github.com/Osyanne/Osyanificacion-Plugin-Moodle#-documentación)).
+
+        Si es algo grande, mejor armarlo como decisión arquitectónica en
+        `docs/architecture.md` y discutirlo con Imanol antes.
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Sprint donde encaja
+      options:
+        - Sprint 0 (setup) — pendiente
+        - Sprint 1 (réplica visual UTA)
+        - Sprint 2 (fork Level Up XP + code reading)
+        - Sprint 3 (leaderboard ±5)
+        - Sprint 4 (recompensas escalonadas)
+        - Sprint 5 (exposición pública + JMeter)
+        - Sprint 6 (docs + video demo)
+        - Futuro (Fase 2/3)
+        - No estoy seguro
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problema que resuelve
+      description: Qué dolor o gap actual cubre. Si es solo "nice-to-have", está bien decirlo.
+      placeholder: "Actualmente, X requiere hacer Y manualmente, lo que consume Z minutos por integrante..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Propuesta concreta
+      description: Qué harías exactamente para resolverlo
+      placeholder: "Agregar un script CLI en `tools/seed.php` que llame a la Moodle CLI..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativas consideradas
+      description: Otras formas de resolverlo que descartaste y por qué
+      placeholder: "Considerar usar Behat directamente, pero..."
+    validations:
+      required: false
+
+  - type: dropdown
+    id: who-can-pick
+    attributes:
+      label: Quién puede tomar esta tarea
+      options:
+        - Imanol (Lead Técnico — arquitectura/PHP)
+        - Álvaro (Infra & QA — Docker/CI/tests)
+        - Edison (UI/UX & Docs — Mustache/Chart.js)
+        - Cualquiera del equipo
+    validations:
+      required: true
