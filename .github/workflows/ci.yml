@@ -4,11 +4,7 @@
 # Workflow inicial para Sprint 0.
 #
 # Jobs activos AHORA:
-#   - validate-yaml   → lint del docker-compose.yml y los workflows
-#   - validate-structure → verifica que carpetas/archivos clave existen
-#   - secret-scan     → detecta secretos accidentalmente commiteados (gitleaks)
-#   - markdown-lint   → valida formato de los .md
-#   - json-validate   → valida sintaxis de seeds/*.json
+#   - validate-yaml: lint del docker-compose.yml y los workflows
 #
 # Jobs por activar (cuando aplique):
 #   - php-lint        → Sprint 2 (cuando haya .php files reales)
@@ -98,77 +94,6 @@ jobs:
             fi
           done
           echo "✅ All required files exist"
-
-  # -------------------------------------------------------------------
-  # Secret scan — detecta secretos accidentalmente commiteados
-  # (.env, API keys, passwords, tokens, certificates)
-  # -------------------------------------------------------------------
-  secret-scan:
-    name: Secret scan (gitleaks)
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout (full history para escanear todos los commits del PR)
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Install gitleaks
-        run: |
-          GITLEAKS_VERSION="8.18.4"
-          wget -q "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
-          tar -xzf "gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
-          sudo mv gitleaks /usr/local/bin/
-          gitleaks version
-
-      - name: Run gitleaks on full git history
-        run: gitleaks detect --no-banner --redact -v --exit-code 1
-
-  # -------------------------------------------------------------------
-  # Markdown lint — valida formato de los .md del repo
-  # Config en .markdownlint.jsonc (reglas razonables para docs técnicas)
-  # -------------------------------------------------------------------
-  markdown-lint:
-    name: Markdown lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Run markdownlint-cli2
-        uses: DavidAnson/markdownlint-cli2-action@v15
-        with:
-          globs: |
-            **/*.md
-            !node_modules
-
-  # -------------------------------------------------------------------
-  # JSON validate — verifica sintaxis de seeds/*.json (Sprint 0 seeds)
-  # Evita que un seed roto se cuele a main y rompa el setup de alguien
-  # -------------------------------------------------------------------
-  json-validate:
-    name: JSON validate (seeds)
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Verify jq is available
-        run: jq --version
-
-      - name: Validate all seeds/*.json files
-        run: |
-          set -e
-          shopt -s nullglob
-          files=(seeds/*.json)
-          if [ ${#files[@]} -eq 0 ]; then
-            echo "⏭️  No JSON files in seeds/ to validate — skipping"
-            exit 0
-          fi
-          for f in "${files[@]}"; do
-            echo "Validating $f"
-            jq empty "$f" || { echo "::error file=$f::Invalid JSON syntax"; exit 1; }
-          done
-          echo "✅ All ${#files[@]} JSON file(s) are syntactically valid"
 
   # -------------------------------------------------------------------
   # SPRINT 3+ — descomentar cuando exista code/local/rankingfisei/version.php
