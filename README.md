@@ -135,7 +135,7 @@ Universidad Técnica de Ambato (UTA), Ecuador. Sin embargo, **el plugin
 en sí es genérico** y está pensado para instalarse en cualquier Moodle
 4.x institucional.
 
-Implementación escalonada en 3 fases (ver `12-Plan-Fase-1-Local.md`):
+Implementación escalonada en 3 fases (plan técnico detallado en [`docs/plan-fase-1.md`](./docs/plan-fase-1.md)):
 
 1. **Fase 1 — Validación Técnica (local)**: desarrollo y testing en
    entorno controlado del equipo
@@ -169,11 +169,26 @@ Ver [`CONTRIBUTING.md`](./CONTRIBUTING.md) para guía del equipo.
 
 ## 📚 Documentación
 
-- `docs/architecture.md` — Sprint 2
-- `docs/deployment.md` — Sprint 5
-- `docs/user-guide.md` — Sprint 6
-- `docs/api-reference.md` — Sprint 6
-- `docs/research-context.md` — Sprint 6
+### Para arrancar (leer en orden)
+
+- **[`docs/plan-fase-1.md`](./docs/plan-fase-1.md)** — 🆕 **Plan técnico completo de Fase 1 LOCAL** (8-10 semanas, 7 sprints, roles, criterios de salida, riesgos). **Lectura obligatoria para todo el equipo antes de tocar código.**
+- **[`docs/benchmarking-level-up-xp.md`](./docs/benchmarking-level-up-xp.md)** — 🆕 Análisis del plugin base que estamos wrappeando. Explica por qué wrappeo en vez de fork modificado, y cuáles son los 4 diferenciadores reales.
+- [`CONTRIBUTING.md`](./CONTRIBUTING.md) — Jerarquía del equipo + GitHub Flow + Conventional Commits + code review rules
+- [`KNOWN_ISSUES.md`](./KNOWN_ISSUES.md) — Bugs conocidos con workaround (INFRA-001, etc.)
+- [`STATUS.md`](./STATUS.md) — Status board del equipo (qué está haciendo cada uno ahora mismo)
+
+### Deployment + infra
+
+- [`docs/deployment.md`](./docs/deployment.md) — Cómo desplegar el stack Docker localmente
+- [`docs/plan-a-cloudflare-tunnel.md`](./docs/plan-a-cloudflare-tunnel.md) — Exposición pública opción A (Cloudflare Tunnel, gratis)
+- [`docs/plan-b-oracle-cloud.md`](./docs/plan-b-oracle-cloud.md) — Exposición pública opción B (Oracle Cloud Free Tier, gratis)
+
+### Documentación que se completa en sprints futuros
+
+- `docs/architecture.md` — Sprint 2 (cómo wrappeamos Level Up XP)
+- `docs/user-guide.md` — Sprint 6 (paso a paso para docentes y estudiantes)
+- `docs/api-reference.md` — Sprint 6 (hooks, eventos, configuración)
+- `docs/research-context.md` — Sprint 6 (marco teórico PBL+F + link al doc académico)
 
 ## ⚠️ Issues conocidos
 
