@@ -13,13 +13,11 @@
 
 ## 👥 Jerarquía del equipo
 
-- **Imanol** = Director del Proyecto + Lead Técnico (palabra final en
-  scope/arquitectura/cronograma)
-- **Álvaro** = Colaborador Infra & QA (reporta a Imanol)
-- **Edison** = Colaborador UI/UX & Docs (reporta a Imanol)
+- **Imanol** = Director del Proyecto + Lead Técnico 
+- **Álvaro** = Colaborador Infra & QA 
+- **Edison** = Colaborador UI/UX & Docs
 
-Decisiones técnicas mayores se discuten antes — Imanol decide cuando
-hay desacuerdo.
+Decisiones técnicas mayores se discuten antes
 
 ## 🌳 Branch strategy: GitHub Flow
 
@@ -85,9 +83,6 @@ chore(ci): subir cobertura mínima a 70%
 refactor(db): renombrar tabla rewards → reward_definitions
 test(leaderboard): caso borde con 1 usuario
 ```
-
-**Idioma**: español o inglés — **a definir por Imanol y mantener
-durante todo el proyecto** (default propuesto: español).
 
 ## 🔍 Code reviews
 
