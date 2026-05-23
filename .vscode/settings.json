@@ -1,0 +1,80 @@
+{
+  "// description": "Settings compartidos del workspace. Override individual en .vscode/settings.local.json (no commiteado).",
+
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "files.trimFinalNewlines": true,
+
+  "// php": "Intelephense settings para Moodle 4.x + PHP 8.1+",
+  "intelephense.environment.phpVersion": "8.1",
+  "intelephense.files.maxSize": 5000000,
+  "intelephense.diagnostics.undefinedFunctions": false,
+  "intelephense.diagnostics.undefinedConstants": false,
+
+  "// yaml": "Tab size 2 para YAML por convención",
+  "[yaml]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  "[json]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  "[jsonc]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  "[markdown]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "files.trimTrailingWhitespace": false
+  },
+
+  "// docker": "Compose syntax help",
+  "docker.composeCommand": "docker compose",
+
+  "// spell-check": "Diccionarios español + términos del proyecto",
+  "cSpell.language": "en,es",
+  "cSpell.words": [
+    "Ambato",
+    "behat",
+    "bitnamilegacy",
+    "cloudflared",
+    "Cuestionario",
+    "DEaDV",
+    "FISEI",
+    "Healthchecks",
+    "Hidalgo",
+    "Imanol",
+    "leaderboard",
+    "Mailhog",
+    "mariadb",
+    "moodledata",
+    "Mustache",
+    "Osyanificación",
+    "phpunit",
+    "rankingfisei",
+    "uniandes",
+    "yamllint"
+  ],
+
+  "// search": "Excluir directorios de Docker y vendored",
+  "search.exclude": {
+    "**/moodledata": true,
+    "**/mariadb_data": true,
+    "**/vendor": true,
+    "**/node_modules": true,
+    "**/.git": true
+  },
+
+  "// files watcher": "Evitar que VS Code observe carpetas grandes",
+  "files.watcherExclude": {
+    "**/moodledata/**": true,
+    "**/mariadb_data/**": true
+  }
+}
