@@ -1,0 +1,52 @@
+// =====================================================================
+// markdownlint config — Osyanificación Plugin Moodle
+// =====================================================================
+// Filosofía: docs técnicas en español, NO enterprise style.
+// Solo reglas que cazan errores reales — desactivamos lo que es
+// puramente estético y subjetivo.
+//
+// Ref: https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
+// =====================================================================
+{
+  "default": true,
+
+  // Líneas largas: subimos a 200 (default 80 es demasiado para tablas
+  // y URLs técnicas). No contar code blocks, tablas, headings, URLs.
+  "MD013": {
+    "line_length": 200,
+    "code_blocks": false,
+    "tables": false,
+    "headings": false
+  },
+
+  // Blank lines alrededor de headings/lists/fences — apaga, es muy
+  // ruidoso en docs técnicas y no cambia legibilidad real
+  "MD022": false,
+  "MD031": false,
+  "MD032": false,
+
+  // Bare URLs (https://foo) — apaga, en docs técnicas son más legibles
+  // que [https://foo](https://foo) repetido cien veces
+  "MD034": false,
+
+  // Permitir HTML inline (<br>, <details>, etc.)
+  "MD033": false,
+
+  // Permitir code fences sin lenguaje (``` para output crudo)
+  "MD040": false,
+
+  // No forzar puntuación en headings (queremos "¿Cómo se hace?" sin warning)
+  "MD026": false,
+
+  // No requerir un único H1 (algunas docs tienen "Tabla de contenidos"
+  // como heading después del título principal)
+  "MD025": {
+    "front_matter_title": ""
+  },
+
+  // Permitir nivel de heading skip (### sin que haya ## antes)
+  "MD001": false,
+
+  // Trailing spaces en líneas vacías de Markdown — irrelevante para git
+  "MD009": false
+}
