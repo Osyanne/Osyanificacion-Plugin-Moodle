@@ -1,0 +1,130 @@
+# =====================================================================
+# Osyanificación Plugin Moodle — Stack de desarrollo local
+# =====================================================================
+# 3 servicios:
+#   - moodle    → Moodle 4.3 LTS (Bitnami) en http://localhost:8080
+#   - mariadb   → MariaDB 10.11 (Bitnami) interno (no expuesto)
+#   - mailhog   → Catch-all SMTP en http://localhost:8025 (web UI)
+#
+# Uso:
+#   1. cp .env.example .env  → ajustar passwords
+#   2. docker-compose up -d   → levantar todo en background
+#   3. docker-compose logs -f → ver logs en tiempo real
+#   4. Esperar ~3-5 min la primera vez (Moodle inicializa BD + admin)
+#   5. http://localhost:8080 → login con MOODLE_USERNAME / MOODLE_PASSWORD
+#   6. http://localhost:8025 → ver emails capturados por Mailhog
+#
+# Apagar:
+#   docker-compose down        → para todo, preserva volúmenes
+#   docker-compose down -v     → ⚠️ borra TODOS los datos
+#
+# Plugins (Sprint 2+):
+#   Por ahora plugins se instalan via UI de Moodle.
+#   Cuando arranquemos a desarrollar el plugin propio, descomentar los
+#   bind mounts marcados con [SPRINT 2].
+# =====================================================================
+
+services:
+  # -------------------------------------------------------------------
+  # MariaDB — base de datos
+  # -------------------------------------------------------------------
+  mariadb:
+    image: docker.io/bitnami/mariadb:10.11
+    container_name: osyanificacion-mariadb
+    restart: unless-stopped
+    environment:
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MARIADB_USER=${MARIADB_USER}
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+      - MARIADB_DATABASE=${MARIADB_DATABASE}
+      - MARIADB_CHARACTER_SET=utf8mb4
+      - MARIADB_COLLATE=utf8mb4_unicode_ci
+    volumes:
+      - mariadb_data:/bitnami/mariadb
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${MARIADB_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - osyanificacion-net
+
+  # -------------------------------------------------------------------
+  # Moodle 4.3 LTS — Bitnami
+  # -------------------------------------------------------------------
+  moodle:
+    image: docker.io/bitnami/moodle:4.3
+    container_name: osyanificacion-moodle
+    restart: unless-stopped
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    environment:
+      # --- Base de datos ---
+      - MOODLE_DATABASE_TYPE=mariadb
+      - MOODLE_DATABASE_HOST=mariadb
+      - MOODLE_DATABASE_PORT_NUMBER=3306
+      - MOODLE_DATABASE_NAME=${MARIADB_DATABASE}
+      - MOODLE_DATABASE_USER=${MARIADB_USER}
+      - MOODLE_DATABASE_PASSWORD=${MARIADB_PASSWORD}
+      # --- Admin inicial ---
+      - MOODLE_USERNAME=${MOODLE_USERNAME}
+      - MOODLE_PASSWORD=${MOODLE_PASSWORD}
+      - MOODLE_EMAIL=${MOODLE_EMAIL}
+      - MOODLE_SITE_NAME=${MOODLE_SITE_NAME}
+      # --- Idioma ---
+      - MOODLE_LANG=es
+      # --- SMTP (Mailhog catch-all) ---
+      - MOODLE_SMTP_HOST=mailhog
+      - MOODLE_SMTP_PORT=1025
+      - MOODLE_SMTP_USER=
+      - MOODLE_SMTP_PASSWORD=
+      - MOODLE_SMTP_PROTOCOL=
+      # --- Bitnami flags ---
+      - ALLOW_EMPTY_PASSWORD=no
+      - MOODLE_SKIP_BOOTSTRAP=no
+    volumes:
+      - moodle_data:/bitnami/moodle
+      - moodledata_data:/bitnami/moodledata
+      # --- [SPRINT 2] Bind mounts para desarrollo activo de plugins ---
+      # Descomentar cuando arranquemos a escribir el plugin propio:
+      # - ./code/local/rankingfisei:/bitnami/moodle/local/rankingfisei
+      # - ./code/blocks/xp:/bitnami/moodle/blocks/xp
+    networks:
+      - osyanificacion-net
+
+  # -------------------------------------------------------------------
+  # Mailhog — captura emails de prueba (sin SMTP real)
+  # -------------------------------------------------------------------
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: osyanificacion-mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025"   # SMTP server
+      - "8025:8025"   # Web UI
+    networks:
+      - osyanificacion-net
+
+# =====================================================================
+# Volúmenes persistentes (datos sobreviven a docker-compose down)
+# =====================================================================
+volumes:
+  mariadb_data:
+    name: osyanificacion_mariadb_data
+  moodle_data:
+    name: osyanificacion_moodle_data
+  moodledata_data:
+    name: osyanificacion_moodledata_data
+
+# =====================================================================
+# Red interna para que los servicios se vean entre sí
+# =====================================================================
+networks:
+  osyanificacion-net:
+    name: osyanificacion-net
+    driver: bridge

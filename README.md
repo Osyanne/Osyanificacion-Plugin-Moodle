@@ -50,11 +50,69 @@ la nota de Obsidian del equipo (`12-Plan-Fase-1-Local.md`).
 
 ## 🚀 Quick start
 
-> ⚠️ **Sprint 0 en curso** — el `docker-compose.yml` y los plugins se
-> agregarán durante el Sprint 0. Por ahora el repo es esqueleto.
+### Prerequisitos
 
-Setup completo se documentará en `docs/deployment.md` antes de cerrar
-Sprint 1.
+- **Docker Desktop** instalado y corriendo (Windows/Mac/Linux)
+- **Git** instalado
+- ~3 GB de RAM disponibles
+- Puerto 8080 y 8025 libres en tu máquina
+
+### Setup local en 5 pasos
+
+```bash
+# 1. Clonar el repo
+git clone https://github.com/Osyanne/Osyanificacion-Plugin-Moodle.git
+cd Osyanificacion-Plugin-Moodle
+
+# 2. Copiar variables de entorno y editar passwords
+cp .env.example .env
+# Editar .env y cambiar TODAS las contraseñas que dicen CAMBIAME_
+
+# 3. Asegurarse que Docker Desktop está corriendo
+docker info  # debe responder sin error
+
+# 4. Levantar el stack (primera vez tarda ~3-5 min)
+docker-compose up -d
+
+# 5. Ver logs hasta que Moodle termine de inicializar
+docker-compose logs -f moodle
+# Esperar mensaje: "moodle 09:XX:XX ** Starting Moodle **"
+# Ctrl+C para salir del log (sigue corriendo en background)
+```
+
+### Acceder a los servicios
+
+| Servicio | URL | Credenciales |
+|---|---|---|
+| **Moodle** | http://localhost:8080 | `MOODLE_USERNAME` / `MOODLE_PASSWORD` del `.env` |
+| **Mailhog** (emails capturados) | http://localhost:8025 | Sin auth |
+
+### Comandos útiles
+
+```bash
+docker-compose ps                # Ver estado de servicios
+docker-compose logs -f moodle    # Ver logs de Moodle en tiempo real
+docker-compose restart moodle    # Reiniciar solo Moodle
+docker-compose exec moodle bash  # Entrar al container Moodle
+docker-compose down              # Apagar todo (preserva datos)
+docker-compose down -v           # ⚠️ Apagar y BORRAR todos los datos
+```
+
+### Resolver problemas comunes
+
+**"Cannot connect to the Docker daemon"** → Docker Desktop no está corriendo. Abrilo desde el menú Inicio.
+
+**Moodle tarda mucho la primera vez** → Es normal, Bitnami inicializa BD + admin user. Esperá 5 min. Si pasaron 10 min, mirá `docker-compose logs moodle`.
+
+**Puerto 8080 ocupado** → Cambialo en `docker-compose.yml` (ej. `"8090:8080"`).
+
+**Quiero empezar de cero** → `docker-compose down -v` y volvé al paso 4.
+
+### Plugins del proyecto (Sprint 2+)
+
+El `docker-compose.yml` tiene comentado los bind mounts para los
+plugins propios. Cuando arranquemos Sprint 2 (fork Level Up XP +
+plugin propio), los descomentamos en el `docker-compose.yml`.
 
 ## 👥 Equipo
 
