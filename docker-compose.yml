@@ -22,6 +22,13 @@
 #   Por ahora plugins se instalan via UI de Moodle.
 #   Cuando arranquemos a desarrollar el plugin propio, descomentar los
 #   bind mounts marcados con [SPRINT 2].
+#
+# IMÁGENES:
+#   Bitnami movió las imágenes free de `bitnami/` a `bitnamilegacy/`
+#   namespace en 2025. Las del namespace `bitnami/` solo están
+#   disponibles para clientes pagos con suscripción. Usamos las legacy
+#   gratuitas — siguen actualizándose para versiones LTS.
+#   Ref: https://github.com/bitnami/containers/issues/83267
 # =====================================================================
 
 services:
@@ -29,7 +36,7 @@ services:
   # MariaDB — base de datos
   # -------------------------------------------------------------------
   mariadb:
-    image: docker.io/bitnami/mariadb:10.11
+    image: docker.io/bitnamilegacy/mariadb:10.11
     container_name: osyanificacion-mariadb
     restart: unless-stopped
     environment:
@@ -54,7 +61,7 @@ services:
   # Moodle 4.3 LTS — Bitnami
   # -------------------------------------------------------------------
   moodle:
-    image: docker.io/bitnami/moodle:4.3
+    image: docker.io/bitnamilegacy/moodle:4.3
     container_name: osyanificacion-moodle
     restart: unless-stopped
     depends_on:
