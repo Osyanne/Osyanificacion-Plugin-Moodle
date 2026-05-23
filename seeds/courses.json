@@ -1,0 +1,85 @@
+{
+  "_meta": {
+    "description": "Curso de prueba para Moodle local del proyecto Osyanificación. Replica del estilo FISEI para testing del plugin.",
+    "sprint": "Sprint 0",
+    "version": "1.0.0",
+    "created": "2026-05-22",
+    "creation_method": "manual_via_moodle_ui"
+  },
+
+  "categories": [
+    {
+      "name": "(SOF) Ingeniería en Software - DEMO",
+      "id_number": "SOF-DEMO",
+      "notes": "Categoría que emula FISEI Carrera Ing. Software"
+    }
+  ],
+
+  "courses": [
+    {
+      "shortname": "ALG-DEMO",
+      "fullname": "(SOF) Algoritmos y Lógica de Programación - DEMO",
+      "category": "(SOF) Ingeniería en Software - DEMO",
+      "format": "tiles",
+      "language": "es",
+      "visible": true,
+      "start_date": "2026-04-01",
+      "end_date": "2026-07-31",
+      "description": "Curso de prueba para validar el plugin Osyanificación en Sprint 0. Réplica del look de FISEI (Course ID real: 199 en sistemaseducaciononline.uta.edu.ec).",
+      "enrolled_users": [
+        "estudiante01",
+        "estudiante02",
+        "estudiante03",
+        "estudiante04",
+        "estudiante05"
+      ],
+      "activities": [
+        {
+          "type": "assign",
+          "name": "Tarea 1: Pseudocódigo de operaciones básicas",
+          "description": "Implementar pseudocódigo de suma, resta, multiplicación y división. Subir archivo PDF.",
+          "due_date": "2026-06-01",
+          "max_grade": 10,
+          "notes": "Caso 1 para Level Up XP: completion -> XP award"
+        },
+        {
+          "type": "quiz",
+          "name": "Quiz 1: Conceptos básicos",
+          "description": "10 preguntas de opción múltiple sobre variables, tipos de datos y operadores",
+          "due_date": "2026-06-08",
+          "max_grade": 10,
+          "questions_count": 10,
+          "time_limit_minutes": 15,
+          "notes": "Caso 2 para Level Up XP: grade -> XP award"
+        },
+        {
+          "type": "resource",
+          "name": "Apunte 1: Introducción a los Algoritmos",
+          "description": "PDF descargable con la lectura de la primera unidad",
+          "notes": "Resource view -> XP award (Level Up XP attribute)"
+        },
+        {
+          "type": "url",
+          "name": "Video: ¿Qué es un algoritmo?",
+          "description": "Enlace a YouTube con video introductorio (5 min)",
+          "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "notes": "Placeholder URL. Reemplazar con video educativo real en Sprint 1."
+        },
+        {
+          "type": "forum",
+          "name": "Foro de dudas: Algoritmos básicos",
+          "description": "Foro para preguntas sobre la primera unidad",
+          "notes": "Caso 3 para Level Up XP: forum post -> XP award"
+        }
+      ]
+    }
+  ],
+
+  "_design_rationale": {
+    "categoria": "Se elige '(SOF) Ingeniería en Software - DEMO' para replicar el patrón de naming real de FISEI (prefijo (SOF) según 10-Plugins-Moodle-UTA-Inventario)",
+    "shortname_ALG-DEMO": "Sufijo -DEMO deja claro que es curso de prueba, no producción",
+    "format_tiles": "Match con UTA real (format_tiles instalado en sistemaseducaciononline.uta.edu.ec)",
+    "5_estudiantes_inscritos": "Mínimo para probar el leaderboard relativo ±5 con margen (necesitamos +5 alrededor del estudiante de referencia)",
+    "5_actividades_variadas": "Cubre los principales triggers de Level Up XP (assignment submit, quiz grade, resource view, url click, forum post)"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "_meta": {
+    "description": "Cuentas de prueba para Moodle local del proyecto Osyanificación. Datos ficticios — no representan personas reales de FISEI.",
+    "sprint": "Sprint 0",
+    "version": "1.0.0",
+    "created": "2026-05-22",
+    "creation_method": "manual_via_moodle_ui",
+    "automation_planned": "Sprint 3+ con scripts CLI de Moodle"
+  },
+
+  "admin": {
+    "username": "(definido en .env como MOODLE_USERNAME)",
+    "role": "Administrator",
+    "password": "(definido en .env como MOODLE_PASSWORD)",
+    "email": "(definido en .env como MOODLE_EMAIL)",
+    "firstname": "Imanol",
+    "lastname": "Miranda",
+    "notes": "Creado automáticamente por Bitnami en el primer bootstrap del container Moodle. No necesita crearse manualmente."
+  },
+
+  "students": [
+    {
+      "username": "estudiante01",
+      "password": "Estudiante01.demo",
+      "email": "estudiante01@osyanificacion.local",
+      "firstname": "Carlos",
+      "lastname": "Pérez García",
+      "city": "Ambato",
+      "country": "EC",
+      "role": "Student",
+      "notes": "Datos ficticios. Para testing del leaderboard ±5 (posición media)"
+    },
+    {
+      "username": "estudiante02",
+      "password": "Estudiante02.demo",
+      "email": "estudiante02@osyanificacion.local",
+      "firstname": "María",
+      "lastname": "Fernández López",
+      "city": "Ambato",
+      "country": "EC",
+      "role": "Student",
+      "notes": "Datos ficticios. Para testing del leaderboard ±5 (posición alta)"
+    },
+    {
+      "username": "estudiante03",
+      "password": "Estudiante03.demo",
+      "email": "estudiante03@osyanificacion.local",
+      "firstname": "Pedro",
+      "lastname": "Sánchez Torres",
+      "city": "Ambato",
+      "country": "EC",
+      "role": "Student",
+      "notes": "Datos ficticios. Para testing del leaderboard ±5 (posición baja)"
+    },
+    {
+      "username": "estudiante04",
+      "password": "Estudiante04.demo",
+      "email": "estudiante04@osyanificacion.local",
+      "firstname": "Ana",
+      "lastname": "Cruz Vargas",
+      "city": "Ambato",
+      "country": "EC",
+      "role": "Student",
+      "notes": "Datos ficticios. Para testing de empates en RANK()"
+    },
+    {
+      "username": "estudiante05",
+      "password": "Estudiante05.demo",
+      "email": "estudiante05@osyanificacion.local",
+      "firstname": "Luis",
+      "lastname": "Hidalgo Salinas",
+      "city": "Ambato",
+      "country": "EC",
+      "role": "Student",
+      "notes": "Datos ficticios. Para testing de caso borde (sin XP / posición última)"
+    }
+  ],
+
+  "_credentials_format": {
+    "username_pattern": "estudiante01..05 (todo en minúsculas, sin espacios)",
+    "password_pattern": "Estudiante0X.demo (cumple Moodle default: 8+ chars, mayús, minús, número, símbolo)",
+    "email_pattern": "estudianteXX@osyanificacion.local (no es dominio real — Mailhog captura todo)"
+  }
+}
