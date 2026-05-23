@@ -1,0 +1,33 @@
+// =====================================================================
+// markdownlint config — Osyanificación Plugin Moodle
+// =====================================================================
+// Reglas razonables para docs técnicas en español, no enterprise style.
+// Ref: https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
+// =====================================================================
+{
+  "default": true,
+
+  // Permitir líneas largas en tablas, código y URLs (común en docs técnicas)
+  "MD013": {
+    "line_length": 120,
+    "code_blocks": false,
+    "tables": false,
+    "headings": false
+  },
+
+  // Permitir HTML inline (necesitamos <br>, <details>, etc. en docs)
+  "MD033": false,
+
+  // Permitir lenguajes vacíos en code fences (ej. ``` para output crudo)
+  "MD040": false,
+
+  // Permitir el primer H1 repetido (algunos docs tienen "Tabla de contenidos" después del título)
+  "MD025": {
+    "front_matter_title": ""
+  },
+
+  // Emojis al inicio del heading (## 🎯 Resumen) — no son "puntuación inválida"
+  "MD026": {
+    "punctuation": ".,;:!?"
+  }
+}
