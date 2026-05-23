@@ -306,6 +306,52 @@ URL final: `https://demo.gamificacion-fisei.online`
 - [Cloudflare Tunnel docs](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)
 - [Oracle Cloud Always Free](https://www.oracle.com/cloud/free/)
 
+## ✅ Verificación del stack (smoke test)
+
+> Último smoke test ejecutado: **2026-05-22** en Windows 11, Docker
+> Desktop 29.4.3 con backend WSL2. Resultado documentado abajo.
+
+### Procedimiento
+
+```bash
+docker info                                  # daemon respondiendo
+cp .env.example .env                         # passwords reales en .env
+docker compose up -d                         # levantar stack
+# Esperar hasta que Moodle responda 200 (poll cada 15s)
+until curl -fsS -o /dev/null -w "%{http_code}" http://localhost:8080 \
+  | grep -qE '^(200|302|303)$'; do sleep 15; done
+curl -sI http://localhost:8080               # HTTP headers
+curl -sI http://localhost:8025               # Mailhog UI
+docker compose ps                            # estado containers
+```
+
+### Resultados esperados
+
+| Métrica | Valor objetivo | Verificación |
+|---|---|---|
+| Tiempo total bootstrap | 3-5 min | `docker compose logs moodle` debe terminar en `** Starting Moodle **` |
+| HTTP status Moodle | 200 | `curl -I http://localhost:8080` |
+| Latencia primera respuesta | < 200 ms en local | `time` del curl |
+| `Content-Language` header | `es` | ya viene del `MOODLE_LANG=es` |
+| Set-Cookie `MoodleSession` | presente con `HttpOnly` | seguridad básica |
+| MariaDB healthcheck | `healthy` | `docker compose ps` |
+
+### Resultados medidos 2026-05-22
+
+```
+HTTP 200 | time=0.083769s | size=27218B
+Content-Language: es
+Set-Cookie: MoodleSession=...; path=/; HttpOnly
+MariaDB: Up X minutes (healthy)
+```
+
+⚠️ **Pre-requisito**: aplicar [INFRA-001](../KNOWN_ISSUES.md#infra-001) — sin el cambio
+`bitnami/*` → `bitnamilegacy/*` el pull falla.
+
+ℹ️ **Mailhog**: el endpoint web devuelve `HTTP 404` en la URL raíz `/`
+en algunas versiones — eso es esperado. La UI funcional vive en
+`http://localhost:8025/` con la SPA cargada por JS.
+
 ## ⚠️ Issues conocidos
 
 Ver [`KNOWN_ISSUES.md`](../KNOWN_ISSUES.md).
