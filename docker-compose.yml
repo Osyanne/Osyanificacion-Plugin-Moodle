@@ -29,7 +29,9 @@ services:
   # MariaDB — base de datos
   # -------------------------------------------------------------------
   mariadb:
-    image: docker.io/bitnami/mariadb:10.11
+    # NOTA: Bitnami archivó imágenes free en docker.io/bitnamilegacy/* (ago 2025).
+    # docker.io/bitnami/mariadb:10.11 ya no es pulleable sin auth de Bitnami Secure.
+    image: docker.io/bitnamilegacy/mariadb:10.11
     container_name: osyanificacion-mariadb
     restart: unless-stopped
     environment:
@@ -54,7 +56,8 @@ services:
   # Moodle 4.3 LTS — Bitnami
   # -------------------------------------------------------------------
   moodle:
-    image: docker.io/bitnami/moodle:4.3
+    # NOTA: ver comentario en mariadb sobre el cambio bitnami → bitnamilegacy.
+    image: docker.io/bitnamilegacy/moodle:4.3
     container_name: osyanificacion-moodle
     restart: unless-stopped
     depends_on:
