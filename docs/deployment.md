@@ -243,25 +243,25 @@ prendida. Ideal para mostrar la demo a quien sea sin desplegar nada.
 2. Crear cuenta en Cloudflare (gratis)
 3. Apuntar nameservers del dominio a Cloudflare
 4. `cloudflared tunnel login`
-5. `cloudflared tunnel create demo-fisei`
+5. `cloudflared tunnel create demo-osyanificacion`
 6. Crear archivo de config en `~/.cloudflared/config.yml`:
    ```yaml
    tunnel: <TUNNEL_ID>
    credentials-file: ~/.cloudflared/<TUNNEL_ID>.json
    ingress:
-     - hostname: demo.gamificacion-fisei.online
+     - hostname: demo.osyanificacion.online
        service: http://localhost:8080
      - service: http_status:404
    ```
-7. `cloudflared tunnel route dns demo-fisei demo.gamificacion-fisei.online`
-8. `cloudflared tunnel run demo-fisei`
+7. `cloudflared tunnel route dns demo-osyanificacion demo.osyanificacion.online`
+8. `cloudflared tunnel run demo-osyanificacion`
 
-URL final: `https://demo.gamificacion-fisei.online`
+URL final: `https://demo.osyanificacion.online`
 
 **Operación día de demo (Fase 2)**:
 1. Prender laptop + Docker Desktop
 2. `docker compose up -d` y esperar bootstrap
-3. `cloudflared tunnel run demo-fisei` (en otra terminal)
+3. `cloudflared tunnel run demo-osyanificacion` (en otra terminal)
 4. Compartir URL con los stakeholders
 5. Al terminar: `Ctrl+C` en el tunnel y `docker compose stop`
 

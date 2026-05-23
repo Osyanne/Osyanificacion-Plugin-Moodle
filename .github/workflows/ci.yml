@@ -8,7 +8,7 @@
 #
 # Jobs por activar (cuando aplique):
 #   - php-lint        → Sprint 2 (cuando haya .php files reales)
-#   - moodle-plugin-ci → Sprint 3 (cuando exista code/local/rankingfisei/version.php)
+#   - moodle-plugin-ci → Sprint 3 (cuando exista code/local/osyanificacion/version.php)
 #   - phpunit         → Sprint 3 (con primer test del leaderboard)
 #   - behat           → Sprint 3+ (tests E2E)
 # =====================================================================
@@ -65,7 +65,7 @@ jobs:
         run: |
           set -e
           for dir in \
-            "code/local/rankingfisei" \
+            "code/local/osyanificacion" \
             "code/blocks" \
             "docs" \
             "seeds" \
@@ -96,12 +96,12 @@ jobs:
           echo "✅ All required files exist"
 
   # -------------------------------------------------------------------
-  # SPRINT 3+ — descomentar cuando exista code/local/rankingfisei/version.php
+  # SPRINT 3+ — descomentar cuando exista code/local/osyanificacion/version.php
   # -------------------------------------------------------------------
   # moodle-plugin-ci:
   #   name: Moodle Plugin CI
   #   runs-on: ubuntu-latest
-  #   if: hashFiles('code/local/rankingfisei/version.php') != ''
+  #   if: hashFiles('code/local/osyanificacion/version.php') != ''
   #   services:
   #     postgres:
   #       image: postgres:14
