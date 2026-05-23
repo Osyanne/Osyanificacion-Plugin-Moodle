@@ -1,8 +1,9 @@
 # Osyanificacion-Plugin-Moodle
 
-> Plugin de Moodle 4.x para **gamificación y ranking académico** en la
-> Facultad de Ingeniería en Sistemas, Electrónica e Industrial (FISEI) de
-> la Universidad Técnica de Ambato (UTA).
+> Plugin de Moodle 4.x para **gamificación y ranking académico** en
+> entornos universitarios. Plugin genérico, instalable en cualquier
+> Moodle 4.x institucional. Caso de uso original: FISEI-UTA (ver
+> sección [Origen del proyecto](#-origen-del-proyecto)).
 
 ## 🎯 ¿Qué hace?
 
@@ -122,9 +123,30 @@ plugin propio), los descomentamos en el `docker-compose.yml`.
 | **Colaborador Infra & QA** | Álvaro López ([@alvarolopezmoya](https://github.com/alvarolopezmoya)) | Docker, Cloudflare Tunnel, JMeter, CI/CD, tests |
 | **Colaborador UI/UX & Docs** | Edison Landeta ([@Edison206](https://github.com/Edison206)) | Mustache templates, Chart.js, README, video demo, slides |
 
-Universidad Técnica de Ambato (UTA) · Facultad FISEI · Carrera de
-Ingeniería en Software · Sem. 2 — Sec. B · Materia: Metodología de la
-Investigación · Período Enero-Julio 2026.
+Equipo del proyecto académico que dio origen al plugin: Universidad
+Técnica de Ambato (UTA) · Carrera de Ingeniería en Software · Materia:
+Metodología de la Investigación · Período Enero-Julio 2026.
+
+## 🌱 Origen del proyecto
+
+El plugin nació como proyecto académico de investigación en la Facultad
+de Ingeniería en Sistemas, Electrónica e Industrial (FISEI) de la
+Universidad Técnica de Ambato (UTA), Ecuador. Sin embargo, **el plugin
+en sí es genérico** y está pensado para instalarse en cualquier Moodle
+4.x institucional.
+
+Implementación escalonada en 3 fases (ver `12-Plan-Fase-1-Local.md`):
+
+1. **Fase 1 — Validación Técnica (local)**: desarrollo y testing en
+   entorno controlado del equipo
+2. **Fase 2 — Piloto Empírico (institución externa)**: ejecución del
+   piloto con voluntarios en una institución que adopte el plugin
+3. **Fase 3 — Aplicación Institucional UTA**: reintento de adopción
+   institucional con evidencia acumulada de Fase 2
+
+El diseño técnico (paleta neutral configurable, formato Tiles
+opcional, agnóstico de carrera) refleja esta estrategia de
+genericidad.
 
 ## 📜 Licencia
 
@@ -137,9 +159,9 @@ Massart (core developer de Moodle).
 - **Frédéric Massart** y la comunidad de Level Up XP (27.000+ sitios
   Moodle, certificado GDPR)
 - **Pimenko** (theme Moove) y **Davo Smith** (format Tiles) — stack que
-  emulamos en el entorno local para replicar UTA
-- **Universidad Técnica de Ambato** y la cultura FISEI que motiva este
-  proyecto
+  emulamos en el entorno local de pruebas
+- **Universidad Técnica de Ambato (UTA)** y la **Facultad FISEI** —
+  contexto académico original que motivó el proyecto
 
 ## 🤝 Cómo contribuir
 

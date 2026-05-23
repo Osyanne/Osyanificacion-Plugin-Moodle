@@ -95,7 +95,7 @@ services:
       - moodledata_data:/bitnami/moodledata
       # --- [SPRINT 2] Bind mounts para desarrollo activo de plugins ---
       # Descomentar cuando arranquemos a escribir el plugin propio:
-      # - ./code/local/rankingfisei:/bitnami/moodle/local/rankingfisei
+      # - ./code/local/osyanificacion:/bitnami/moodle/local/osyanificacion
       # - ./code/blocks/xp:/bitnami/moodle/blocks/xp
     networks:
       - osyanificacion-net
