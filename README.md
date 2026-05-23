@@ -171,8 +171,12 @@ Ver [`CONTRIBUTING.md`](./CONTRIBUTING.md) para guía del equipo.
 
 ### Para arrancar (leer en orden)
 
-- **[`docs/plan-fase-1.md`](./docs/plan-fase-1.md)** — 🆕 **Plan técnico completo de Fase 1 LOCAL** (8-10 semanas, 7 sprints, roles, criterios de salida, riesgos). **Lectura obligatoria para todo el equipo antes de tocar código.**
-- **[`docs/benchmarking-level-up-xp.md`](./docs/benchmarking-level-up-xp.md)** — 🆕 Análisis del plugin base que estamos wrappeando. Explica por qué wrappeo en vez de fork modificado, y cuáles son los 4 diferenciadores reales.
+- **[`docs/plan-fase-1.md`](./docs/plan-fase-1.md)** — 🆕 **Plan técnico completo de Fase 1 LOCAL**
+  (8-10 semanas, 7 sprints, roles, criterios de salida, riesgos).
+  **Lectura obligatoria para todo el equipo antes de tocar código.**
+- **[`docs/benchmarking-level-up-xp.md`](./docs/benchmarking-level-up-xp.md)** — 🆕 Análisis del plugin base
+  que estamos wrappeando. Explica por qué wrappeo en vez de fork modificado, y cuáles son los 4
+  diferenciadores reales.
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md) — Jerarquía del equipo + GitHub Flow + Conventional Commits + code review rules
 - [`KNOWN_ISSUES.md`](./KNOWN_ISSUES.md) — Bugs conocidos con workaround (INFRA-001, etc.)
 - [`STATUS.md`](./STATUS.md) — Status board del equipo (qué está haciendo cada uno ahora mismo)
