@@ -54,5 +54,13 @@
   // que combinan emoji + signos de interrogación en español (ej.
   // "## 🌩️ ¿Qué es Cloudflare Tunnel?" → fragment "#-qué-es-...").
   // GitHub renderiza esos links correctamente, el linter no.
-  "MD051": false
+  "MD051": false,
+
+  // No requerir h1 al inicio (PR templates empiezan con ## Resumen,
+  // STATUS.md tampoco necesita un h1 redundante con el filename)
+  "MD041": false,
+
+  // Permitir blockquotes consecutivos separados por línea en blanco
+  // (los usamos para separar "qué es" y "cómo usar" en docs)
+  "MD028": false
 }

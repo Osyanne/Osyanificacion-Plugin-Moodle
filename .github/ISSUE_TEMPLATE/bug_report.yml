@@ -1,0 +1,101 @@
+name: 🐛 Bug report
+description: Reportar un bug del plugin, del stack Docker o del CI
+title: "[BUG] "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por reportar. Antes de continuar, verificá que el bug NO esté ya en [`KNOWN_ISSUES.md`](../blob/main/KNOWN_ISSUES.md).
+
+        Si encontrás algo similar a INFRA-001, INFRA-002, etc, mencionalo abajo.
+
+  - type: input
+    id: short-id
+    attributes:
+      label: ID corto del bug (opcional)
+      description: Si proponés un ID para `KNOWN_ISSUES.md` (ej. `INFRA-002`, `PLUGIN-001`)
+      placeholder: INFRA-002
+    validations:
+      required: false
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severidad
+      options:
+        - Alta (bloquea trabajo del equipo)
+        - Media (workaround disponible)
+        - Baja (cosmético / nice-to-have)
+      default: 1
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área afectada
+      options:
+        - Stack Docker (compose, MariaDB, Mailhog)
+        - Plugin propio (local_osyanificacion o block)
+        - Fork Level Up XP (block_xp)
+        - CI / GitHub Actions
+        - Documentación
+        - Seeds
+        - Otro
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Descripción
+      description: Qué pasa (no qué creés que es la causa)
+      placeholder: "Cuando intento X, sucede Y en lugar de Z..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproducción
+      description: Pasos exactos para disparar el bug
+      placeholder: |
+        1. `git checkout main && git pull`
+        2. `make up`
+        3. Entrar a http://localhost:8080 con `admin` / `<password del .env>`
+        4. Click en X
+        5. Observar Y
+    validations:
+      required: true
+
+  - type: textarea
+    id: workaround
+    attributes:
+      label: Workaround conocido
+      description: Si ya tenés una forma de mitigarlo, contala. Si no, dejá vacío.
+      placeholder: "Hacer 'docker compose restart moodle' lo arregla temporalmente, pero vuelve al rato."
+    validations:
+      required: false
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Entorno
+      description: SO, Docker version, navegador (si aplica)
+      value: |
+        - OS:
+        - Docker:
+        - Navegador (si aplica):
+        - Rama y commit:
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs relevantes
+      description: Output de `make logs`, `docker compose logs moodle`, consola del navegador, etc.
+      render: shell
+    validations:
+      required: false
