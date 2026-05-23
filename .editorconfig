@@ -1,0 +1,67 @@
+# =====================================================================
+# EditorConfig — Osyanificación Plugin Moodle
+# =====================================================================
+# Mantiene consistencia de estilo entre los editores del equipo
+# (VS Code, PhpStorm, vim, etc.) sin depender de la config personal.
+#
+# Soportado nativo en VS Code (vía extensión EditorConfig for VS Code)
+# y PhpStorm (incluido). Para vim/neovim: editorconfig-vim.
+#
+# Referencia: https://editorconfig.org/
+# =====================================================================
+
+root = true
+
+# ---------------------------------------------------------------------
+# Defaults para todos los archivos
+# ---------------------------------------------------------------------
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+# ---------------------------------------------------------------------
+# PHP — Moodle Coding Style usa 4 espacios
+# ---------------------------------------------------------------------
+[*.php]
+indent_size = 4
+
+# ---------------------------------------------------------------------
+# YAML — siempre 2 espacios (estándar de la comunidad)
+# ---------------------------------------------------------------------
+[*.{yml,yaml}]
+indent_size = 2
+
+# ---------------------------------------------------------------------
+# JSON — 2 espacios
+# ---------------------------------------------------------------------
+[*.json]
+indent_size = 2
+
+# ---------------------------------------------------------------------
+# Markdown — 2 espacios + NO trim trailing (dos espacios al final = <br>)
+# ---------------------------------------------------------------------
+[*.md]
+indent_size = 2
+trim_trailing_whitespace = false
+
+# ---------------------------------------------------------------------
+# Mustache (templates Moodle) — 4 espacios
+# ---------------------------------------------------------------------
+[*.mustache]
+indent_size = 4
+
+# ---------------------------------------------------------------------
+# Shell scripts — 4 espacios
+# ---------------------------------------------------------------------
+[*.{sh,bash}]
+indent_size = 4
+
+# ---------------------------------------------------------------------
+# Makefiles requieren tabs (no tocar)
+# ---------------------------------------------------------------------
+[Makefile]
+indent_style = tab
