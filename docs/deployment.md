@@ -267,35 +267,42 @@ URL final: `https://demo.gamificacion-fisei.online`
 
 ### Oracle Cloud Free Tier (plan B)
 
-> Activar solo si Cloudflare Tunnel resulta limitante en la práctica
-> (ej. necesidad de URL 24/7 sin laptop prendida).
+> **Activar solo si Cloudflare Tunnel resulta limitante en la práctica**
+> (ej. necesidad de URL 24/7 sin laptop prendida, latencia mala desde
+> el público objetivo, o Cloudflare bloquea la cuenta por uso "comercial"
+> del tunnel free).
 
-**Recursos disponibles gratis para siempre**:
-- VM ARM Ampere A1 con hasta 4 vCPU + 24 GB RAM
-- 200 GB de bloque storage
-- 10 TB de tráfico saliente/mes
+Procedimiento operativo completo en
+[`plan-b-oracle-cloud.md`](plan-b-oracle-cloud.md) — incluye:
 
-**Setup a alto nivel**:
-1. Crear cuenta en https://signup.cloud.oracle.com (requiere tarjeta
-   pero no cobra — verificación únicamente)
-2. Provision una VM Ampere A1 Flex con 4 vCPU + 24 GB RAM,
-   imagen Ubuntu 22.04
-3. Configurar Security List del VCN: abrir 80/443 desde 0.0.0.0/0
-4. Instalar Docker:
-   ```bash
-   curl -fsSL https://get.docker.com | sh
-   sudo usermod -aG docker $USER
-   ```
-5. Clonar el repo, copiar `.env`, `docker compose up -d`
-6. Apuntar dominio (vía Cloudflare DNS) a la IP pública de la VM
-7. Agregar Nginx Proxy Manager o Caddy para HTTPS automático
+- Crear cuenta y provisionar VM ARM Ampere A1 (4 OCPU + 16 GB RAM, **$0**)
+- Configurar networking, SSH, swap, hardening básico
+- Instalar Docker, clonar repo, levantar el stack
+- Caddy como reverse proxy con HTTPS automático (Let's Encrypt)
+- DNS apuntando a la VM (Cloudflare DNS o directo)
+- Backup diario de MariaDB + snapshots semanales del bloque
+- Monitoreo con UptimeRobot / Uptime Kuma / Healthchecks.io
+- Cleanup completo si decidimos desactivarlo
 
-**Caveats**:
-- ARM puede tener quirks con algunas imágenes Docker. Verificar que
-  `bitnami/moodle:4.3` tenga manifest multi-arch (sí lo tiene al
-  2026-05-22).
-- La región a elegir importa: algunas tienen poca capacidad ARM.
-  Probar con regiones US o EU si Sudamérica falla.
+**Costo total Plan B**: **USD 0** (o ~USD 1-3/año si se quiere dominio fijo).
+
+**Resumen de capacidad**:
+
+| Recurso | Cuota Always Free |
+|---|---|
+| Compute ARM (Ampere A1) | 4 OCPU + 24 GB RAM |
+| Block storage | 200 GB |
+| Tráfico saliente | 10 TB/mes |
+| Object storage (backups) | 20 GB + 50K req/mes |
+
+**Caveats principales** (todos detallados en el doc dedicado):
+- ARM puede tener quirks con algunas imágenes Docker. La imagen
+  `bitnamilegacy/moodle:4.3` que usamos sí soporta `arm64` (verificado
+  al 2026-05-22).
+- Stock ARM Always Free es muy demandado — puede salir "Out of capacity"
+  al provisionar. Hay estrategias de retry en el doc.
+- Algunas regiones tienen mejor stock que otras. Para Ecuador, probar
+  `us-ashburn-1` o `sa-saopaulo-1`.
 
 ---
 
