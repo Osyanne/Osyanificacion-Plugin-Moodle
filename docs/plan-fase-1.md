@@ -407,26 +407,6 @@ básico (DaVinci Resolve free o Premiere).
 
 **Carga estimada**: 10-15h/semana.
 
-### Reglas de colaboración
-
-- ✅ **Imanol** (director) tiene la palabra final en decisiones de scope,
-  arquitectura y cronograma — pero **escucha al equipo** antes de
-  decidir (no es jefe autoritario, es director coordinador)
-- ✅ Álvaro y Edison **proponen y discuten**, pero **respetan la decisión
-  final** de Imanol cuando hay desacuerdo
-- ✅ Cada PR de Álvaro/Edison **debe ser aprobado por Imanol** antes de merge
-- ✅ PRs de Imanol pueden ser revisados por Álvaro o Edison para feedback,
-  pero Imanol tiene autoridad para mergear si urge
-- ✅ **Daily async update** vía WhatsApp o Discord: cada uno reporta
-  qué hizo + qué sigue + bloqueadores
-- ✅ **Weekly sync** de 1h (lunes o viernes, decidir) liderada por Imanol:
-  review del sprint en curso, ajustes de tareas, planeación de siguiente
-- ✅ Si Álvaro o Edison se bloquean >24h sin avanzar, **escalan a Imanol**
-  inmediatamente — no aguantarse solos
-- ✅ Commits en español o inglés (Imanol decide cuál y se mantiene),
-  mensajes claros con prefijo de scope (`feat(leaderboard):`,
-  `fix(tunnel):`, `docs(readme):`)
-
 ## ✅ Criterios de salida de Fase 1
 
 Para considerar Fase 1 COMPLETA y pasar a Fase 2, todo lo siguiente debe
