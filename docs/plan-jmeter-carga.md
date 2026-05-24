@@ -51,7 +51,7 @@ Si alguna de estas falla → ver sección 7 (plan de remediación).
 | Stack levantado (`make up`) | JMeter golpea Moodle local en `localhost:8080` |
 | **Plugin `osyanificacion` instalado y configurado** | Sprint 2-4 ya completados |
 | Seeds con **al menos 30 estudiantes con XP variado** | Probar leaderboard ±5 con cohorte grande |
-| Curso ALG-DEMO con `neighbours=5` en `block_xp_config` | Validar el filtro relativo |
+| Curso PROG1-DEMO con `neighbours=5` en `block_xp_config` | Validar el filtro relativo |
 | JMeter 5.6+ | Tool del benchmark (free, open source) |
 | Java 11+ | Requisito de JMeter |
 | ~2 GB RAM libre | JMeter es Java, necesita aire |
@@ -117,7 +117,7 @@ ellos (simula tiempo de lectura humano).
 |---|---|---|
 | `GET` | dashboard | `/my/` |
 
-**Validación**: response 200 + contiene el texto `(SOF) Algoritmos`
+**Validación**: response 200 + contiene el texto `Programación 1`
 (confirma que ve sus cursos).
 
 **Think time**: 3 segundos (el usuario escanea sus cursos).
@@ -126,7 +126,7 @@ ellos (simula tiempo de lectura humano).
 
 | HTTP | Method | URL |
 |---|---|---|
-| `GET` | curso ALG-DEMO | `/course/view.php?id=2` |
+| `GET` | curso PROG1-DEMO | `/course/view.php?id=2` |
 
 **Validación**: response 200 + contiene el bloque `block_xp` rendered
 (grep por `xp-widget` o `osy-xp-widget`).
@@ -203,7 +203,7 @@ Test Plan
 │   ├── HTTP Request — Login GET (extrae logintoken)
 │   ├── HTTP Request — Login POST
 │   ├── HTTP Request — Dashboard
-│   ├── HTTP Request — Curso ALG-DEMO
+│   ├── HTTP Request — Curso PROG1-DEMO
 │   ├── HTTP Request — Abrir actividad
 │   ├── HTTP Request — Ladder
 │   ├── Constant Timer (1-5s) entre requests
@@ -320,7 +320,7 @@ run-20260801-1500/
 **Duración**: ~10 min
 **Moodle commit**: [SHA del main al momento del run]
 **Plugin osyanificacion versión**: [release del plugin]
-**Estado del stack**: 50 estudiantes seedeados, neighbours=5, ALG-DEMO con N actividades
+**Estado del stack**: 50 estudiantes seedeados, neighbours=5, PROG1-DEMO con N actividades
 
 ## Resultados vs targets
 
@@ -448,7 +448,7 @@ que la sesión persista entre las N iteraciones del mismo user.
 
 JMeter sigue los redirects 302 por default. Si querés ver el final
 real, agregar un **Response Assertion** que valide el contenido (ej.
-`Contains: ALG-DEMO`).
+`Contains: PROG1-DEMO`).
 
 ### Cómo correr contra el tunnel Cloudflare en lugar de localhost
 

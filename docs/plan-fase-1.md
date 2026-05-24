@@ -159,7 +159,7 @@ opcional para URL fija con Cloudflare).
   - Card border-radius: `8px`
 - [ ] Instalar y configurar `format_tiles` en cursos de prueba
 - [ ] Tipografía: system stack (no Google Fonts)
-- [ ] Estructura de cursos similar a FISEI (5 materias con prefijo `(SOF)`)
+- [ ] Estructura genérica de cursos demo en categoría `DEMO-CAT` (curso `PROG1-DEMO` y similares)
 - [ ] Captura de screenshots comparativos UTA real vs local
 
 **Bloqueadores potenciales**:

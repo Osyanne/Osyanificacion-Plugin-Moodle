@@ -29,7 +29,7 @@ como:
 
 - Stack levantado (`make up`)
 - Moodle respondiendo en http://localhost:8080
-- Seeds aplicados (5 estudiantes + curso ALG-DEMO con id=2)
+- Seeds aplicados (5 estudiantes + curso PROG1-DEMO con id=2)
 - Bloque XP instalado y activado en el curso
 
 ## 📋 Procedimiento
@@ -69,9 +69,9 @@ users: 7  (1 admin + 5 estudiantes + 1 admin bootstrap)
 
 courses:
   id=1  Gamificación DEMO   (site front course)
-  id=2  ALG-DEMO            (curso de prueba con XP activado)
+  id=2  PROG1-DEMO            (curso de prueba con XP activado)
 
-ranking ALG-DEMO (T1):
+ranking PROG1-DEMO (T1):
   estudiante02  María    150 XP
   estudiante03  Pedro     89 XP
   estudiante01  Carlos    50 XP
@@ -153,7 +153,7 @@ docker compose exec mariadb sh -c \
 | 2 | **5** | 1 | 1 |
 
 Confirma que el leaderboard relativo ±5 sigue activado en el curso
-ALG-DEMO (cambio aplicado el 2026-05-23 durante el tour de Level Up XP).
+PROG1-DEMO (cambio aplicado el 2026-05-23 durante el tour de Level Up XP).
 
 ### T5 — Test endpoint del ladder (sin auth)
 
