@@ -1,0 +1,159 @@
+:root {
+  /* Paleta Santo Domingo de Guzmán — escala monocromática */
+  --sdg-black:         #000000;
+  --sdg-near-black:    #1A1A1A;
+  --sdg-dark-gray:     #4A4A4A;
+  --sdg-mid-gray:      #767676;
+  --sdg-light-gray:    #D9D9D9;
+  --sdg-very-light:    #F5F5F5;
+  --sdg-white:         #FFFFFF;
+
+  --sdg-accent:        #C5A572;
+  --sdg-accent-light:  #E8D9B8;
+  --sdg-accent-dark:   #8B7548;
+
+  --sdg-success:       #2E7D32;
+  --sdg-danger:        #C62828;
+
+  --sdg-card-radius:   4px;
+  --sdg-input-radius:  2px;
+
+  --sdg-shadow-sm:     0 1px 0 rgba(0, 0, 0, 0.04);
+  --sdg-shadow-md:     0 2px 4px rgba(0, 0, 0, 0.06);
+
+  --sdg-border:        1px solid var(--sdg-light-gray);
+
+  --sdg-font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                    Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+                    "Helvetica Neue", Arial, sans-serif;
+
+  /* Override Bootstrap para Boost */
+  --bs-body-bg: var(--sdg-white);
+  --bs-body-color: var(--sdg-near-black);
+  --bs-primary: var(--sdg-black);
+  --bs-primary-rgb: 0, 0, 0;
+  --bs-secondary: var(--sdg-dark-gray);
+  --bs-border-color: var(--sdg-light-gray);
+  --bs-border-radius: var(--sdg-card-radius);
+}
+
+body {
+  background-color: var(--sdg-white);
+  color: var(--sdg-near-black);
+  font-family: var(--sdg-font-stack);
+}
+
+/* Navbar negro institucional */
+.navbar {
+  background-color: var(--sdg-black) !important;
+  border-bottom: 1px solid var(--sdg-dark-gray);
+}
+
+.navbar .nav-link,
+.navbar .navbar-brand,
+.navbar .btn-icon,
+.navbar .popover-region-toggle {
+  color: var(--sdg-white) !important;
+}
+
+.navbar .nav-link:hover {
+  color: var(--sdg-light-gray) !important;
+}
+
+/* Botones */
+.btn-primary {
+  background-color: var(--sdg-black) !important;
+  border-color: var(--sdg-black) !important;
+  color: var(--sdg-white) !important;
+  border-radius: var(--sdg-card-radius);
+}
+
+.btn-primary:hover {
+  background-color: var(--sdg-near-black) !important;
+  border-color: var(--sdg-near-black) !important;
+}
+
+.btn-secondary {
+  background-color: transparent !important;
+  border: 1px solid var(--sdg-black) !important;
+  color: var(--sdg-black) !important;
+  border-radius: var(--sdg-card-radius);
+}
+
+.btn-secondary:hover {
+  background-color: var(--sdg-very-light) !important;
+}
+
+/* Cards sobrias */
+.card {
+  border-radius: var(--sdg-card-radius) !important;
+  border: var(--sdg-border) !important;
+  box-shadow: var(--sdg-shadow-sm) !important;
+}
+
+.card:hover {
+  box-shadow: var(--sdg-shadow-md) !important;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  color: var(--sdg-black);
+}
+
+/* Links */
+a {
+  color: var(--sdg-near-black);
+}
+
+a:hover {
+  color: var(--sdg-black);
+}
+
+/* Breadcrumb */
+.breadcrumb-item a {
+  color: var(--sdg-dark-gray);
+}
+
+.breadcrumb-item.active {
+  color: var(--sdg-black);
+  font-weight: 500;
+}
+
+/* Drawer (menú lateral) */
+.drawer {
+  background-color: var(--sdg-white);
+  border-right: var(--sdg-border);
+}
+
+/* Footer */
+#page-footer {
+  background-color: var(--sdg-very-light);
+  border-top: var(--sdg-border);
+  color: var(--sdg-dark-gray);
+}
+
+/* Tabs activos */
+.nav-tabs .nav-link.active {
+  color: var(--sdg-black);
+  font-weight: 500;
+  border-bottom: 2px solid var(--sdg-black);
+}
+
+/* Dropdown menus */
+.dropdown-menu {
+  border: var(--sdg-border);
+  border-radius: var(--sdg-card-radius);
+  box-shadow: var(--sdg-shadow-md);
+}
+
+/* Course cards en dashboard */
+.course-card {
+  border-radius: var(--sdg-card-radius) !important;
+}
+
+/* Format Tiles ajustes B&N */
+.format-tiles .tile {
+  border-radius: var(--sdg-card-radius) !important;
+  border: var(--sdg-border) !important;
+}
