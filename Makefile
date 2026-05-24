@@ -109,6 +109,27 @@ logs-all: ## Logs en vivo de todos los servicios
 shell: ## Shell dentro del container Moodle (bash)
 	docker compose exec moodle bash
 
+.PHONY: shell-daemon
+shell-daemon: ## Shell como usuario daemon (ver INFRA-002, evita romper permisos)
+	docker compose exec -u daemon moodle bash
+
+.PHONY: exec
+exec: ## Ejecutar comando como daemon (uso: make exec CMD='php /bitnami/moodle/admin/cli/purge_caches.php')
+	@if [ -z "$(CMD)" ]; then \
+		echo "$(RED)✗ Uso: make exec CMD='comando a ejecutar'$(RESET)"; \
+		echo "  Ejemplo: make exec CMD='php /bitnami/moodle/admin/cli/purge_caches.php'"; \
+		echo "  Ver docs/operacion-cli-moodle.md para referencia completa."; \
+		exit 1; \
+	fi
+	docker compose exec -u daemon moodle sh -c '$(CMD)'
+
+.PHONY: fix-perms
+fix-perms: ## Reparar permisos de moodledata (usar si pegaste INFRA-002)
+	@echo -e "$(YELLOW)Reparando permisos de /bitnami/moodledata...$(RESET)"
+	docker compose exec moodle sh -c 'chown -R daemon:daemon /bitnami/moodledata'
+	docker compose restart moodle
+	@echo -e "$(GREEN)✓ Permisos reparados. Esperá ~15 seg y verificá http://localhost:8080$(RESET)"
+
 .PHONY: db-shell
 db-shell: ## Cliente mariadb dentro del container MariaDB
 	@docker compose exec mariadb bash -c 'mariadb -uroot -p"$$MARIADB_ROOT_PASSWORD" "$$MARIADB_DATABASE"'
