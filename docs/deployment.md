@@ -276,6 +276,29 @@ Procedimiento operativo completo en
 - Algunas regiones tienen mejor stock que otras. Para Ecuador, probar
   `us-ashburn-1` o `sa-saopaulo-1`.
 
+### Pruebas de carga JMeter (Sprint 5)
+
+> **Validación de los criterios de salida de Fase 1**: 50 usuarios
+> concurrentes sin crash, p95 < 500ms en queries del leaderboard,
+> 0% error rate.
+
+Procedimiento operativo completo en
+[`plan-jmeter-carga.md`](plan-jmeter-carga.md) — incluye:
+
+- Instalación JMeter (Windows/Linux/macOS)
+- 5 escenarios concretos del flow estudiante (login → dashboard → curso → actividad → ladder)
+- Configuración del Thread Group (50 users, ramp-up 30s, loop 10 = 2500 requests)
+- Cómo correr en modo CLI (sin GUI, más performante)
+- Métricas obligatorias a capturar (p95, p99, throughput, error rate)
+- Métricas server-side en paralelo (CPU, RAM, slow queries MariaDB)
+- Plantilla de reporte para Imanol en `presentation/jmeter-runs/`
+- Plan de remediación por tipo de falla (índices DB, opcache PHP, pool de conexiones, memoria del container)
+- Troubleshooting (CSRF logintoken, cookies, redirects)
+
+**Cuándo ejecutarlo**: Sprint 5 (semana 8), cuando el plugin
+osyanificacion esté implementado con leaderboard y recompensas, y
+existan al menos 30 estudiantes seedeados.
+
 ---
 
 ## 📚 Referencias
