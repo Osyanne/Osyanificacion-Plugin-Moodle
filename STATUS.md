@@ -61,7 +61,7 @@
 - ✅ `docs/plan-b-oracle-cloud.md` (~450 líneas, adelantado de Sprint 5 #9) — PR #2
 - ✅ Mejoras CI: `secret-scan` (gitleaks) + `markdown-lint` (markdownlint-cli2) + `json-validate` (jq) — PR #6/#7 (revert #4→#5 antes)
 - ✅ Code review de los seeds de Imanol (PR #3) con 4 sugerencias S1-S4
-- ✅ Setup completo de seeds en Moodle local (6 users + categoría + curso ALG-DEMO + 5 actividades)
+- ✅ Setup completo de seeds en Moodle local (6 users + categoría + curso PROG1-DEMO + 5 actividades)
 - ✅ Combo DX: `Makefile` + `.github/PULL_REQUEST_TEMPLATE.md` + `.github/ISSUE_TEMPLATE/*` + `.vscode/` + `STATUS.md` — PR #8
 - ✅ `docs/plan-a-cloudflare-tunnel.md` (~425 líneas, adelantado de Sprint 5 #7) — PR #9
 
