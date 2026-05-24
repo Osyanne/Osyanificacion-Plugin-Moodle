@@ -60,6 +60,69 @@ actualizaciones de seguridad. Para Fase 2-3 evaluar:
 - Migrar a otra imagen comunitaria (`lthub/moodle`, `treehouses/moodle`)
 - Build propio basado en `php:8.1-apache` + Moodle source
 
+## [INFRA-002] `php` CLI ejecutado como root rompe permisos de moodledata
+
+**Sprint donde se detectó**: Sprint 0 (operación post-merge)
+**Severidad**: Alta (Moodle responde HTTP 500 hasta arreglar permisos)
+**Detectado por**: Álvaro · 2026-05-23
+
+**Descripción**: ejecutar `docker compose exec moodle sh -c 'php ...'`
+entra al container como usuario `root` por default. Cuando ese comando
+genera/modifica archivos en `/bitnami/moodledata/` (típicamente
+regenerando caches), los archivos quedan propiedad de `root`. Apache
+corre como `daemon`, por lo tanto pierde permisos para escribir/leer
+esos archivos y Moodle empieza a devolver:
+
+```
+Error
+Invalid permissions detected when trying to create a directory.
+Turn debugging on for further details.
+```
+
+(HTTP 500 a nivel app — el frontend muestra el error genérico, los
+logs de Apache solo muestran `GET / HTTP/1.1" 500`.)
+
+**Reproducción**:
+1. Stack levantado (`make up`)
+2. Ejecutar cualquier `php` CLI de Moodle como root:
+   ```bash
+   docker compose exec moodle sh -c 'php /bitnami/moodle/admin/cli/purge_caches.php'
+   ```
+3. Refrescar http://localhost:8080 → error de permisos
+4. `docker compose logs moodle | tail -5` → `500 1371`
+
+**Workaround / fix inmediato**:
+```bash
+docker compose exec moodle sh -c 'chown -R daemon:daemon /bitnami/moodledata'
+docker compose restart moodle
+```
+
+En ~15 segundos Moodle responde 200 de nuevo.
+
+**Cómo evitar**: ejecutar siempre los scripts CLI de Moodle como
+usuario `daemon`:
+
+```bash
+# MAL (rompe permisos):
+docker compose exec moodle sh -c 'php admin/cli/purge_caches.php'
+
+# BIEN (mantiene permisos):
+docker compose exec -u daemon moodle sh -c 'php /bitnami/moodle/admin/cli/purge_caches.php'
+```
+
+El nuevo target `make exec` del Makefile entra siempre como `daemon`
+para evitar este problema. Ver `docs/operacion-cli-moodle.md` para
+referencia completa de comandos seguros.
+
+**Tracking**: descubierto durante operación día 2 post-Sprint 0.
+**Status**: documentado + workaround en Makefile (`make exec`).
+
+**Implicancias**: cualquier integrante del equipo que ejecute CLI de
+Moodle desde el container sin el flag `-u daemon` va a pegarse contra
+esto. Si Sprint 2+ requiere correr más scripts (instalar plugins via
+CLI, ejecutar `upgrade.php`, etc.) hay que usar siempre `make exec` o
+el flag manual.
+
 ## 📚 Referencias
 
 - Issues abiertos en GitHub: https://github.com/Osyanne/Osyanificacion-Plugin-Moodle/issues
