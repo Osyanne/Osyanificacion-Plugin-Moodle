@@ -69,6 +69,10 @@ y la estética cambia automáticamente.
 
 ## 1. Decisión: Boost-custom vs Moove
 
+> ⚠️ **Heads-up**: los snippets de las secciones 4-6 y los mockups
+> en `presentation/mockups/` asumen Boost-custom. Si se decide Moove,
+> hay que rehacerlos.
+
 ### Tabla comparativa
 
 | Aspecto | Boost-custom | Moove |
@@ -79,7 +83,7 @@ y la estética cambia automáticamente.
 | **Curva de aprendizaje** | ✅ Baja (CSS clásico + variables Bootstrap) | 🟡 Media (estructura propia de Moove) |
 | **Documentación** | ✅ Extensa (parte del core) | 🟡 Limitada al sitio comercial |
 | **Riesgo legal/licencia** | ✅ Cero (GPL del core) | 🟡 La versión free puede no estar actualizada con seguridad |
-| **Tiempo de setup paleta B&N** | ~1h (SCSS personalizado) | ~3-4h (overriding del Moove premium) |
+| **Setup paleta B&N** | Bajo (SCSS personalizado) | Alto (overriding del Moove premium) |
 
 ### Recomendación: **Boost-custom**
 
@@ -111,7 +115,7 @@ decisión.
 `format_tiles` (Davo Smith) es el course format más usado para look de
 tarjetas/mosaicos. Versión free es suficiente para Fase 1.
 
-### Método web (~5 min, recomendado)
+### Método web (recomendado)
 
 1. Login como admin en http://localhost:8080
 2. **Administración del sitio** → **Extensiones** → **Instalar plugins**
@@ -148,11 +152,11 @@ docker compose exec mariadb sh -c \
 
 ## 3. Aplicar `format_tiles` a los cursos
 
-### Para el curso ALG-DEMO existente
+### Para el curso PROG1-DEMO existente
 
 #### Opción A: Vía UI (recomendado)
 
-1. Entrar al curso `(SOF) Algoritmos y Lógica de Programación - DEMO`
+1. Entrar al curso `PROG1-DEMO` (Programación 1 - DEMO)
 2. **Configuración** (pestaña arriba)
 3. Sección **Formato de curso** → desplegable **Formato**
 4. Seleccionar **Mosaicos** (Tiles)
@@ -161,7 +165,7 @@ docker compose exec mariadb sh -c \
 #### Opción B: Vía SQL (para automatizar)
 
 ```sql
-UPDATE mdl_course SET format = 'tiles' WHERE shortname = 'ALG-DEMO';
+UPDATE mdl_course SET format = 'tiles' WHERE shortname = 'PROG1-DEMO';
 ```
 
 Después purgar cache:
@@ -592,7 +596,7 @@ SDG real "lo suficiente" para Fase 1.
 
 - [ ] Fondo principal `#FFFFFF` o `#F5F5F5`
 - [ ] Cards de "Mis cursos" en grilla (no lista)
-- [ ] Cada card con: nombre del curso, prefijo `(SOF)` o el institucional
+- [ ] Cada card con: nombre del curso (genérico, sin prefijo institucional)
 - [ ] Border-radius `4px` en cards (sobrio, no friendly)
 - [ ] Border hairline `1px solid #D9D9D9`
 - [ ] Sombras CASI planas (`box-shadow: 0 1px 0 rgba(0,0,0,0.04)`)
@@ -728,24 +732,21 @@ Extensiones → format_tiles.
 Cuando arranque Sprint 1 (idealmente con Imanol acompañando las
 decisiones de scope):
 
-1. **Leer este doc completo** (~15 min)
+1. **Leer este doc completo**
 2. **Abrir los mockups HTML** en navegador para ver el look propuesto
-   (~5 min)
-3. **Confirmar decisión Boost-custom** con Imanol (~5 min)
-4. **Confirmar paleta SDG B&N** vs UTA azul (~5 min — ya cambió el
-   alcance, validar)
-5. **Instalar `format_tiles`** siguiendo sección 2 (~5 min)
-6. **Aplicar formato Tiles al curso ALG-DEMO** siguiendo sección 3 (~2 min)
-7. **Capturar baseline visual** del Moodle ANTES de tocar SCSS (~5 min)
-8. **Aplicar paleta SDG** vía SCSS custom siguiendo sección 4 (~30 min)
-9. **Capturar after visual** y comparar con baseline (~10 min)
-10. **Validar checklist** sección 8 (~20 min)
-11. **Screenshots comparativos** sección 9 (~30 min)
+3. **Confirmar decisión Boost-custom** con Imanol
+4. **Confirmar paleta SDG B&N** vs UTA azul (ya cambió el alcance,
+   validar)
+5. **Instalar `format_tiles`** siguiendo sección 2
+6. **Aplicar formato Tiles al curso PROG1-DEMO** siguiendo sección 3
+7. **Capturar baseline visual** del Moodle ANTES de tocar SCSS
+8. **Aplicar paleta SDG** vía SCSS custom siguiendo sección 4
+9. **Capturar after visual** y comparar con baseline
+10. **Validar checklist** sección 8
+11. **Screenshots comparativos** sección 9
 12. **Copiar templates Mustache propuestos** de `presentation/mockups/templates/`
     a `code/local/osyanificacion/templates/block_xp/` cuando Imanol haya
     creado el plugin en Sprint 2
-
-**Tiempo total estimado**: ~2.5 horas para todo el Sprint 1 visual.
 
 ### Lo que NO está en este doc (Edison decide)
 

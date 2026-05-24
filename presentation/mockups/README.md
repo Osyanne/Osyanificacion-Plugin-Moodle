@@ -10,7 +10,7 @@
 
 | Archivo | Qué muestra |
 |---|---|
-| `dashboard-mockup.html` | Página principal del curso ALG-DEMO con header, formato Tiles, bloque XP en sidebar |
+| `dashboard-mockup.html` | Página principal del curso PROG1-DEMO con header, formato Tiles, bloque XP en sidebar |
 | `leaderboard-mockup.html` | Vista expandida del leaderboard ±5 con highlight "TÚ" en dorado SDG |
 
 ### Cómo abrir los mockups
@@ -104,5 +104,5 @@ ausente. **Edison puede:**
 - Descartarlos y hacer los suyos
 - Pedirle cambios a Álvaro
 
-Lo único innegociable es la **paleta SDG B&N** acordada con el equipo
-el 2026-05-23.
+La **paleta SDG B&N** es la propuesta acordada con el equipo el
+2026-05-23. Pendiente confirmación final de Imanol.
