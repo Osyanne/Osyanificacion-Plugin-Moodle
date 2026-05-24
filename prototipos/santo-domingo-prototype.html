@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Osyanificación — Santo Domingo de Guzmán</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           PALETA SANTO DOMINGO DE GUZMÁN — AMBATO
+           Orden Dominicana: Negro + Blanco + Grises
+           Acento: azul dominicano sutil
+           Lema: "Somos Luz y Verdad"
+           ============================================ */
+        :root {
+            /* Negros dominicanos (contemplación) */
+            --dom-black: #111111;
+            --dom-black-soft: #1A1A1A;
+            --dom-charcoal: #2D2D2D;
+            --dom-dark: #3A3A3A;
+
+            /* Blancos dominicanos (predicación, pureza) */
+            --dom-white: #FFFFFF;
+            --dom-white-warm: #FAFAF8;
+            --dom-cream: #F5F5F3;
+
+            /* Grises intermedios */
+            --dom-grey-100: #F0F0EE;
+            --dom-grey-200: #E5E5E3;
+            --dom-grey-300: #D4D4D2;
+            --dom-grey-400: #A3A3A1;
+            --dom-grey-500: #737373;
+            --dom-grey-600: #525252;
+
+            /* Acento dominicano (azul mariano, sutil) */
+            --dom-blue: #1E3A5F;
+            --dom-blue-light: #2C5282;
+            --dom-blue-pale: #EBF0F7;
+
+            /* Dorado para "TÚ" y logros */
+            --dom-gold: #B8860B;
+            --dom-gold-light: #F5F0E0;
+            --dom-gold-dark: #8B6914;
+
+            /* Estados */
+            --dom-success: #2D6A4F;
+            --dom-danger: #9B2C2C;
+            --dom-neutral: #737373;
+
+            /* Tipografía y layout */
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'Source Sans 3', -apple-system, sans-serif;
+            --radius: 6px;
+            --radius-lg: 10px;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--dom-cream);
+            color: var(--dom-black);
+            line-height: 1.5;
+        }
+
+        /* ============================================
+           HEADER INSTITUCIONAL
+           ============================================ */
+        .inst-header {
+            background: var(--dom-black);
+            color: var(--dom-white);
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .inst-header .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-placeholder {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--dom-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--dom-black);
+            letter-spacing: 0.5px;
+            text-align: center;
+            line-height: 1.1;
+        }
+
+        .inst-header .inst-name {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .inst-header .inst-motto {
+            font-size: 0.72rem;
+            opacity: 0.7;
+            font-style: italic;
+            margin-top: 2px;
+        }
+
+        .inst-header .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 0.82rem;
+        }
+
+        .inst-header .nav-links a {
+            color: var(--dom-grey-300);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .inst-header .nav-links a:hover,
+        .inst-header .nav-links a.active {
+            color: var(--dom-white);
+        }
+
+        /* ============================================
+           LAYOUT PRINCIPAL
+           ============================================ */
+        .main-layout {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        .sidebar { width: 330px; flex-shrink: 0; }
+        .content { flex: 1; min-width: 0; }
+
+        /* ============================================
+           BLOQUE LATERAL — LEADERBOARD ±5
+           ============================================ */
+        .block {
+            background: var(--dom-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .block-head {
+            background: var(--dom-black);
+            color: var(--dom-white);
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .block-head h3 {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toggle-group {
+            display: flex;
+            background: rgba(255,255,255,0.12);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .toggle-btn {
+            border: none;
+            background: transparent;
+            color: rgba(255,255,255,0.55);
+            padding: 5px 12px;
+            font-size: 0.72rem;
+            font-family: var(--font-body);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn.on {
+            background: rgba(255,255,255,0.2);
+            color: var(--dom-white);
+            font-weight: 600;
+        }
+
+        /* Filas del leaderboard */
+        .lb-row {
+            display: flex;
+            align-items: center;
+            padding: 10px 18px;
+            border-bottom: 1px solid var(--dom-grey-200);
+            transition: background 0.15s;
+            gap: 10px;
+        }
+
+        .lb-row:last-child { border-bottom: none; }
+        .lb-row:hover { background: var(--dom-grey-100); }
+
+        /* FILA ACTUAL — DORADO */
+        .lb-row.me {
+            background: var(--dom-gold-light);
+            border-left: 4px solid var(--dom-gold);
+            padding-left: 14px;
+            position: relative;
+        }
+
+        .lb-row.me:hover { background: #EDE5C8; }
+
+        .lb-row.me::after {
+            content: "TÚ";
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--dom-gold);
+            color: var(--dom-white);
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 2px 9px;
+            border-radius: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .lb-pos {
+            font-size: 0.82rem;
+            font-weight: 700;
+            width: 26px;
+            text-align: center;
+            color: var(--dom-grey-500);
+            flex-shrink: 0;
+        }
+
+        .lb-row.me .lb-pos { color: var(--dom-gold-dark); }
+
+        .lb-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--dom-white);
+            flex-shrink: 0;
+        }
+
+        .lb-row.me .lb-avatar {
+            box-shadow: 0 0 0 2.5px var(--dom-gold);
+        }
+
+        .lb-info { flex: 1; min-width: 0; }
+
+        .lb-name {
+            font-size: 0.82rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .lb-row.me .lb-name {
+            font-weight: 700;
+            color: var(--dom-black);
+        }
+
+        .lb-lvl {
+            font-size: 0.68rem;
+            color: var(--dom-grey-500);
+        }
+
+        .lb-xp {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--dom-charcoal);
+            flex-shrink: 0;
+            min-width: 50px;
+            text-align: right;
+        }
+
+        .lb-row.me .lb-xp { color: var(--dom-gold-dark); }
+
+        .lb-xp small {
+            font-size: 0.62rem;
+            font-weight: 400;
+            color: var(--dom-grey-500);
+        }
+
+        .lb-sep {
+            text-align: center;
+            color: var(--dom-grey-400);
+            font-size: 0.72rem;
+            padding: 7px 18px;
+            border-bottom: 1px solid var(--dom-grey-200);
+            background: var(--dom-grey-100);
+        }
+
+        .block-foot {
+            padding: 10px 18px;
+            background: var(--dom-grey-100);
+            border-top: 1px solid var(--dom-grey-200);
+            text-align: center;
+        }
+
+        .block-foot a {
+            font-size: 0.75rem;
+            color: var(--dom-charcoal);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .block-foot a:hover { text-decoration: underline; }
+
+        /* ============================================
+           XP RESUMEN (bloque arriba del leaderboard)
+           ============================================ */
+        .xp-summary {
+            background: var(--dom-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 20px 18px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .xp-star {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 10px;
+            background: var(--dom-black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--dom-white);
+            box-shadow: 0 0 0 4px var(--dom-grey-200), 0 0 0 8px var(--dom-grey-100);
+        }
+
+        .xp-level {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dom-black);
+            margin-bottom: 4px;
+        }
+
+        .xp-total {
+            font-size: 0.85rem;
+            color: var(--dom-grey-500);
+            margin-bottom: 12px;
+        }
+
+        .xp-bar-container {
+            background: var(--dom-grey-200);
+            border-radius: 20px;
+            height: 8px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+
+        .xp-bar-fill {
+            height: 100%;
+            background: var(--dom-black);
+            border-radius: 20px;
+            transition: width 0.6s ease;
+        }
+
+        .xp-bar-label {
+            font-size: 0.72rem;
+            color: var(--dom-grey-500);
+        }
+
+        /* ============================================
+           CONTENIDO PRINCIPAL — PÁGINA DE RECOMPENSAS
+           ============================================ */
+        .page-title {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--dom-black);
+            margin-bottom: 4px;
+        }
+
+        .page-desc {
+            font-size: 0.88rem;
+            color: var(--dom-grey-500);
+            margin-bottom: 24px;
+        }
+
+        /* Nivel de recompensas */
+        .reward-tier {
+            background: var(--dom-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .tier-head {
+            padding: 16px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--dom-grey-200);
+        }
+
+        .tier-head.tier-1 { background: var(--dom-grey-100); }
+        .tier-head.tier-2 { background: var(--dom-charcoal); color: var(--dom-white); }
+        .tier-head.tier-3 { background: var(--dom-black); color: var(--dom-white); }
+
+        .tier-head h3 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tier-badge {
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 12px;
+            letter-spacing: 0.3px;
+        }
+
+        .tier-1 .tier-badge { background: var(--dom-grey-300); color: var(--dom-charcoal); }
+        .tier-2 .tier-badge { background: rgba(255,255,255,0.2); color: var(--dom-white); }
+        .tier-3 .tier-badge { background: var(--dom-gold); color: var(--dom-white); }
+
+        .tier-xp {
+            font-size: 0.78rem;
+            font-weight: 500;
+        }
+
+        .tier-1 .tier-xp { color: var(--dom-grey-600); }
+        .tier-2 .tier-xp { color: var(--dom-grey-300); }
+        .tier-3 .tier-xp { color: var(--dom-grey-400); }
+
+        /* Recompensa individual */
+        .reward-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 22px;
+            border-bottom: 1px solid var(--dom-grey-200);
+            gap: 14px;
+            transition: background 0.15s;
+        }
+
+        .reward-item:last-child { border-bottom: none; }
+        .reward-item:hover { background: var(--dom-grey-100); }
+
+        .reward-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .reward-icon.unlocked {
+            background: var(--dom-black);
+            color: var(--dom-white);
+        }
+
+        .reward-icon.locked {
+            background: var(--dom-grey-200);
+            color: var(--dom-grey-400);
+            filter: grayscale(1);
+        }
+
+        .reward-info { flex: 1; }
+
+        .reward-name {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--dom-black);
+        }
+
+        .reward-name.locked-name { color: var(--dom-grey-400); }
+
+        .reward-desc {
+            font-size: 0.78rem;
+            color: var(--dom-grey-500);
+            margin-top: 2px;
+        }
+
+        .reward-status {
+            flex-shrink: 0;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        .status-claimed {
+            background: var(--dom-black);
+            color: var(--dom-white);
+        }
+
+        .status-available {
+            background: var(--dom-gold-light);
+            color: var(--dom-gold-dark);
+            border: 1px solid var(--dom-gold);
+            cursor: pointer;
+        }
+
+        .status-locked {
+            background: var(--dom-grey-200);
+            color: var(--dom-grey-500);
+        }
+
+        /* ============================================
+           GRÁFICO DE PROGRESO (placeholder Chart.js)
+           ============================================ */
+        .chart-block {
+            background: var(--dom-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 22px;
+            margin-bottom: 20px;
+        }
+
+        .chart-block h3 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--dom-black);
+        }
+
+        .chart-placeholder {
+            background: var(--dom-grey-100);
+            border: 2px dashed var(--dom-grey-300);
+            border-radius: var(--radius);
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dom-grey-400);
+            font-size: 0.85rem;
+        }
+
+        /* Barras de progreso simuladas */
+        .progress-weeks {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .week-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .week-label {
+            font-size: 0.75rem;
+            color: var(--dom-grey-500);
+            width: 55px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .week-bar {
+            flex: 1;
+            height: 22px;
+            background: var(--dom-grey-200);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .week-fill {
+            height: 100%;
+            background: var(--dom-charcoal);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 6px;
+        }
+
+        .week-fill.current { background: var(--dom-black); }
+
+        .week-val {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--dom-white);
+        }
+
+        /* ============================================
+           NOTAS PARA EDISON
+           ============================================ */
+        .dev-notes {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .dev-notes .note-card {
+            background: var(--dom-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 22px;
+            border-left: 4px solid var(--dom-black);
+        }
+
+        .dev-notes h3 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        .dev-notes ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .dev-notes li {
+            font-size: 0.82rem;
+            padding: 5px 0;
+            border-bottom: 1px solid var(--dom-grey-200);
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .dev-notes li:last-child { border-bottom: none; }
+
+        .dev-notes code {
+            background: var(--dom-grey-100);
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-size: 0.78rem;
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 768px) {
+            .main-layout {
+                flex-direction: column;
+            }
+            .sidebar { width: 100%; }
+            .inst-header { flex-direction: column; gap: 12px; text-align: center; }
+            .inst-header .nav-links { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         HEADER INSTITUCIONAL
+         ============================================ -->
+    <header class="inst-header">
+        <div class="logo-area">
+            <div class="logo-placeholder">SDG</div>
+            <div>
+                <div class="inst-name">Santo Domingo de Guzmán</div>
+                <div class="inst-motto">« Somos Luz y Verdad »</div>
+            </div>
+        </div>
+        <nav class="nav-links">
+            <a href="#">Inicio</a>
+            <a href="#">Mis cursos</a>
+            <a href="#" class="active">Ranking</a>
+            <a href="#">Recompensas</a>
+        </nav>
+    </header>
+
+    <!-- ============================================
+         LAYOUT PRINCIPAL
+         ============================================ -->
+    <div class="main-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <!-- Resumen XP -->
+            <div class="xp-summary">
+                <div class="xp-star">5</div>
+                <div class="xp-level">Nivel 5 — Predicador</div>
+                <div class="xp-total">1,250 XP acumulados</div>
+                <div class="xp-bar-container">
+                    <div class="xp-bar-fill" style="width: 78%;"></div>
+                </div>
+                <div class="xp-bar-label">70 XP para Nivel 6</div>
+            </div>
+
+            <!-- Leaderboard ±5 -->
+            <div class="block">
+                <div class="block-head">
+                    <h3>🏆 Ranking</h3>
+                    <div class="toggle-group">
+                        <button class="toggle-btn on">±5</button>
+                        <button class="toggle-btn">Global</button>
+                    </div>
+                </div>
+
+                <div class="lb-sep">▲ 7 posiciones arriba</div>
+
+                <div class="lb-row">
+                    <span class="lb-pos">8</span>
+                    <div class="lb-avatar" style="background:#555;">MA</div>
+                    <div class="lb-info">
+                        <div class="lb-name">María Andrade</div>
+                        <div class="lb-lvl">Nivel 6</div>
+                    </div>
+                    <div class="lb-xp">1,420 <small>XP</small></div>
+                </div>
+
+                <div class="lb-row">
+                    <span class="lb-pos">9</span>
+                    <div class="lb-avatar" style="background:#777;">JR</div>
+                    <div class="lb-info">
+                        <div class="lb-name">José Rodríguez</div>
+                        <div class="lb-lvl">Nivel 6</div>
+                    </div>
+                    <div class="lb-xp">1,380 <small>XP</small></div>
+                </div>
+
+                <div class="lb-row">
+                    <span class="lb-pos">10</span>
+                    <div class="lb-avatar" style="background:#444;">LC</div>
+                    <div class="lb-info">
+                        <div class="lb-name">Laura Chávez</div>
+                        <div class="lb-lvl">Nivel 5</div>
+                    </div>
+                    <div class="lb-xp">1,350 <small>XP</small></div>
+                </div>
+
+                <div class="lb-row">
+                    <span class="lb-pos">11</span>
+                    <div class="lb-avatar" style="background:#666;">AM</div>
+                    <div class="lb-info">
+                        <div class="lb-name">Andrés Morales</div>
+                        <div class="lb-lvl">Nivel 5</div>
+                    </div>
+                    <div class="lb-xp">1,310 <small>XP</small></div>
+                </div>
+
+                <div class="lb-row">
+                    <span class="lb-pos">12</span>
+                    <div class="lb-avatar" style="background:#333;">CP</div>
+                    <div class="lb-info">
+                        <div class="lb-name">Camila Paredes</div>
+                        <div class="lb-lvl">Nivel 5</div>
+                    </div>
+                    <div class="lb-xp">1,280 <small>XP</small></div>
+                </div>
+
+                <!-- TÚ -->
+                <div class="lb-row me">
+                    <span class="lb-pos">13</span>
+                    <div class="lb-avatar" style="background:#111;">EL</div>
+                    <div class="lb-info">
+                        <div class="lb-name">Edison Landeta</div>
+                        <div class="lb-lvl">Nivel 5 · 70 XP para nivel 6</div>
+                    </div>
+                    <div class="lb-xp">1,250 <small>XP</small></div>
+                </div>
+
+                <div class="lb-row">
+                    <span class="lb-pos">14</span>
+                    <div class="lb-avatar" style="background:#888;">DT</div>
+                    <div class="lb-info">
+                        <div class="lb-name">Diego Torres</div>
+                        <div class="lb-lvl">Nivel 4</div>
+                    </div>
+                    <div class="lb-xp">1,200 <small>XP</small></div>
+                </div>
+
+                <div class="lb-row">
+                    <span class="lb-pos">15</span>
+                    <div class="lb-avatar" style="background:#555;">SV</div>
+                    <div class="lb-info">
+                        <div class="lb-name">Sofía Villacís</div>
+                        <div class="lb-lvl">Nivel 4</div>
+                    </div>
+                    <div class="lb-xp">1,180 <small>XP</small></div>
+                </div>
+
+                <div class="lb-row">
+                    <span class="lb-pos">16</span>
+                    <div class="lb-avatar" style="background:#444;">RG</div>
+                    <div class="lb-info">
+                        <div class="lb-name">Roberto Guamán</div>
+                        <div class="lb-lvl">Nivel 4</div>
+                    </div>
+                    <div class="lb-xp">1,120 <small>XP</small></div>
+                </div>
+
+                <div class="lb-row">
+                    <span class="lb-pos">17</span>
+                    <div class="lb-avatar" style="background:#666;">VA</div>
+                    <div class="lb-info">
+                        <div class="lb-name">Valentina Acosta</div>
+                        <div class="lb-lvl">Nivel 4</div>
+                    </div>
+                    <div class="lb-xp">1,050 <small>XP</small></div>
+                </div>
+
+                <div class="lb-row">
+                    <span class="lb-pos">18</span>
+                    <div class="lb-avatar" style="background:#999;">PM</div>
+                    <div class="lb-info">
+                        <div class="lb-name">Pablo Medina</div>
+                        <div class="lb-lvl">Nivel 3</div>
+                    </div>
+                    <div class="lb-xp">980 <small>XP</small></div>
+                </div>
+
+                <div class="lb-sep">▼ 12 posiciones abajo</div>
+
+                <div class="block-foot">
+                    <a href="#">Ver ranking completo →</a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="content">
+
+            <h1 class="page-title">🎁 Recompensas escalonadas</h1>
+            <p class="page-desc">Desbloquea premios reales al acumular XP. Tres niveles de reconocimiento institucional.</p>
+
+            <!-- NIVEL 1 -->
+            <div class="reward-tier">
+                <div class="tier-head tier-1">
+                    <h3>☆ Nivel 1 — Reconocimiento Digital</h3>
+                    <div>
+                        <span class="tier-badge">500 XP</span>
+                        <span class="tier-xp"> requeridos</span>
+                    </div>
+                </div>
+
+                <div class="reward-item">
+                    <div class="reward-icon unlocked">📜</div>
+                    <div class="reward-info">
+                        <div class="reward-name">Certificado digital</div>
+                        <div class="reward-desc">Certificado descargable en PDF con tu nombre y logros</div>
+                    </div>
+                    <span class="reward-status status-claimed">✓ Reclamado</span>
+                </div>
+
+                <div class="reward-item">
+                    <div class="reward-icon unlocked">⭐</div>
+                    <div class="reward-info">
+                        <div class="reward-name">Hall of Fame</div>
+                        <div class="reward-desc">Tu nombre aparece en el muro de honor del curso</div>
+                    </div>
+                    <span class="reward-status status-claimed">✓ Reclamado</span>
+                </div>
+
+                <div class="reward-item">
+                    <div class="reward-icon unlocked">🏅</div>
+                    <div class="reward-info">
+                        <div class="reward-name">Insignia Dominicana</div>
+                        <div class="reward-desc">Insignia especial "Lux et Veritas" visible en tu perfil</div>
+                    </div>
+                    <span class="reward-status status-claimed">✓ Reclamado</span>
+                </div>
+            </div>
+
+            <!-- NIVEL 2 -->
+            <div class="reward-tier">
+                <div class="tier-head tier-2">
+                    <h3>★ Nivel 2 — Reconocimiento Académico</h3>
+                    <div>
+                        <span class="tier-badge">1,200 XP</span>
+                        <span class="tier-xp"> requeridos</span>
+                    </div>
+                </div>
+
+                <div class="reward-item">
+                    <div class="reward-icon unlocked">🎤</div>
+                    <div class="reward-info">
+                        <div class="reward-name">Mención en el aula</div>
+                        <div class="reward-desc">El docente te reconoce públicamente por tu dedicación</div>
+                    </div>
+                    <span class="reward-status status-available">Reclamar ↗</span>
+                </div>
+
+                <div class="reward-item">
+                    <div class="reward-icon unlocked">📋</div>
+                    <div class="reward-info">
+                        <div class="reward-name">Certificado físico firmado</div>
+                        <div class="reward-desc">Certificado impreso con firma del docente y sello institucional</div>
+                    </div>
+                    <span class="reward-status status-available">Reclamar ↗</span>
+                </div>
+            </div>
+
+            <!-- NIVEL 3 -->
+            <div class="reward-tier">
+                <div class="tier-head tier-3">
+                    <h3>✦ Nivel 3 — Reconocimiento Institucional</h3>
+                    <div>
+                        <span class="tier-badge">2,500 XP</span>
+                        <span class="tier-xp"> requeridos</span>
+                    </div>
+                </div>
+
+                <div class="reward-item">
+                    <div class="reward-icon locked">✉️</div>
+                    <div class="reward-info">
+                        <div class="reward-name locked-name">Carta de la Rectora</div>
+                        <div class="reward-desc">Carta de felicitación firmada por la rectora de la institución</div>
+                    </div>
+                    <span class="reward-status status-locked">🔒 1,250 XP más</span>
+                </div>
+
+                <div class="reward-item">
+                    <div class="reward-icon locked">🏛️</div>
+                    <div class="reward-info">
+                        <div class="reward-name locked-name">Mención en consejo</div>
+                        <div class="reward-desc">Tu nombre se presenta en el consejo académico institucional</div>
+                    </div>
+                    <span class="reward-status status-locked">🔒 1,250 XP más</span>
+                </div>
+
+                <div class="reward-item">
+                    <div class="reward-icon locked">🤝</div>
+                    <div class="reward-info">
+                        <div class="reward-name locked-name">Vinculación empresarial</div>
+                        <div class="reward-desc">Contacto directo con empresas colaboradoras de la institución</div>
+                    </div>
+                    <span class="reward-status status-locked">🔒 1,250 XP más</span>
+                </div>
+            </div>
+
+            <!-- GRÁFICO DE PROGRESO -->
+            <div class="chart-block">
+                <h3>📈 Tu progreso semanal</h3>
+                <div class="progress-weeks">
+                    <div class="week-row">
+                        <span class="week-label">Sem. 4</span>
+                        <div class="week-bar"><div class="week-fill" style="width:35%;"><span class="week-val">120</span></div></div>
+                    </div>
+                    <div class="week-row">
+                        <span class="week-label">Sem. 5</span>
+                        <div class="week-bar"><div class="week-fill" style="width:55%;"><span class="week-val">230</span></div></div>
+                    </div>
+                    <div class="week-row">
+                        <span class="week-label">Sem. 6</span>
+                        <div class="week-bar"><div class="week-fill" style="width:42%;"><span class="week-val">180</span></div></div>
+                    </div>
+                    <div class="week-row">
+                        <span class="week-label">Sem. 7</span>
+                        <div class="week-bar"><div class="week-fill" style="width:70%;"><span class="week-val">310</span></div></div>
+                    </div>
+                    <div class="week-row">
+                        <span class="week-label">Sem. 8</span>
+                        <div class="week-bar"><div class="week-fill current" style="width:50%;"><span class="week-val">210</span></div></div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- ============================================
+         NOTAS PARA DESARROLLO
+         ============================================ -->
+    <div class="dev-notes">
+        <div class="note-card">
+            <h3>📝 Notas para el equipo</h3>
+            <ul>
+                <li>🎨 <strong>Logo:</strong> el círculo "SDG" es un placeholder. Reemplazar con el logo real de Santo Domingo de Guzmán cuando lo consigan. Usar <code>&lt;img src="logo.png"&gt;</code> en lugar del div</li>
+                <li>🎨 <strong>Paleta:</strong> toda la paleta está en variables CSS al inicio (<code>--dom-*</code>). Para cambiar tonos, solo editar esas variables</li>
+                <li>🔤 <strong>Fuentes:</strong> Playfair Display (títulos) + Source Sans 3 (cuerpo). Se cargan desde Google Fonts. En Moodle, usar la tipografía del theme base o cargar las fuentes vía <code>styles.css</code></li>
+                <li>📊 <strong>Chart.js:</strong> las barras de progreso semanal son CSS puro aquí. En el plugin real, reemplazar con Chart.js <code>bar</code> horizontal usando los mismos colores</li>
+                <li>🏆 <strong>Niveles dominicanos:</strong> los nombres de nivel (Predicador, etc.) son opcionales. Se pueden personalizar desde la config del plugin por institución</li>
+                <li>📱 <strong>Responsive:</strong> ya funciona en móvil (sidebar baja al fondo). En Moodle, el bloque lateral se adapta automáticamente</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
