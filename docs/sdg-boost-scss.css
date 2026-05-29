@@ -1,159 +1,218 @@
 :root {
-  /* Paleta Santo Domingo de Guzmán — escala monocromática */
-  --sdg-black:         #000000;
-  --sdg-near-black:    #1A1A1A;
-  --sdg-dark-gray:     #4A4A4A;
-  --sdg-mid-gray:      #767676;
-  --sdg-light-gray:    #D9D9D9;
-  --sdg-very-light:    #F5F5F5;
-  --sdg-white:         #FFFFFF;
+  /* ============================================================ */
+  /* Paleta UTA — Universidad Técnica de Ambato                   */
+  /* Primary: #233A83 (azul institucional)                        */
+  /* ============================================================ */
 
-  --sdg-accent:        #C5A572;
-  --sdg-accent-light:  #E8D9B8;
-  --sdg-accent-dark:   #8B7548;
+  /* Azules UTA */
+  --uta-primary:         #233A83;
+  --uta-primary-light:   #2E4BA8;
+  --uta-primary-dark:    #1A2D66;
+  --uta-primary-rgb:     35, 58, 131;
 
-  --sdg-success:       #2E7D32;
-  --sdg-danger:        #C62828;
+  /* Escala de neutros */
+  --uta-black:           #1D2125;
+  --uta-dark-gray:       #4A4F55;
+  --uta-mid-gray:        #6B7280;
+  --uta-light-gray:      #D1D5DB;
+  --uta-very-light:      #F2F3F7;
+  --uta-white:           #FFFFFF;
 
-  --sdg-card-radius:   4px;
-  --sdg-input-radius:  2px;
+  /* Acento dorado para highlight "TÚ" */
+  --uta-gold:            #F59E0B;
+  --uta-gold-light:      #FEF3C7;
+  --uta-gold-dark:       #D97706;
 
-  --sdg-shadow-sm:     0 1px 0 rgba(0, 0, 0, 0.04);
-  --sdg-shadow-md:     0 2px 4px rgba(0, 0, 0, 0.06);
+  /* Estados */
+  --uta-success:         #10B981;
+  --uta-danger:          #EF4444;
 
-  --sdg-border:        1px solid var(--sdg-light-gray);
+  /* Componentes */
+  --uta-card-radius:     8px;
+  --uta-input-radius:    4px;
 
-  --sdg-font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI",
-                    Roboto, Oxygen-Sans, Ubuntu, Cantarell,
-                    "Helvetica Neue", Arial, sans-serif;
+  /* Sombras */
+  --uta-shadow-sm:       0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --uta-shadow-md:       0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+
+  /* Bordes */
+  --uta-border:          1px solid var(--uta-light-gray);
+
+  /* Tipografía system stack */
+  --uta-font-stack:      -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+                         "Helvetica Neue", Arial, sans-serif;
 
   /* Override Bootstrap para Boost */
-  --bs-body-bg: var(--sdg-white);
-  --bs-body-color: var(--sdg-near-black);
-  --bs-primary: var(--sdg-black);
-  --bs-primary-rgb: 0, 0, 0;
-  --bs-secondary: var(--sdg-dark-gray);
-  --bs-border-color: var(--sdg-light-gray);
-  --bs-border-radius: var(--sdg-card-radius);
+  --bs-body-bg: var(--uta-very-light);
+  --bs-body-color: var(--uta-black);
+  --bs-primary: var(--uta-primary);
+  --bs-primary-rgb: var(--uta-primary-rgb);
+  --bs-secondary: var(--uta-dark-gray);
+  --bs-border-color: var(--uta-light-gray);
+  --bs-border-radius: var(--uta-card-radius);
 }
 
 body {
-  background-color: var(--sdg-white);
-  color: var(--sdg-near-black);
-  font-family: var(--sdg-font-stack);
+  background-color: var(--uta-very-light);
+  color: var(--uta-black);
+  font-family: var(--uta-font-stack);
 }
 
-/* Navbar negro institucional */
+/* Navbar azul UTA */
 .navbar {
-  background-color: var(--sdg-black) !important;
-  border-bottom: 1px solid var(--sdg-dark-gray);
+  background-color: var(--uta-primary) !important;
+  border-bottom: 1px solid var(--uta-primary-dark);
 }
 
 .navbar .nav-link,
 .navbar .navbar-brand,
 .navbar .btn-icon,
 .navbar .popover-region-toggle {
-  color: var(--sdg-white) !important;
+  color: var(--uta-white) !important;
 }
 
 .navbar .nav-link:hover {
-  color: var(--sdg-light-gray) !important;
+  color: var(--uta-light-gray) !important;
 }
 
-/* Botones */
+/* Botones azul UTA */
 .btn-primary {
-  background-color: var(--sdg-black) !important;
-  border-color: var(--sdg-black) !important;
-  color: var(--sdg-white) !important;
-  border-radius: var(--sdg-card-radius);
+  background-color: var(--uta-primary) !important;
+  border-color: var(--uta-primary) !important;
+  color: var(--uta-white) !important;
+  border-radius: var(--uta-card-radius);
 }
 
 .btn-primary:hover {
-  background-color: var(--sdg-near-black) !important;
-  border-color: var(--sdg-near-black) !important;
+  background-color: var(--uta-primary-dark) !important;
+  border-color: var(--uta-primary-dark) !important;
 }
 
 .btn-secondary {
   background-color: transparent !important;
-  border: 1px solid var(--sdg-black) !important;
-  color: var(--sdg-black) !important;
-  border-radius: var(--sdg-card-radius);
+  border: 1px solid var(--uta-primary) !important;
+  color: var(--uta-primary) !important;
+  border-radius: var(--uta-card-radius);
 }
 
 .btn-secondary:hover {
-  background-color: var(--sdg-very-light) !important;
+  background-color: var(--uta-very-light) !important;
 }
 
-/* Cards sobrias */
+/* Cards */
 .card {
-  border-radius: var(--sdg-card-radius) !important;
-  border: var(--sdg-border) !important;
-  box-shadow: var(--sdg-shadow-sm) !important;
+  border-radius: var(--uta-card-radius) !important;
+  border: var(--uta-border) !important;
+  box-shadow: var(--uta-shadow-sm) !important;
+  background-color: var(--uta-white);
 }
 
 .card:hover {
-  box-shadow: var(--sdg-shadow-md) !important;
+  box-shadow: var(--uta-shadow-md) !important;
 }
 
 /* Headings */
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  color: var(--sdg-black);
+  color: var(--uta-black);
 }
 
-/* Links */
+/* Links azul UTA */
 a {
-  color: var(--sdg-near-black);
+  color: var(--uta-primary);
 }
 
 a:hover {
-  color: var(--sdg-black);
+  color: var(--uta-primary-dark);
 }
 
 /* Breadcrumb */
 .breadcrumb-item a {
-  color: var(--sdg-dark-gray);
+  color: var(--uta-mid-gray);
 }
 
 .breadcrumb-item.active {
-  color: var(--sdg-black);
+  color: var(--uta-black);
   font-weight: 500;
 }
 
 /* Drawer (menú lateral) */
 .drawer {
-  background-color: var(--sdg-white);
-  border-right: var(--sdg-border);
+  background-color: var(--uta-white);
+  border-right: var(--uta-border);
 }
 
 /* Footer */
 #page-footer {
-  background-color: var(--sdg-very-light);
-  border-top: var(--sdg-border);
-  color: var(--sdg-dark-gray);
+  background-color: var(--uta-very-light);
+  border-top: var(--uta-border);
+  color: var(--uta-dark-gray);
 }
 
 /* Tabs activos */
 .nav-tabs .nav-link.active {
-  color: var(--sdg-black);
+  color: var(--uta-primary);
   font-weight: 500;
-  border-bottom: 2px solid var(--sdg-black);
+  border-bottom: 2px solid var(--uta-primary);
 }
 
 /* Dropdown menus */
 .dropdown-menu {
-  border: var(--sdg-border);
-  border-radius: var(--sdg-card-radius);
-  box-shadow: var(--sdg-shadow-md);
+  border: var(--uta-border);
+  border-radius: var(--uta-card-radius);
+  box-shadow: var(--uta-shadow-md);
 }
 
-/* Course cards en dashboard */
-.course-card {
-  border-radius: var(--sdg-card-radius) !important;
-}
-
-/* Format Tiles ajustes B&N */
+/* Format Tiles ajustes UTA */
 .format-tiles .tile {
-  border-radius: var(--sdg-card-radius) !important;
-  border: var(--sdg-border) !important;
+  border-radius: var(--uta-card-radius) !important;
+  border: var(--uta-border) !important;
+}
+
+/* ============================================================ */
+/* PREVIEW Sprint 3 — Leaderboard highlight "TÚ"                */
+/* ============================================================ */
+.leaderboard-row {
+  padding: 0.5rem 0.75rem;
+  border-bottom: var(--uta-border);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.leaderboard-row--current-user {
+  background-color: var(--uta-gold-light);
+  border-left: 3px solid var(--uta-gold);
+  font-weight: 700;
+  padding-left: 0.5rem;
+}
+
+/* Badge de nivel XP */
+.xp-level-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--uta-primary);
+  color: var(--uta-white);
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+/* Barra de progreso XP */
+.xp-progress-bar {
+  width: 100%;
+  height: 6px;
+  background-color: var(--uta-light-gray);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.xp-progress-fill {
+  height: 100%;
+  background-color: var(--uta-primary);
+  transition: width 0.3s ease-out;
 }
