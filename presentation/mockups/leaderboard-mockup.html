@@ -3,34 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mockup Leaderboard ±5 — Osyanificación (paleta SDG)</title>
+<title>Mockup Leaderboard ±5 — Osyanificación (paleta UTA)</title>
 <style>
   :root {
-    --sdg-black:         #000000;
-    --sdg-near-black:    #1A1A1A;
-    --sdg-dark-gray:     #4A4A4A;
-    --sdg-mid-gray:      #767676;
-    --sdg-light-gray:    #D9D9D9;
-    --sdg-very-light:    #F5F5F5;
-    --sdg-white:         #FFFFFF;
-    --sdg-accent:        #C5A572;
-    --sdg-accent-light:  #E8D9B8;
-    --sdg-accent-dark:   #8B7548;
-    --sdg-card-radius:   4px;
-    --sdg-shadow-sm:     0 1px 0 rgba(0, 0, 0, 0.04);
-    --sdg-shadow-md:     0 2px 4px rgba(0, 0, 0, 0.06);
-    --sdg-border:        1px solid var(--sdg-light-gray);
-    --sdg-font-stack:    -apple-system, BlinkMacSystemFont, "Segoe UI",
+    /* ============================================================ */
+    /* Paleta UTA — Universidad Técnica de Ambato (#233A83)         */
+    /* ============================================================ */
+    --uta-primary:       #233A83;
+    --uta-primary-light: #2E4BA8;
+    --uta-primary-dark:  #1A2D66;
+    --uta-black:         #1D2125;
+    --uta-dark-gray:     #4A4F55;
+    --uta-mid-gray:      #6B7280;
+    --uta-light-gray:    #D1D5DB;
+    --uta-very-light:    #F2F3F7;
+    --uta-white:         #FFFFFF;
+    --uta-gold:          #F59E0B;
+    --uta-gold-light:    #FEF3C7;
+    --uta-gold-dark:     #D97706;
+    --uta-card-radius:   8px;
+    --uta-shadow-sm:     0 1px 3px rgba(0, 0, 0, 0.10), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --uta-shadow-md:     0 4px 6px rgba(0, 0, 0, 0.10), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --uta-border:        1px solid var(--uta-light-gray);
+    --uta-font-stack:    -apple-system, BlinkMacSystemFont, "Segoe UI",
                          Roboto, sans-serif;
-    --sdg-font-mono:     ui-monospace, SFMono-Regular, Menlo, monospace;
+    --uta-font-mono:     ui-monospace, SFMono-Regular, Menlo, monospace;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: var(--sdg-font-stack);
-    background-color: var(--sdg-very-light);
-    color: var(--sdg-near-black);
+    font-family: var(--uta-font-stack);
+    background-color: var(--uta-very-light);
+    color: var(--uta-black);
     line-height: 1.5;
     padding: 2rem;
   }
@@ -41,33 +46,33 @@
   }
 
   .mockup-note {
-    background-color: var(--sdg-accent-light);
-    border-left: 4px solid var(--sdg-accent);
-    color: var(--sdg-accent-dark);
+    background-color: #EEF1F8;
+    border-left: 4px solid var(--uta-primary);
+    color: var(--uta-primary-dark);
     padding: 0.75rem 1rem;
     margin-bottom: 1.5rem;
     font-size: 0.875rem;
-    border-radius: 0 var(--sdg-card-radius) var(--sdg-card-radius) 0;
+    border-radius: 0 var(--uta-card-radius) var(--uta-card-radius) 0;
   }
 
   h1 {
     font-size: 1.5rem;
-    color: var(--sdg-black);
+    color: var(--uta-black);
     margin-bottom: 0.25rem;
   }
 
   .subtitle {
-    color: var(--sdg-mid-gray);
+    color: var(--uta-mid-gray);
     font-size: 0.875rem;
     margin-bottom: 1.5rem;
   }
 
   /* ============ TABLA LEADERBOARD ============ */
   .leaderboard {
-    background-color: var(--sdg-white);
-    border: var(--sdg-border);
-    border-radius: var(--sdg-card-radius);
-    box-shadow: var(--sdg-shadow-sm);
+    background-color: var(--uta-white);
+    border: var(--uta-border);
+    border-radius: var(--uta-card-radius);
+    box-shadow: var(--uta-shadow-sm);
     overflow: hidden;
   }
 
@@ -76,8 +81,8 @@
     grid-template-columns: 60px 1fr 100px 100px;
     gap: 1rem;
     padding: 0.75rem 1rem;
-    background-color: var(--sdg-black);
-    color: var(--sdg-white);
+    background-color: var(--uta-primary);
+    color: var(--uta-white);
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -89,7 +94,7 @@
     grid-template-columns: 60px 1fr 100px 100px;
     gap: 1rem;
     padding: 0.875rem 1rem;
-    border-bottom: var(--sdg-border);
+    border-bottom: var(--uta-border);
     align-items: center;
     transition: background-color 0.15s;
   }
@@ -99,32 +104,32 @@
   }
 
   .leaderboard-row:hover {
-    background-color: var(--sdg-very-light);
+    background-color: var(--uta-very-light);
   }
 
   .leaderboard-row--current {
-    background-color: var(--sdg-accent-light) !important;
-    border-left: 4px solid var(--sdg-accent);
+    background-color: var(--uta-gold-light) !important;
+    border-left: 4px solid var(--uta-gold);
     padding-left: calc(1rem - 4px);
     font-weight: 700;
   }
 
   .leaderboard-row--current .name::before {
     content: "TÚ → ";
-    color: var(--sdg-accent-dark);
+    color: var(--uta-gold-dark);
     font-size: 0.75rem;
     margin-right: 0.25rem;
   }
 
   .rank {
-    font-family: var(--sdg-font-mono);
-    color: var(--sdg-mid-gray);
+    font-family: var(--uta-font-mono);
+    color: var(--uta-mid-gray);
     font-size: 0.875rem;
     font-weight: 600;
   }
 
   .leaderboard-row--current .rank {
-    color: var(--sdg-accent-dark);
+    color: var(--uta-gold-dark);
   }
 
   .avatar-circle {
@@ -134,8 +139,8 @@
     width: 1.75rem;
     height: 1.75rem;
     border-radius: 50%;
-    background-color: var(--sdg-dark-gray);
-    color: var(--sdg-white);
+    background-color: var(--uta-primary);
+    color: var(--uta-white);
     font-size: 0.75rem;
     font-weight: 600;
     margin-right: 0.5rem;
@@ -143,16 +148,16 @@
   }
 
   .name {
-    color: var(--sdg-near-black);
+    color: var(--uta-black);
   }
 
   .level {
-    color: var(--sdg-dark-gray);
+    color: var(--uta-dark-gray);
     font-variant-numeric: tabular-nums;
   }
 
   .xp {
-    color: var(--sdg-black);
+    color: var(--uta-black);
     font-weight: 600;
     font-variant-numeric: tabular-nums;
     text-align: right;
@@ -160,26 +165,26 @@
 
   .leaderboard-footer {
     padding: 0.75rem 1rem;
-    background-color: var(--sdg-very-light);
-    color: var(--sdg-mid-gray);
+    background-color: var(--uta-very-light);
+    color: var(--uta-mid-gray);
     font-size: 0.75rem;
     text-align: center;
-    border-top: var(--sdg-border);
+    border-top: var(--uta-border);
   }
 
   /* ============ INFO BOX ============ */
   .info-box {
-    background-color: var(--sdg-white);
-    border: var(--sdg-border);
-    border-radius: var(--sdg-card-radius);
+    background-color: var(--uta-white);
+    border: var(--uta-border);
+    border-radius: var(--uta-card-radius);
     padding: 1.25rem;
     margin-top: 1.5rem;
     font-size: 0.875rem;
-    color: var(--sdg-dark-gray);
+    color: var(--uta-dark-gray);
   }
 
   .info-box h3 {
-    color: var(--sdg-black);
+    color: var(--uta-black);
     font-size: 1rem;
     margin-bottom: 0.5rem;
   }
@@ -191,7 +196,7 @@
 
   .info-box li {
     padding: 0.25rem 0;
-    border-bottom: var(--sdg-border);
+    border-bottom: var(--uta-border);
   }
 
   .info-box li:last-child {
@@ -199,7 +204,7 @@
   }
 
   .info-box li strong {
-    color: var(--sdg-near-black);
+    color: var(--uta-black);
     display: inline-block;
     min-width: 8rem;
   }
@@ -207,9 +212,9 @@
   /* Toggle entre absoluto y relativo */
   .toggle {
     display: inline-flex;
-    background-color: var(--sdg-very-light);
-    border: var(--sdg-border);
-    border-radius: var(--sdg-card-radius);
+    background-color: var(--uta-very-light);
+    border: var(--uta-border);
+    border-radius: var(--uta-card-radius);
     margin-bottom: 1rem;
     padding: 2px;
   }
@@ -219,21 +224,21 @@
     border: none;
     padding: 0.375rem 0.875rem;
     font-size: 0.875rem;
-    color: var(--sdg-mid-gray);
+    color: var(--uta-mid-gray);
     cursor: pointer;
-    border-radius: 2px;
+    border-radius: 6px;
     transition: background-color 0.15s, color 0.15s;
     font-family: inherit;
   }
 
   .toggle button.active {
-    background-color: var(--sdg-black);
-    color: var(--sdg-white);
+    background-color: var(--uta-primary);
+    color: var(--uta-white);
     font-weight: 600;
   }
 
   .toggle button:not(.active):hover {
-    color: var(--sdg-black);
+    color: var(--uta-primary);
   }
 </style>
 </head>
@@ -243,8 +248,8 @@
 
   <div class="mockup-note">
     📐 <strong>MOCKUP STANDALONE</strong> — vista expandida del
-    leaderboard ±5 con highlight "TÚ" en dorado. Paleta Santo Domingo
-    de Guzmán (B&N + acento dorado puntual).
+    leaderboard ±5 con highlight "TÚ" en dorado. Paleta UTA
+    (azul #233A83 + acento dorado puntual).
   </div>
 
   <h1>Tabla de clasificación</h1>
@@ -293,7 +298,7 @@
     <div class="leaderboard-row leaderboard-row--current">
       <div class="rank">#3</div>
       <div>
-        <span class="avatar-circle" style="background-color: var(--sdg-accent-dark);">CP</span>
+        <span class="avatar-circle" style="background-color: var(--uta-gold-dark);">CP</span>
         <span class="name">Carlos Pérez García</span>
       </div>
       <div class="level">3</div>

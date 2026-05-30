@@ -15,6 +15,13 @@
 > (líneas 149-170) y los mockups en
 > [`presentation/mockups/`](../presentation/mockups/).
 
+> 🎨 **DECISIÓN DE PALETA — FINAL (2026-05-29)**: la paleta oficial es
+> **UTA azul `#233A83`** (la del `plan-fase-1.md` original). El breve
+> pivot a "Santo Domingo de Guzmán" (B&N) del 2026-05-23 quedó
+> **descartado**. Este documento fue actualizado a UTA: variables
+> `--uta-*`, navbar/botones/badges en azul `#233A83`, texto en
+> `#1D2125` y acento dorado `#F59E0B` reservado para el highlight "TÚ".
+
 ## 📋 Tabla de contenidos
 
 - [🎯 Objetivos del Sprint 1](#-objetivos-del-sprint-1)
@@ -22,11 +29,11 @@
 - [1. Decisión: Boost-custom vs Moove](#1-decisión-boost-custom-vs-moove)
 - [2. Instalación de `format_tiles`](#2-instalación-de-format_tiles)
 - [3. Aplicar `format_tiles` a los cursos](#3-aplicar-format_tiles-a-los-cursos)
-- [4. Paleta Santo Domingo de Guzmán (B&N) en CSS variables](#4-paleta-santo-domingo-de-guzmán-bn-en-css-variables)
+- [4. Paleta UTA (azul #233A83) en CSS variables](#4-paleta-uta-azul-233a83-en-css-variables)
 - [5. Tipografía propuesta](#5-tipografía-propuesta)
-- [6. Componentes con paleta SDG aplicada](#6-componentes-con-paleta-sdg-aplicada)
+- [6. Componentes con paleta UTA aplicada](#6-componentes-con-paleta-uta-aplicada)
 - [7. Mockups y templates Mustache propuestos](#7-mockups-y-templates-mustache-propuestos)
-- [8. Checklist visual de comparación SDG vs local](#8-checklist-visual-de-comparación-sdg-vs-local)
+- [8. Checklist visual de comparación UTA vs local](#8-checklist-visual-de-comparación-uta-vs-local)
 - [9. Captura de screenshots de referencia](#9-captura-de-screenshots-de-referencia)
 - [10. Troubleshooting](#10-troubleshooting)
 - [Próximos pasos para Edison](#-próximos-pasos-para-edison)
@@ -49,21 +56,19 @@ paridad visual razonable.
 
 ---
 
-## ⚠️ Cambio de paleta vs plan original
+## ⚠️ Paleta: decisión final (UTA)
 
-El `docs/plan-fase-1.md` declara paleta UTA azul (`#233A83`). **Este
-doc usa la paleta acordada con Álvaro el 2026-05-23**: la del Moodle
-de **Santo Domingo de Guzmán** (blanco y negro, look sobrio /
-institucional).
+El `docs/plan-fase-1.md` declara paleta **UTA azul (`#233A83`)** y esa
+es la **decisión final** confirmada por Imanol el 2026-05-29.
 
-Razón del cambio: la referencia visual real elegida pasa a ser SDG en
-lugar de UTA. Las paletas B&N son más versátiles para institución
-externa (Fase 2) porque no comprometen branding ajeno.
+Historia breve: el 2026-05-23 se exploró un pivot a una paleta B&N tipo
+"Santo Domingo de Guzmán" (más neutra para una eventual institución
+externa en Fase 2). Ese pivot se **descartó**: para Fase 1 la
+referencia es UTA y el azul institucional da identidad clara a la demo.
 
-**Si Imanol prefiere mantener la paleta UTA azul del plan original**:
-los snippets y mockups acá son intercambiables — solo hay que
-reemplazar las variables CSS `--sdg-*` por sus equivalentes `--uta-*`
-y la estética cambia automáticamente.
+Todos los snippets y mockups de este documento ya usan las variables
+`--uta-*`. El acento dorado (`#F59E0B`) se mantiene, pero solo para
+destacar al usuario actual ("TÚ") en el leaderboard.
 
 ---
 
@@ -75,24 +80,24 @@ y la estética cambia automáticamente.
 |---|---|---|
 | **Costo** | $0 (ya viene con Moodle) | Licencia paga (~€60/año) o fork community free (calidad variable) |
 | **Mantenimiento upstream** | ✅ Moodle core lo mantiene | Pimenko mantiene la versión paga, community la free |
-| **Match visual paleta B&N** | 🟢 95% (Boost por defecto ya es sobrio, fácil de monocromar) | 🟡 60% (Moove tiene look colorido que hay que neutralizar) |
+| **Match visual paleta UTA** | 🟢 90% (Boost recolorea a azul UTA con variables Bootstrap) | 🟡 60% (Moove trae su propio look que hay que sobrescribir) |
 | **Curva de aprendizaje** | ✅ Baja (CSS clásico + variables Bootstrap) | 🟡 Media (estructura propia de Moove) |
 | **Documentación** | ✅ Extensa (parte del core) | 🟡 Limitada al sitio comercial |
 | **Riesgo legal/licencia** | ✅ Cero (GPL del core) | 🟡 La versión free puede no estar actualizada con seguridad |
-| **Tiempo de setup paleta B&N** | ~1h (SCSS personalizado) | ~3-4h (overriding del Moove premium) |
+| **Tiempo de setup paleta UTA** | ~1h (SCSS personalizado) | ~3-4h (overriding del Moove premium) |
 
 ### Recomendación: **Boost-custom**
 
-Con paleta B&N sobria, Boost va a quedar **MEJOR que Moove** porque:
+Con la paleta UTA, Boost va a quedar **MEJOR que Moove** porque:
 
-1. Moove está pensado para look colorido/moderno — neutralizar todo a
-   B&N es ir contra su diseño base
-2. Boost por defecto ya es sobrio, solo hay que ajustar variables
-   Bootstrap → blanco/negro
+1. Moove trae su propio look/branding — sobrescribirlo al azul UTA es
+   ir contra su diseño base
+2. Boost es neutro de fábrica, solo hay que ajustar variables
+   Bootstrap → azul UTA `#233A83`
 3. **Cero costo** (cabe en proyecto académico)
 4. Decisión reversible: cambiar el theme en Moodle = 2 clicks
 
-**Si Imanol decide Moove** (no recomendado para paleta B&N):
+**Si Imanol decide Moove** (no recomendado para la paleta UTA):
 
 1. Comprar licencia en https://moodle.org/plugins/theme_moove
 2. Verificar versión compatible con Moodle 4.3
@@ -179,61 +184,62 @@ docker compose exec moodle sh -c \
 
 ---
 
-## 4. Paleta Santo Domingo de Guzmán (B&N) en CSS variables
+## 4. Paleta UTA (azul #233A83) en CSS variables
 
-Paleta sobria, monocromática, institucional. Pensada para ser legible
-en cualquier contexto y no comprometer branding ajeno.
+Paleta institucional UTA: azul `#233A83` sobre fondo claro, con un
+acento dorado reservado para el highlight "TÚ". Misma paleta que el
+theme real en [`docs/uta-boost-scss.css`](uta-boost-scss.css).
 
 ```css
 :root {
   /* ============================================================ */
-  /* Paleta Santo Domingo de Guzmán — escala monocromática        */
+  /* Paleta UTA — Universidad Técnica de Ambato (#233A83)         */
   /* ============================================================ */
 
-  /* Escala de grises */
-  --sdg-black:         #000000;  /* navbar, headings primarios */
-  --sdg-near-black:    #1A1A1A;  /* texto principal */
-  --sdg-dark-gray:     #4A4A4A;  /* texto secundario */
-  --sdg-mid-gray:      #767676;  /* texto deshabilitado, iconos */
-  --sdg-light-gray:    #D9D9D9;  /* bordes, separadores */
-  --sdg-very-light:    #F5F5F5;  /* fondos sutiles, hover states */
-  --sdg-white:         #FFFFFF;  /* fondo principal de cards */
+  /* Azules UTA */
+  --uta-primary:       #233A83;  /* navbar, botones, badges, links */
+  --uta-primary-light: #2E4BA8;  /* hover claro, detalles */
+  --uta-primary-dark:  #1A2D66;  /* hover/bordes oscuros */
 
-  /* Acento único para destacar elementos críticos
-     (solo cuando es estrictamente necesario:
-     "TÚ" en leaderboard, alertas, CTAs primarios) */
-  --sdg-accent:        #C5A572;  /* dorado suave (legacy, refinado) */
-  --sdg-accent-light:  #E8D9B8;  /* dorado bg para highlights */
-  --sdg-accent-dark:   #8B7548;  /* dorado para hover */
+  /* Escala de neutros */
+  --uta-black:         #1D2125;  /* headings y texto principal */
+  --uta-dark-gray:     #4A4F55;  /* texto secundario */
+  --uta-mid-gray:      #6B7280;  /* texto deshabilitado, iconos */
+  --uta-light-gray:    #D1D5DB;  /* bordes, separadores */
+  --uta-very-light:    #F2F3F7;  /* fondos sutiles, hover states */
+  --uta-white:         #FFFFFF;  /* fondo principal de cards */
 
-  /* Estados (mínimos, monocromáticos) */
-  --sdg-success:       #2E7D32;  /* verde solo para "completado" */
-  --sdg-danger:        #C62828;  /* rojo solo para errores críticos */
+  /* Acento dorado SOLO para destacar al usuario actual ("TÚ") */
+  --uta-gold:          #F59E0B;  /* dorado highlight */
+  --uta-gold-light:    #FEF3C7;  /* dorado bg para highlights */
+  --uta-gold-dark:     #D97706;  /* dorado para hover/texto */
+
+  /* Estados */
+  --uta-success:       #10B981;  /* verde "completado" */
+  --uta-danger:        #EF4444;  /* rojo errores críticos */
 
   /* Componentes */
-  --sdg-card-radius:   4px;      /* MÁS sobrio que 8px típico */
-  --sdg-input-radius:  2px;      /* casi cuadrado, institucional */
+  --uta-card-radius:   8px;      /* sobrio institucional */
+  --uta-input-radius:  4px;
 
-  /* Sombras: mínimas, casi planas */
-  --sdg-shadow-sm:     0 1px 0 rgba(0, 0, 0, 0.04);
-  --sdg-shadow-md:     0 2px 4px rgba(0, 0, 0, 0.06);
-  --sdg-shadow-lg:     0 4px 8px rgba(0, 0, 0, 0.08);
+  /* Sombras suaves */
+  --uta-shadow-sm:     0 1px 3px rgba(0, 0, 0, 0.10), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --uta-shadow-md:     0 4px 6px rgba(0, 0, 0, 0.10), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --uta-shadow-lg:     0 10px 15px rgba(0, 0, 0, 0.10), 0 4px 6px rgba(0, 0, 0, 0.05);
 
-  /* Bordes: hairline para look refinado */
-  --sdg-border:        1px solid var(--sdg-light-gray);
-  --sdg-border-dark:   1px solid var(--sdg-mid-gray);
+  /* Bordes */
+  --uta-border:        1px solid var(--uta-light-gray);
+  --uta-border-dark:   1px solid var(--uta-mid-gray);
 }
 ```
 
 ### Filosofía de la paleta
 
-- **0 saturación** (excepto acento dorado y estados crítico) = look
-  institucional sobrio
-- **Sombras casi planas** (no muchos `box-shadow` grandes) = look
-  refinado, no "Material Design popero"
-- **Border-radius mínimo** (4px) = institucional, no friendly-startup
-- **Hairline borders** (1px gris claro) en lugar de sombras = sobrio
-- **Acento dorado** muy puntual, no genérico
+- **Azul UTA dominante** (`#233A83`) en navbar, botones y badges = identidad institucional clara
+- **Fondo claro** (`#F2F3F7` / blanco) para legibilidad
+- **Acento dorado** (`#F59E0B`) reservado al highlight "TÚ", no genérico
+- **Border-radius 8px** alineado al theme real (`uta-boost-scss.css`)
+- **Sombras suaves** + hairline borders para un look limpio
 
 ### Cómo aplicar (en Boost theme)
 
@@ -245,50 +251,50 @@ en cualquier contexto y no comprometer branding ajeno.
 
    ```scss
    :root {
-     /* ... bloque de variables --sdg-* de arriba ... */
+     /* ... bloque de variables --uta-* de arriba ... */
 
-     /* Override de Bootstrap para que Boost use SDG */
-     --bs-body-bg: var(--sdg-white);
-     --bs-body-color: var(--sdg-near-black);
-     --bs-primary: var(--sdg-black);
-     --bs-primary-rgb: 0, 0, 0;
-     --bs-secondary: var(--sdg-dark-gray);
-     --bs-border-color: var(--sdg-light-gray);
-     --bs-border-radius: var(--sdg-card-radius);
+     /* Override de Bootstrap para que Boost use la paleta UTA */
+     --bs-body-bg: var(--uta-white);
+     --bs-body-color: var(--uta-black);
+     --bs-primary: var(--uta-primary);
+     --bs-primary-rgb: 35, 58, 131;
+     --bs-secondary: var(--uta-dark-gray);
+     --bs-border-color: var(--uta-light-gray);
+     --bs-border-radius: var(--uta-card-radius);
    }
 
    body {
-     background-color: var(--sdg-white);
-     color: var(--sdg-near-black);
-     font-family: var(--sdg-font-stack);
+     background-color: var(--uta-very-light);
+     color: var(--uta-black);
+     font-family: var(--uta-font-stack);
    }
 
    .navbar {
-     background-color: var(--sdg-black) !important;
-     border-bottom: 1px solid var(--sdg-dark-gray);
+     background-color: var(--uta-primary) !important;
+     border-bottom: 1px solid var(--uta-primary-dark);
    }
 
    .navbar .nav-link,
    .navbar .navbar-brand {
-     color: var(--sdg-white) !important;
+     color: var(--uta-white) !important;
    }
 
    .btn-primary {
-     background-color: var(--sdg-black);
-     border-color: var(--sdg-black);
-     color: var(--sdg-white);
-     border-radius: var(--sdg-card-radius);
+     background-color: var(--uta-primary);
+     border-color: var(--uta-primary);
+     color: var(--uta-white);
+     border-radius: var(--uta-card-radius);
    }
 
    .btn-primary:hover {
-     background-color: var(--sdg-near-black);
-     border-color: var(--sdg-near-black);
+     background-color: var(--uta-primary-dark);
+     border-color: var(--uta-primary-dark);
    }
 
    .card {
-     border-radius: var(--sdg-card-radius);
-     border: var(--sdg-border);
-     box-shadow: var(--sdg-shadow-sm);
+     border-radius: var(--uta-card-radius);
+     border: var(--uta-border);
+     box-shadow: var(--uta-shadow-sm);
    }
    ```
 
@@ -321,15 +327,15 @@ Moodle lo carga automáticamente. CSS plano (sin Tailwind/Webpack).
 ```css
 :root {
   /* Sans serif principal — system stack con preferencia institucional */
-  --sdg-font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI",
+  --uta-font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI",
                     Roboto, Oxygen-Sans, Ubuntu, Cantarell,
                     "Helvetica Neue", Arial, sans-serif;
 
   /* Serif para títulos formales (opcional, decisión Edison) */
-  --sdg-font-serif: Georgia, "Times New Roman", Times, serif;
+  --uta-font-serif: Georgia, "Times New Roman", Times, serif;
 
   /* Monoespaciada para código */
-  --sdg-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco,
+  --uta-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco,
                    Consolas, "Liberation Mono", "Courier New", monospace;
 }
 ```
@@ -338,21 +344,21 @@ Moodle lo carga automáticamente. CSS plano (sin Tailwind/Webpack).
 
 ```css
 :root {
-  --sdg-text-xs:    0.75rem;   /* 12px - labels, captions */
-  --sdg-text-sm:    0.875rem;  /* 14px - texto secundario */
-  --sdg-text-base:  1rem;      /* 16px - cuerpo */
-  --sdg-text-lg:    1.125rem;  /* 18px - subtítulos */
-  --sdg-text-xl:    1.5rem;    /* 24px - títulos sección */
-  --sdg-text-2xl:   2rem;      /* 32px - títulos página */
-  --sdg-text-3xl:   2.5rem;    /* 40px - hero/landing */
+  --uta-text-xs:    0.75rem;   /* 12px - labels, captions */
+  --uta-text-sm:    0.875rem;  /* 14px - texto secundario */
+  --uta-text-base:  1rem;      /* 16px - cuerpo */
+  --uta-text-lg:    1.125rem;  /* 18px - subtítulos */
+  --uta-text-xl:    1.5rem;    /* 24px - títulos sección */
+  --uta-text-2xl:   2rem;      /* 32px - títulos página */
+  --uta-text-3xl:   2.5rem;    /* 40px - hero/landing */
 
-  --sdg-leading-tight:  1.2;
-  --sdg-leading-normal: 1.5;
-  --sdg-leading-loose:  1.75;
+  --uta-leading-tight:  1.2;
+  --uta-leading-normal: 1.5;
+  --uta-leading-loose:  1.75;
 
-  --sdg-weight-normal:  400;
-  --sdg-weight-medium:  500;
-  --sdg-weight-bold:    700;
+  --uta-weight-normal:  400;
+  --uta-weight-medium:  500;
+  --uta-weight-bold:    700;
 }
 ```
 
@@ -370,7 +376,7 @@ self-hosted.
 
 ---
 
-## 6. Componentes con paleta SDG aplicada
+## 6. Componentes con paleta UTA aplicada
 
 Mini snippets ready-to-use. **Edison puede ajustar libremente**.
 
@@ -378,29 +384,29 @@ Mini snippets ready-to-use. **Edison puede ajustar libremente**.
 
 ```css
 .btn-primary {
-  background-color: var(--sdg-black);
-  border: 1px solid var(--sdg-black);
-  color: var(--sdg-white);
+  background-color: var(--uta-primary);
+  border: 1px solid var(--uta-primary);
+  color: var(--uta-white);
   padding: 0.5rem 1.25rem;
-  border-radius: var(--sdg-card-radius);
-  font-weight: var(--sdg-weight-medium);
+  border-radius: var(--uta-card-radius);
+  font-weight: var(--uta-weight-medium);
   letter-spacing: 0.025em;
   transition: background-color 0.15s, border-color 0.15s;
 }
 
 .btn-primary:hover {
-  background-color: var(--sdg-near-black);
-  border-color: var(--sdg-near-black);
+  background-color: var(--uta-primary-dark);
+  border-color: var(--uta-primary-dark);
 }
 
 .btn-secondary {
   background-color: transparent;
-  border: 1px solid var(--sdg-black);
-  color: var(--sdg-black);
+  border: 1px solid var(--uta-primary);
+  color: var(--uta-primary);
 }
 
 .btn-secondary:hover {
-  background-color: var(--sdg-very-light);
+  background-color: var(--uta-very-light);
 }
 ```
 
@@ -408,23 +414,23 @@ Mini snippets ready-to-use. **Edison puede ajustar libremente**.
 
 ```css
 .card {
-  background-color: var(--sdg-white);
-  border: var(--sdg-border);
-  border-radius: var(--sdg-card-radius);
-  box-shadow: var(--sdg-shadow-sm);
+  background-color: var(--uta-white);
+  border: var(--uta-border);
+  border-radius: var(--uta-card-radius);
+  box-shadow: var(--uta-shadow-sm);
   padding: 1rem;
   transition: box-shadow 0.2s, border-color 0.2s;
 }
 
 .card:hover {
-  box-shadow: var(--sdg-shadow-md);
-  border-color: var(--sdg-mid-gray);
+  box-shadow: var(--uta-shadow-md);
+  border-color: var(--uta-mid-gray);
 }
 
 .card-header {
-  font-weight: var(--sdg-weight-bold);
-  color: var(--sdg-black);
-  border-bottom: var(--sdg-border);
+  font-weight: var(--uta-weight-bold);
+  color: var(--uta-black);
+  border-bottom: var(--uta-border);
   padding-bottom: 0.5rem;
   margin-bottom: 0.75rem;
 }
@@ -435,36 +441,36 @@ Mini snippets ready-to-use. **Edison puede ajustar libremente**.
 ```css
 .leaderboard-row {
   padding: 0.5rem 0.75rem;
-  border-bottom: var(--sdg-border);
+  border-bottom: var(--uta-border);
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
 
 .leaderboard-row--current-user {
-  background-color: var(--sdg-accent-light);
-  border-left: 3px solid var(--sdg-accent);
-  font-weight: var(--sdg-weight-bold);
+  background-color: var(--uta-gold-light);
+  border-left: 3px solid var(--uta-gold);
+  font-weight: var(--uta-weight-bold);
   padding-left: 0.5rem;
 }
 
 .leaderboard-row--current-user .username::before {
   content: "TÚ → ";
-  color: var(--sdg-accent-dark);
-  font-weight: var(--sdg-weight-bold);
+  color: var(--uta-gold-dark);
+  font-weight: var(--uta-weight-bold);
 }
 
 .leaderboard-rank {
-  font-family: var(--sdg-font-mono);
-  font-size: var(--sdg-text-sm);
-  color: var(--sdg-mid-gray);
+  font-family: var(--uta-font-mono);
+  font-size: var(--uta-text-sm);
+  color: var(--uta-mid-gray);
   min-width: 2rem;
 }
 
 .leaderboard-xp {
   margin-left: auto;
-  color: var(--sdg-near-black);
-  font-weight: var(--sdg-weight-medium);
+  color: var(--uta-black);
+  font-weight: var(--uta-weight-medium);
 }
 ```
 
@@ -475,19 +481,19 @@ Mini snippets ready-to-use. **Edison puede ajustar libremente**.
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--sdg-black);
-  color: var(--sdg-white);
+  background-color: var(--uta-primary);
+  color: var(--uta-white);
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  font-weight: var(--sdg-weight-bold);
-  font-size: var(--sdg-text-lg);
+  font-weight: var(--uta-weight-bold);
+  font-size: var(--uta-text-lg);
 }
 
 .xp-progress-bar {
   width: 100%;
   height: 6px;
-  background-color: var(--sdg-light-gray);
+  background-color: var(--uta-light-gray);
   border-radius: 999px;
   overflow: hidden;
   margin-top: 0.5rem;
@@ -495,7 +501,7 @@ Mini snippets ready-to-use. **Edison puede ajustar libremente**.
 
 .xp-progress-fill {
   height: 100%;
-  background-color: var(--sdg-black);
+  background-color: var(--uta-primary);
   transition: width 0.3s ease-out;
 }
 ```
@@ -504,29 +510,29 @@ Mini snippets ready-to-use. **Edison puede ajustar libremente**.
 
 ```css
 .navbar {
-  background-color: var(--sdg-black);
-  border-bottom: 1px solid var(--sdg-dark-gray);
+  background-color: var(--uta-primary);
+  border-bottom: 1px solid var(--uta-primary-dark);
   padding: 0.75rem 1rem;
 }
 
 .navbar-brand {
-  color: var(--sdg-white);
-  font-weight: var(--sdg-weight-bold);
+  color: var(--uta-white);
+  font-weight: var(--uta-weight-bold);
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  font-size: var(--sdg-text-base);
+  font-size: var(--uta-text-base);
 }
 
 .navbar .nav-link {
-  color: var(--sdg-very-light);
+  color: rgba(255, 255, 255, 0.82);
   padding: 0.5rem 1rem;
   transition: color 0.15s;
 }
 
 .navbar .nav-link:hover,
 .navbar .nav-link.active {
-  color: var(--sdg-white);
-  border-bottom: 2px solid var(--sdg-white);
+  color: var(--uta-white);
+  border-bottom: 2px solid var(--uta-white);
 }
 ```
 
@@ -539,8 +545,8 @@ Ver carpeta [`presentation/mockups/`](../presentation/mockups/):
 | Archivo | Qué muestra |
 |---|---|
 | `presentation/mockups/README.md` | Index + cómo abrir los mockups |
-| `presentation/mockups/dashboard-mockup.html` | Mockup HTML standalone del Dashboard del curso con bloque XP, paleta SDG aplicada |
-| `presentation/mockups/leaderboard-mockup.html` | Mockup del leaderboard ±5 con highlight "TÚ" en dorado SDG |
+| `presentation/mockups/dashboard-mockup.html` | Mockup HTML standalone del Dashboard del curso con bloque XP, paleta UTA aplicada |
+| `presentation/mockups/leaderboard-mockup.html` | Mockup del leaderboard ±5 con highlight "TÚ" en dorado |
 | `presentation/mockups/templates/xp-widget-osyanificacion.mustache` | Template Mustache **propuesto** para override del `xp-widget.mustache` original cuando exista `local_osyanificacion` |
 
 **Cómo verlos**:
@@ -573,14 +579,14 @@ plugin original. Sigue siendo wrappeo limpio, sin fork modificado.
 
 ---
 
-## 8. Checklist visual de comparación SDG vs local
+## 8. Checklist visual de comparación UTA vs local
 
-Edison usa esta lista para validar que el theme replicado se parece al
-SDG real "lo suficiente" para Fase 1.
+Edison usa esta lista para validar que el theme replicado se parece a
+la referencia UTA "lo suficiente" para Fase 1.
 
 ### Header / Navbar
 
-- [ ] Color de fondo del navbar = `#000000` (negro puro)
+- [ ] Color de fondo del navbar = `#233A83` (azul UTA)
 - [ ] Logo del sitio visible (placeholder "Osyanificación" si no hay
       logo institucional)
 - [ ] Menú principal con items: Página Principal, Área personal, Mis cursos
@@ -590,12 +596,12 @@ SDG real "lo suficiente" para Fase 1.
 
 ### Dashboard (Área personal)
 
-- [ ] Fondo principal `#FFFFFF` o `#F5F5F5`
+- [ ] Fondo principal `#FFFFFF` o `#F2F3F7`
 - [ ] Cards de "Mis cursos" en grilla (no lista)
 - [ ] Cada card con: nombre del curso, prefijo `(SOF)` o el institucional
-- [ ] Border-radius `4px` en cards (sobrio, no friendly)
-- [ ] Border hairline `1px solid #D9D9D9`
-- [ ] Sombras CASI planas (`box-shadow: 0 1px 0 rgba(0,0,0,0.04)`)
+- [ ] Border-radius `8px` en cards (sobrio institucional)
+- [ ] Border hairline `1px solid #D1D5DB`
+- [ ] Sombras suaves (`box-shadow: 0 1px 3px rgba(0,0,0,0.10)`)
 - [ ] Hover state visible: sombra un poco más fuerte + border más oscuro
 
 ### Curso (formato Tiles)
@@ -603,21 +609,21 @@ SDG real "lo suficiente" para Fase 1.
 - [ ] Secciones del curso renderizan como mosaicos
 - [ ] Mosaicos en grilla responsive (2-4 columnas según ancho)
 - [ ] Cada mosaico con: número de sección, título, ícono opcional
-- [ ] Mosaicos en B&N (sin colores saturados)
+- [ ] Mosaicos con número en círculo azul UTA (sin colores chillones extra)
 - [ ] Bloque de Level Up XP visible en columna derecha
-- [ ] Badge de nivel en círculo negro con número blanco
+- [ ] Badge de nivel en círculo azul UTA con número blanco
 
 ### Tipografía
 
 - [ ] Texto principal con system stack (sin Google Fonts cargados)
-- [ ] Cuerpo 16px (`--sdg-text-base`)
+- [ ] Cuerpo 16px (`--uta-text-base`)
 - [ ] Leading 1.5 en párrafos
-- [ ] Headings en negro puro (`#000000` o `#1A1A1A`)
+- [ ] Headings en `#1D2125` (`--uta-black`)
 - [ ] Sin font-weights raros (solo 400, 500, 700)
 
 ### Accesibilidad básica
 
-- [ ] Contraste WCAG **AAA** posible con B&N (verificar con devtools)
+- [ ] Contraste WCAG **AA** en azul UTA sobre blanco (verificar con devtools)
 - [ ] Focus visible en links y botones (no `outline: none` sin
       reemplazo claro)
 - [ ] Tamaño de tap targets ≥ 44x44px en mobile
@@ -627,7 +633,7 @@ SDG real "lo suficiente" para Fase 1.
 
 - [ ] Filas con border-bottom hairline
 - [ ] Fila del usuario actual con bg dorado claro
-      (`var(--sdg-accent-light)`) y border-left dorado
+      (`var(--uta-gold-light)`) y border-left dorado
 - [ ] Prefijo "TÚ → " visible
 - [ ] XP alineado a la derecha
 - [ ] Rank numérico en mono-font, gris medio
@@ -636,30 +642,33 @@ SDG real "lo suficiente" para Fase 1.
 
 ## 9. Captura de screenshots de referencia
 
-Edison necesita **screenshots del Moodle real de Santo Domingo de
-Guzmán** como referencia visual.
+Edison necesita **screenshots del Moodle de referencia UTA**
+(`sistemaseducaciononline.uta.edu.ec`) como guía visual.
 
-### Si tenés acceso a un Moodle SDG real
+### Si tenés acceso al Moodle UTA
 
 1. Capturar **home pública** (sin login) — logo, navbar, layout
 2. **Dashboard** del estudiante con varias materias (difuminar nombres)
 3. **1 curso completo** con su formato (Tiles si lo usan)
 4. **1 actividad** (Quiz, Tarea)
 
+> ⚠️ El WAF de la UTA bloquea ráfagas de requests. Navegá manual y
+> despacio; no automatices capturas en paralelo.
+
 ### Si NO tenés acceso
 
 Opciones:
-- Pedir a algún contacto de SDG screenshots
+- Pedir a algún contacto screenshots del Moodle UTA
 - Buscar screenshots en redes sociales / sitio institucional público
-- Usar el **Moodle UTA** como fallback (`sistemaseducaciononline.uta.edu.ec`)
-  y **rebrandear mentalmente** a B&N
+- Tomar el azul institucional UTA (`#233A83`) como referencia de marca
+  y aplicarlo sobre el Boost base
 
 ### Carpeta sugerida
 
 ```
 presentation/
 └── screenshots-referencia/
-    ├── sdg-real/                    ← capturas del Moodle SDG real
+    ├── uta-real/                    ← capturas del Moodle UTA de referencia
     │   ├── 01-home.png
     │   ├── 02-dashboard.png
     │   ├── 03-curso-tiles.png
@@ -700,18 +709,18 @@ custom del theme:
 
 ```scss
 .card {
-  border-radius: var(--sdg-card-radius) !important;
+  border-radius: var(--uta-card-radius) !important;
 }
 ```
 
-### El navbar no toma color negro
+### El navbar no toma el color azul UTA
 
-Boost usa `--bs-primary` Bootstrap. Declarar:
+Boost usa `--bs-primary` de Bootstrap. Declarar:
 
 ```scss
 :root {
-  --bs-primary: var(--sdg-black);
-  --bs-primary-rgb: 0, 0, 0;
+  --bs-primary: var(--uta-primary);
+  --bs-primary-rgb: 35, 58, 131;
 }
 ```
 
@@ -732,12 +741,11 @@ decisiones de scope):
 2. **Abrir los mockups HTML** en navegador para ver el look propuesto
    (~5 min)
 3. **Confirmar decisión Boost-custom** con Imanol (~5 min)
-4. **Confirmar paleta SDG B&N** vs UTA azul (~5 min — ya cambió el
-   alcance, validar)
+4. **Paleta confirmada: UTA azul `#233A83`** (decisión final 2026-05-29)
 5. **Instalar `format_tiles`** siguiendo sección 2 (~5 min)
 6. **Aplicar formato Tiles al curso ALG-DEMO** siguiendo sección 3 (~2 min)
 7. **Capturar baseline visual** del Moodle ANTES de tocar SCSS (~5 min)
-8. **Aplicar paleta SDG** vía SCSS custom siguiendo sección 4 (~30 min)
+8. **Aplicar paleta UTA** vía SCSS custom siguiendo sección 4 (~30 min)
 9. **Capturar after visual** y comparar con baseline (~10 min)
 10. **Validar checklist** sección 8 (~20 min)
 11. **Screenshots comparativos** sección 9 (~30 min)
@@ -752,8 +760,7 @@ decisiones de scope):
 - Variaciones de los mockups propuestos (puede rediseñar)
 - Tipografía específica diferente al system stack
 - Componentes custom más allá de los snippets sugeridos
-- Decisión final entre paleta SDG (propuesta de Álvaro) vs UTA del
-  plan original
+- Ajustes finos de tono dentro de la familia azul UTA (`#233A83`)
 
 ---
 
@@ -763,10 +770,9 @@ decisiones de scope):
   porque Edison no estaba disponible. **NO reemplaza a Edison** — solo
   desbloquea su trabajo para que arranque directo en la parte de
   diseño visual.
-- **Pivot de paleta**: el plan-fase-1.md oficial dice paleta UTA azul
-  (`#233A83`). Por pedido de Álvaro el 2026-05-23 se pivotó a paleta
-  Santo Domingo de Guzmán (B&N). Si Imanol prefiere mantener la
-  original, los snippets/mockups acá son intercambiables — solo
-  reemplazar `--sdg-*` por `--uta-*`.
+- **Paleta**: el plan-fase-1.md oficial dice paleta UTA azul
+  (`#233A83`) y esa es la **decisión final** (Imanol, 2026-05-29). El
+  pivot transitorio a "Santo Domingo de Guzmán" (B&N) del 2026-05-23
+  quedó descartado; este doc ya está alineado a UTA (variables `--uta-*`).
 - Cualquier desviación → ajustar este doc + commit
   `docs(infra): ajustar sprint1-preparacion según feedback`.

@@ -3,24 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mockup Dashboard — Osyanificación (paleta SDG)</title>
+<title>Mockup Dashboard — Osyanificación (paleta UTA)</title>
 <style>
   :root {
-    --sdg-black:         #000000;
-    --sdg-near-black:    #1A1A1A;
-    --sdg-dark-gray:     #4A4A4A;
-    --sdg-mid-gray:      #767676;
-    --sdg-light-gray:    #D9D9D9;
-    --sdg-very-light:    #F5F5F5;
-    --sdg-white:         #FFFFFF;
-    --sdg-accent:        #C5A572;
-    --sdg-accent-light:  #E8D9B8;
-    --sdg-accent-dark:   #8B7548;
-    --sdg-card-radius:   4px;
-    --sdg-shadow-sm:     0 1px 0 rgba(0, 0, 0, 0.04);
-    --sdg-shadow-md:     0 2px 4px rgba(0, 0, 0, 0.06);
-    --sdg-border:        1px solid var(--sdg-light-gray);
-    --sdg-font-stack:    -apple-system, BlinkMacSystemFont, "Segoe UI",
+    /* ============================================================ */
+    /* Paleta UTA — Universidad Técnica de Ambato (#233A83)         */
+    /* ============================================================ */
+    --uta-primary:       #233A83;
+    --uta-primary-light: #2E4BA8;
+    --uta-primary-dark:  #1A2D66;
+    --uta-black:         #1D2125;
+    --uta-dark-gray:     #4A4F55;
+    --uta-mid-gray:      #6B7280;
+    --uta-light-gray:    #D1D5DB;
+    --uta-very-light:    #F2F3F7;
+    --uta-white:         #FFFFFF;
+    --uta-gold:          #F59E0B;
+    --uta-gold-light:    #FEF3C7;
+    --uta-gold-dark:     #D97706;
+    --uta-card-radius:   8px;
+    --uta-shadow-sm:     0 1px 3px rgba(0, 0, 0, 0.10), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --uta-shadow-md:     0 4px 6px rgba(0, 0, 0, 0.10), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --uta-border:        1px solid var(--uta-light-gray);
+    --uta-font-stack:    -apple-system, BlinkMacSystemFont, "Segoe UI",
                          Roboto, Oxygen-Sans, Ubuntu, Cantarell,
                          "Helvetica Neue", Arial, sans-serif;
   }
@@ -28,22 +33,22 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: var(--sdg-font-stack);
-    background-color: var(--sdg-very-light);
-    color: var(--sdg-near-black);
+    font-family: var(--uta-font-stack);
+    background-color: var(--uta-very-light);
+    color: var(--uta-black);
     line-height: 1.5;
     font-size: 16px;
   }
 
   /* ============ NAVBAR ============ */
   .navbar {
-    background-color: var(--sdg-black);
-    color: var(--sdg-white);
+    background-color: var(--uta-primary);
+    color: var(--uta-white);
     padding: 0.875rem 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid var(--sdg-dark-gray);
+    border-bottom: 1px solid var(--uta-primary-dark);
   }
 
   .navbar-brand {
@@ -60,7 +65,7 @@
   }
 
   .navbar-nav a {
-    color: var(--sdg-very-light);
+    color: rgba(255, 255, 255, 0.82);
     text-decoration: none;
     padding: 0.25rem 0;
     border-bottom: 2px solid transparent;
@@ -69,8 +74,8 @@
 
   .navbar-nav a:hover,
   .navbar-nav a.active {
-    color: var(--sdg-white);
-    border-bottom-color: var(--sdg-white);
+    color: var(--uta-white);
+    border-bottom-color: var(--uta-white);
   }
 
   .navbar-right {
@@ -83,35 +88,35 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background-color: var(--sdg-dark-gray);
+    background-color: rgba(255, 255, 255, 0.18);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--uta-white);
     font-weight: 600;
     font-size: 0.75rem;
   }
 
   .edit-mode {
-    background-color: var(--sdg-white);
-    color: var(--sdg-black);
+    background-color: var(--uta-white);
+    color: var(--uta-primary);
     padding: 0.25rem 0.75rem;
-    border-radius: var(--sdg-card-radius);
+    border-radius: var(--uta-card-radius);
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: 600;
   }
 
   /* ============ BREADCRUMB ============ */
   .breadcrumb {
-    background-color: var(--sdg-white);
-    border-bottom: var(--sdg-border);
+    background-color: var(--uta-white);
+    border-bottom: var(--uta-border);
     padding: 0.75rem 2rem;
     font-size: 0.875rem;
-    color: var(--sdg-mid-gray);
+    color: var(--uta-mid-gray);
   }
 
   .breadcrumb a {
-    color: var(--sdg-near-black);
+    color: var(--uta-primary);
     text-decoration: none;
   }
 
@@ -131,18 +136,18 @@
 
   /* ============ COURSE HEADER ============ */
   .course-header {
-    background-color: var(--sdg-white);
-    border: var(--sdg-border);
-    border-radius: var(--sdg-card-radius);
+    background-color: var(--uta-white);
+    border: var(--uta-border);
+    border-radius: var(--uta-card-radius);
     padding: 1.5rem;
     margin-bottom: 1.5rem;
-    box-shadow: var(--sdg-shadow-sm);
+    box-shadow: var(--uta-shadow-sm);
   }
 
   .course-header h1 {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--sdg-black);
+    color: var(--uta-black);
     margin-bottom: 0.5rem;
   }
 
@@ -150,12 +155,12 @@
     display: flex;
     gap: 1.5rem;
     margin-top: 1rem;
-    border-bottom: var(--sdg-border);
+    border-bottom: var(--uta-border);
   }
 
   .course-header .tabs a {
     padding: 0.5rem 0;
-    color: var(--sdg-dark-gray);
+    color: var(--uta-dark-gray);
     text-decoration: none;
     border-bottom: 2px solid transparent;
     transition: color 0.15s, border-color 0.15s;
@@ -163,8 +168,8 @@
 
   .course-header .tabs a.active,
   .course-header .tabs a:hover {
-    color: var(--sdg-black);
-    border-bottom-color: var(--sdg-black);
+    color: var(--uta-primary);
+    border-bottom-color: var(--uta-primary);
   }
 
   /* ============ TILES (formato_tiles) ============ */
@@ -175,24 +180,24 @@
   }
 
   .tile {
-    background-color: var(--sdg-white);
-    border: var(--sdg-border);
-    border-radius: var(--sdg-card-radius);
+    background-color: var(--uta-white);
+    border: var(--uta-border);
+    border-radius: var(--uta-card-radius);
     padding: 1.25rem;
-    box-shadow: var(--sdg-shadow-sm);
+    box-shadow: var(--uta-shadow-sm);
     cursor: pointer;
     transition: box-shadow 0.2s, border-color 0.2s;
   }
 
   .tile:hover {
-    box-shadow: var(--sdg-shadow-md);
-    border-color: var(--sdg-mid-gray);
+    box-shadow: var(--uta-shadow-md);
+    border-color: var(--uta-mid-gray);
   }
 
   .tile-number {
     display: inline-block;
-    background-color: var(--sdg-black);
-    color: var(--sdg-white);
+    background-color: var(--uta-primary);
+    color: var(--uta-white);
     width: 1.75rem;
     height: 1.75rem;
     border-radius: 50%;
@@ -206,7 +211,7 @@
   .tile-title {
     display: inline-block;
     font-weight: 600;
-    color: var(--sdg-black);
+    color: var(--uta-black);
     font-size: 1rem;
     vertical-align: middle;
   }
@@ -214,11 +219,11 @@
   .tile-meta {
     margin-top: 0.75rem;
     font-size: 0.875rem;
-    color: var(--sdg-mid-gray);
+    color: var(--uta-mid-gray);
   }
 
   .tile-meta strong {
-    color: var(--sdg-dark-gray);
+    color: var(--uta-dark-gray);
   }
 
   /* ============ SIDEBAR — Bloque XP ============ */
@@ -230,10 +235,10 @@
   }
 
   .xp-widget {
-    background-color: var(--sdg-white);
-    border: var(--sdg-border);
-    border-radius: var(--sdg-card-radius);
-    box-shadow: var(--sdg-shadow-sm);
+    background-color: var(--uta-white);
+    border: var(--uta-border);
+    border-radius: var(--uta-card-radius);
+    box-shadow: var(--uta-shadow-sm);
     padding: 1.5rem;
     text-align: center;
   }
@@ -242,7 +247,7 @@
     font-size: 0.875rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--sdg-mid-gray);
+    color: var(--uta-mid-gray);
     margin-bottom: 1rem;
     font-weight: 500;
   }
@@ -251,8 +256,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--sdg-black);
-    color: var(--sdg-white);
+    background-color: var(--uta-primary);
+    color: var(--uta-white);
     width: 4rem;
     height: 4rem;
     border-radius: 50%;
@@ -264,19 +269,19 @@
   .xp-total {
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--sdg-black);
+    color: var(--uta-black);
     margin-bottom: 0.25rem;
   }
 
   .xp-next {
     font-size: 0.75rem;
-    color: var(--sdg-mid-gray);
+    color: var(--uta-mid-gray);
     margin-bottom: 1rem;
   }
 
   .xp-progress-bar {
     height: 6px;
-    background-color: var(--sdg-light-gray);
+    background-color: var(--uta-light-gray);
     border-radius: 999px;
     overflow: hidden;
     margin-bottom: 1.25rem;
@@ -284,7 +289,7 @@
 
   .xp-progress-fill {
     height: 100%;
-    background-color: var(--sdg-black);
+    background-color: var(--uta-primary);
     width: 42%;
     transition: width 0.3s ease-out;
   }
@@ -299,10 +304,10 @@
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--sdg-mid-gray);
+    color: var(--uta-mid-gray);
     margin-bottom: 0.5rem;
     font-weight: 600;
-    border-bottom: var(--sdg-border);
+    border-bottom: var(--uta-border);
     padding-bottom: 0.25rem;
   }
 
@@ -311,7 +316,7 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 0.25rem;
-    border-bottom: var(--sdg-border);
+    border-bottom: var(--uta-border);
     font-size: 0.875rem;
   }
 
@@ -320,33 +325,33 @@
   }
 
   .leaderboard-row--current-user {
-    background-color: var(--sdg-accent-light);
-    border-left: 3px solid var(--sdg-accent);
+    background-color: var(--uta-gold-light);
+    border-left: 3px solid var(--uta-gold);
     padding-left: 0.5rem;
     font-weight: 700;
   }
 
   .leaderboard-row--current-user .username::before {
     content: "TÚ → ";
-    color: var(--sdg-accent-dark);
+    color: var(--uta-gold-dark);
     font-weight: 700;
     font-size: 0.75rem;
   }
 
   .leaderboard-rank {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    color: var(--sdg-mid-gray);
+    color: var(--uta-mid-gray);
     font-size: 0.75rem;
     min-width: 1.5rem;
   }
 
   .leaderboard-name {
     flex: 1;
-    color: var(--sdg-near-black);
+    color: var(--uta-black);
   }
 
   .leaderboard-xp {
-    color: var(--sdg-dark-gray);
+    color: var(--uta-dark-gray);
     font-weight: 600;
     font-variant-numeric: tabular-nums;
   }
@@ -355,28 +360,28 @@
   .xp-footer {
     margin-top: 1.25rem;
     padding-top: 1rem;
-    border-top: var(--sdg-border);
+    border-top: var(--uta-border);
     display: flex;
     justify-content: space-around;
     font-size: 0.75rem;
-    color: var(--sdg-mid-gray);
+    color: var(--uta-mid-gray);
   }
 
   .xp-footer a {
-    color: var(--sdg-mid-gray);
+    color: var(--uta-mid-gray);
     text-decoration: none;
     transition: color 0.15s;
   }
 
   .xp-footer a:hover {
-    color: var(--sdg-black);
+    color: var(--uta-primary);
   }
 
   /* ============ ANOTACIÓN DEL MOCKUP ============ */
   .mockup-note {
-    background-color: var(--sdg-accent-light);
-    border-left: 4px solid var(--sdg-accent);
-    color: var(--sdg-accent-dark);
+    background-color: #EEF1F8;
+    border-left: 4px solid var(--uta-primary);
+    color: var(--uta-primary-dark);
     padding: 0.75rem 1rem;
     margin: 1rem 2rem;
     font-size: 0.875rem;
@@ -394,7 +399,7 @@
 
 <div class="mockup-note">
   📐 <strong>MOCKUP STANDALONE</strong> — visualización de cómo se vería
-  el Dashboard del curso con paleta Santo Domingo de Guzmán aplicada.
+  el Dashboard del curso con la paleta UTA (#233A83) aplicada.
   No es Moodle real, es solo HTML+CSS para Edison y el equipo.
 </div>
 

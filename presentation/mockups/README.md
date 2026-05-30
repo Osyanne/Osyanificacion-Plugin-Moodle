@@ -1,4 +1,4 @@
-# Mockups Sprint 1 — Paleta Santo Domingo de Guzmán (B&N)
+# Mockups Sprint 1 — Paleta UTA (azul #233A83)
 
 > Mockups visuales **HTML+CSS standalone** y **templates Mustache
 > propuestos** para Sprint 1 (réplica visual). Cero dependencias
@@ -11,7 +11,7 @@
 | Archivo | Qué muestra |
 |---|---|
 | `dashboard-mockup.html` | Página principal del curso ALG-DEMO con header, formato Tiles, bloque XP en sidebar |
-| `leaderboard-mockup.html` | Vista expandida del leaderboard ±5 con highlight "TÚ" en dorado SDG |
+| `leaderboard-mockup.html` | Vista expandida del leaderboard ±5 con highlight "TÚ" en dorado |
 
 ### Cómo abrir los mockups
 
@@ -56,7 +56,7 @@ Después abrí http://localhost:5500/dashboard-mockup.html. Para parar:
 
 | Archivo | Para qué | Override de |
 |---|---|---|
-| `templates/xp-widget-osyanificacion.mustache` | Override del bloque XP con look SDG y highlight "TÚ" | `blocks/xp/templates/xp-widget.mustache` |
+| `templates/xp-widget-osyanificacion.mustache` | Override del bloque XP con look UTA y highlight "TÚ" | `blocks/xp/templates/xp-widget.mustache` |
 
 ## 🎯 Cómo usar estos mockups
 
@@ -64,8 +64,8 @@ Después abrí http://localhost:5500/dashboard-mockup.html. Para parar:
 
 1. **Abrí los `.html` en tu navegador** — son standalone, no requieren
    Moodle corriendo
-2. **Comparalos con los screenshots reales** del Moodle SDG que
-   capturás siguiendo `docs/sprint1-preparacion.md` sección 9
+2. **Comparalos con los screenshots reales** del Moodle de referencia
+   que capturás siguiendo `docs/sprint1-preparacion.md` sección 9
 3. **Ajustá lo que no te convenza** — son propuestas de Álvaro, vos
    decidís el look final
 4. **Aplicá la paleta CSS** al theme Boost-custom siguiendo
@@ -83,13 +83,13 @@ Después abrí http://localhost:5500/dashboard-mockup.html. Para parar:
 
 ## 🎨 Filosofía visual
 
-- **Paleta**: monocromática B&N (Santo Domingo de Guzmán), acento
-  dorado solo para casos críticos ("TÚ", CTAs primarios)
-- **Sombras**: casi planas, hairline borders en lugar de drop shadows
-- **Border-radius**: 4px (sobrio, institucional, no startup-friendly)
+- **Paleta**: azul institucional UTA (`#233A83`) sobre fondo claro,
+  acento dorado solo para casos críticos ("TÚ", CTAs primarios)
+- **Sombras**: suaves, hairline borders + drop shadows discretas
+- **Border-radius**: 8px (sobrio institucional, alineado al theme real)
 - **Tipografía**: system stack sin Google Fonts (offline-first,
   privacidad)
-- **Saturación**: 0 (excepto acento dorado puntual)
+- **Saturación**: baja, dominada por el azul UTA + acento dorado puntual
 
 Detalle completo en
 [`../../docs/sprint1-preparacion.md`](../../docs/sprint1-preparacion.md).
@@ -104,5 +104,5 @@ ausente. **Edison puede:**
 - Descartarlos y hacer los suyos
 - Pedirle cambios a Álvaro
 
-Lo único innegociable es la **paleta SDG B&N** acordada con el equipo
-el 2026-05-23.
+La **paleta UTA azul (`#233A83`)** es la decisión final confirmada por
+Imanol el 2026-05-29.

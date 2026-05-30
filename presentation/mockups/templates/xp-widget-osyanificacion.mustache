@@ -1,261 +1,178 @@
 {{!
     Template Mustache PROPUESTO para override del bloque XP de Level Up XP.
 
-    Override de: blocks/xp/templates/xp-widget.mustache
+    Override de: blocks/xp/templates/xp-widget.mustache (upstream FMCorz/moodle-block_xp)
     Ubicación cuando exista el plugin:
       code/local/osyanificacion/templates/block_xp/xp-widget.mustache
 
     Moodle 4.x prioriza este template sobre el original sin necesidad
     de modificar el plugin upstream (wrappeo limpio).
 
-    PALETA: Santo Domingo de Guzmán (B&N + acento dorado puntual)
+    PALETA: UTA — Universidad Técnica de Ambato (azul #233A83 + acento dorado puntual).
     Variables CSS definidas en code/local/osyanificacion/styles.css
+    (clases con prefijo osy-xp- para no colisionar con el upstream).
 
-    Variables disponibles del context (mismas que el template original):
-    {{level}}              → nivel actual del usuario
-    {{xp}}                 → XP totales del usuario
-    {{nextlevelxp}}        → XP necesarios para el próximo nivel
-    {{progress}}           → porcentaje 0-100 del progreso al próximo nivel
-    {{rankings}}           → array con los vecinos ±5 (si neighbours > 0)
-    {{rankings.position}}  → posición global del vecino
-    {{rankings.fullname}}  → nombre completo
-    {{rankings.xp}}        → XP del vecino
-    {{rankings.iscurrent}} → boolean, true si es el usuario actual
-    {{has_rankings}}       → boolean, true si hay datos del ranking
-    {{instructions}}       → texto instrucciones (configurable por curso)
-    {{links}}              → array con links del footer
-    {{links.url}}          → URL del link
-    {{links.label}}        → texto del link
-    {{links.icon}}         → icono opcional
-
-    NOTA: este template usa clases CSS con prefijo "osy-xp-" para no
-    chocar con clases del plugin original. Edison puede renombrar si
-    prefiere otra convención.
+    ┌──────────────────────────────────────────────────────────────────────┐
+    │ CONTRACT DE VARIABLES (verificado contra upstream HEAD 2026-05-23)   │
+    ├──────────────────────────────────────────────────────────────────────┤
+    │ Estas son las variables REALES que Moodle pasa al template del       │
+    │ bloque XP. Cualquier override tiene que respetarlas o el bloque      │
+    │ se renderea vacío.                                                   │
+    │                                                                      │
+    │ Notices del admin del bloque:                                        │
+    │   {{#hasmanagernotices}} ... {{#managernotices}}{{{.}}}{{/...}} ...  │
+    │                                                                      │
+    │ Intro configurable por el admin del bloque:                          │
+    │   {{#introhtml}} ... {{{.}}} {{/introhtml}}                          │
+    │                                                                      │
+    │ Nivel y badge:                                                       │
+    │   {{{levelnamehtml}}}    → nombre del nivel (HTML pre-renderizado)   │
+    │   {{{badgehtml}}}        → badge del nivel (HTML pre-renderizado)    │
+    │                                                                      │
+    │ XP y progreso:                                                       │
+    │   {{xp}}                 → XP numérico (usar en title/aria)          │
+    │   {{{xphtml}}}           → XP formateado (HTML pre-renderizado)      │
+    │   {{{progressbarhtml}}}  → barra de progreso (HTML pre-renderizado)  │
+    │                                                                      │
+    │ Próximo nivel (opcional):                                            │
+    │   {{#shownextlevel}} {{{nextbadgehtml}}} {{/shownextlevel}}          │
+    │                                                                      │
+    │ Ranking ±N (depende de block_xp_config.neighbours, ver C-2):         │
+    │   {{#showrankingsnapshot}} ... {{/showrankingsnapshot}}              │
+    │     {{#hasrankingsnapshot}} ... {{/hasrankingsnapshot}}              │
+    │       {{#showranksinrankingsnapshot}} ... {{/...}}                   │
+    │         {{#rankingsnapshot}}                                         │
+    │           {{idx}}         → índice (0,1,2...)                        │
+    │           {{uniqid}}      → ID único del widget                      │
+    │           {{#highlight}}  → true si es el usuario actual             │
+    │           {{#isplaceholder}} → fila placeholder (sin user)           │
+    │           {{{rankhtml}}}  → posición (HTML pre-renderizado)          │
+    │           {{picurl}}      → URL del avatar                           │
+    │           {{name}}        → nombre del usuario                       │
+    │           {{#showdiffsinrankingsnapshot}}                            │
+    │             {{#hasdiff}}{{{diff}}}{{/hasdiff}} → diff de XP          │
+    │           {{/showdiffsinrankingsnapshot}}                            │
+    │         {{/rankingsnapshot}}                                         │
+    │                                                                      │
+    │ Actividad reciente (opcional):                                       │
+    │   {{#showrecentactivity}} {{{recentactivityhtml}}} {{/...}}          │
+    │                                                                      │
+    │ Footer de acciones (links Info/Ranking/Reporte/Config):              │
+    │   {{#showactions}} {{{actionshtml}}} {{/showactions}}                │
+    │                                                                      │
+    │ i18n: usar Moodle string helper:                                     │
+    │   {{#str}} total, block_xp {{/str}}                                  │
+    │   {{#str}} ranking, block_xp {{/str}}                                │
+    └──────────────────────────────────────────────────────────────────────┘
 }}
-
 <div class="osy-xp-widget">
 
-    <div class="osy-xp-widget__title">
-        {{#str}} pluginname, block_xp {{/str}}
-    </div>
-
-    {{! ============== Badge de nivel central ============== }}
-    <div class="osy-xp-level-badge" aria-label="Nivel {{level}}">
-        {{level}}
-    </div>
-
-    {{! ============== XP totales y próximo nivel ============== }}
-    <div class="osy-xp-total">{{xp}} XP</div>
-
-    {{#nextlevelxp}}
-        <div class="osy-xp-next">
-            {{#str}} nextlevelin, block_xp, {{nextlevelxp}} {{/str}}
+    {{! ============== Notices del admin ============== }}
+    {{#hasmanagernotices}}
+        <div class="osy-xp-notices">
+            {{#managernotices}}
+                {{{.}}}
+            {{/managernotices}}
         </div>
-    {{/nextlevelxp}}
+    {{/hasmanagernotices}}
 
-    {{! ============== Barra de progreso ============== }}
-    <div class="osy-xp-progress-bar" role="progressbar"
-         aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100">
-        <div class="osy-xp-progress-fill" style="width: {{progress}}%;"></div>
-    </div>
+    {{! ============== Intro configurable ============== }}
+    {{#introhtml}}
+        <div class="osy-xp-intro">{{{.}}}</div>
+    {{/introhtml}}
 
-    {{! ============== Sección RANKING (leaderboard ±5) ============== }}
-    {{#has_rankings}}
-    <div class="osy-xp-section">
-        <div class="osy-xp-section__title">
-            {{#str}} ladder, block_xp {{/str}}
+    {{! ============== Nombre del nivel ============== }}
+    <div class="osy-xp-level-name">{{{levelnamehtml}}}</div>
+
+    {{! ============== Badge del nivel (círculo central) ============== }}
+    <div class="osy-xp-badge">{{{badgehtml}}}</div>
+
+    {{! ============== XP totales + progreso + próximo nivel ============== }}
+    <div class="osy-xp-stats">
+        <div class="osy-xp-stats__main">
+
+            <div class="osy-xp-total" title="{{xp}}">
+                <span class="osy-xp-total__label">{{#str}}total, block_xp{{/str}}</span>
+                <span class="osy-xp-total__value">{{{xphtml}}}</span>
+            </div>
+
+            <div class="osy-xp-progress">{{{progressbarhtml}}}</div>
+
         </div>
 
-        <ul class="osy-xp-leaderboard">
-            {{#rankings}}
-            <li class="osy-xp-leaderboard__row {{#iscurrent}}osy-xp-leaderboard__row--current{{/iscurrent}}">
-                <span class="osy-xp-leaderboard__rank">#{{position}}</span>
-                <span class="osy-xp-leaderboard__name">{{fullname}}</span>
-                <span class="osy-xp-leaderboard__xp">{{xp}}</span>
-            </li>
-            {{/rankings}}
-        </ul>
+        {{#shownextlevel}}
+            <div class="osy-xp-next-level">{{{nextbadgehtml}}}</div>
+        {{/shownextlevel}}
     </div>
-    {{/has_rankings}}
 
-    {{! ============== Footer con links ============== }}
-    {{#links.length}}
-    <nav class="osy-xp-footer" aria-label="Acciones del bloque XP">
-        {{#links}}
-        <a href="{{url}}" class="osy-xp-footer__link">
-            {{#icon}}<i class="{{icon}}" aria-hidden="true"></i>{{/icon}}
-            <span>{{label}}</span>
-        </a>
-        {{/links}}
-    </nav>
-    {{/links.length}}
+    {{! ============== Ranking ±N (leaderboard nativo) ============== }}
+    {{#showrankingsnapshot}}
+        <section class="osy-xp-ranking">
 
-    {{! ============== Instrucciones opcionales ============== }}
-    {{#instructions}}
-    <div class="osy-xp-instructions">
-        {{{instructions}}}
-    </div>
-    {{/instructions}}
+            <h5 class="osy-xp-ranking__title">{{#str}}ranking, block_xp{{/str}}</h5>
+
+            {{#hasrankingsnapshot}}
+
+                {{! Fila 1: ranks (si está habilitado) }}
+                {{#showranksinrankingsnapshot}}
+                    <div class="osy-xp-ranking__ranks">
+                        {{#rankingsnapshot}}
+                            <div class="osy-xp-ranking__rank-cell {{#highlight}}osy-xp-ranking__rank-cell--current{{/highlight}}"
+                                 aria-labelledby="osy-xp-rank-{{uniqid}}-{{idx}}">
+                                {{#isplaceholder}}—{{/isplaceholder}}
+                                {{^isplaceholder}}{{{rankhtml}}}{{/isplaceholder}}
+                            </div>
+                        {{/rankingsnapshot}}
+                    </div>
+                {{/showranksinrankingsnapshot}}
+
+                {{! Fila 2: avatares + nombres + diff XP (si diffs habilitados) }}
+                <div class="osy-xp-ranking__avatars">
+                    {{#rankingsnapshot}}
+                        <div class="osy-xp-ranking__avatar-cell {{#highlight}}osy-xp-ranking__avatar-cell--current{{/highlight}}"
+                             id="osy-xp-rank-{{uniqid}}-{{idx}}">
+
+                            <img src="{{picurl}}" alt="{{name}}"
+                                 class="osy-xp-ranking__avatar {{#highlight}}osy-xp-ranking__avatar--current{{/highlight}}">
+
+                            {{#showdiffsinrankingsnapshot}}
+                                {{^highlight}}
+                                    <div class="osy-xp-ranking__diff" title="{{diff}}">
+                                        {{#hasdiff}}{{{diff}}}{{/hasdiff}}
+                                        {{^hasdiff}}&nbsp;{{/hasdiff}}
+                                    </div>
+                                {{/highlight}}
+                            {{/showdiffsinrankingsnapshot}}
+
+                        </div>
+                    {{/rankingsnapshot}}
+                </div>
+
+            {{/hasrankingsnapshot}}
+
+        </section>
+    {{/showrankingsnapshot}}
+
+    {{! ============== Actividad reciente ============== }}
+    {{#showrecentactivity}}
+        <div class="osy-xp-recent">{{{recentactivityhtml}}}</div>
+    {{/showrecentactivity}}
+
+    {{! ============== Footer de acciones ============== }}
+    {{#showactions}}
+        <nav class="osy-xp-actions" aria-label="Acciones del bloque XP">
+            {{{actionshtml}}}
+        </nav>
+    {{/showactions}}
 
 </div>
 
 {{!
-    ============== CSS asociado ==============
-
-    Debe ir en code/local/osyanificacion/styles.css
-    Variables base en :root definidas en el mismo archivo.
-
-    .osy-xp-widget {
-      background-color: var(--sdg-white);
-      border: var(--sdg-border);
-      border-radius: var(--sdg-card-radius);
-      box-shadow: var(--sdg-shadow-sm);
-      padding: 1.5rem;
-      text-align: center;
-      font-family: var(--sdg-font-stack);
-    }
-
-    .osy-xp-widget__title {
-      font-size: 0.875rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--sdg-mid-gray);
-      margin-bottom: 1rem;
-      font-weight: 500;
-    }
-
-    .osy-xp-level-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background-color: var(--sdg-black);
-      color: var(--sdg-white);
-      width: 4rem;
-      height: 4rem;
-      border-radius: 50%;
-      font-weight: 700;
-      font-size: 1.5rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .osy-xp-total {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--sdg-black);
-    }
-
-    .osy-xp-next {
-      font-size: 0.75rem;
-      color: var(--sdg-mid-gray);
-      margin-bottom: 1rem;
-    }
-
-    .osy-xp-progress-bar {
-      height: 6px;
-      background-color: var(--sdg-light-gray);
-      border-radius: 999px;
-      overflow: hidden;
-      margin-bottom: 1.25rem;
-    }
-
-    .osy-xp-progress-fill {
-      height: 100%;
-      background-color: var(--sdg-black);
-      transition: width 0.3s ease-out;
-    }
-
-    .osy-xp-section {
-      margin-top: 1.25rem;
-      text-align: left;
-    }
-
-    .osy-xp-section__title {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--sdg-mid-gray);
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      border-bottom: var(--sdg-border);
-      padding-bottom: 0.25rem;
-    }
-
-    .osy-xp-leaderboard {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .osy-xp-leaderboard__row {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 0.25rem;
-      border-bottom: var(--sdg-border);
-      font-size: 0.875rem;
-    }
-
-    .osy-xp-leaderboard__row:last-child {
-      border-bottom: none;
-    }
-
-    .osy-xp-leaderboard__row--current {
-      background-color: var(--sdg-accent-light);
-      border-left: 3px solid var(--sdg-accent);
-      padding-left: 0.5rem;
-      font-weight: 700;
-    }
-
-    .osy-xp-leaderboard__row--current .osy-xp-leaderboard__name::before {
-      content: "TÚ → ";
-      color: var(--sdg-accent-dark);
-      font-weight: 700;
-      font-size: 0.75rem;
-    }
-
-    .osy-xp-leaderboard__rank {
-      font-family: var(--sdg-font-mono);
-      color: var(--sdg-mid-gray);
-      font-size: 0.75rem;
-      min-width: 1.5rem;
-    }
-
-    .osy-xp-leaderboard__name {
-      flex: 1;
-      color: var(--sdg-near-black);
-    }
-
-    .osy-xp-leaderboard__xp {
-      color: var(--sdg-dark-gray);
-      font-weight: 600;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .osy-xp-footer {
-      margin-top: 1.25rem;
-      padding-top: 1rem;
-      border-top: var(--sdg-border);
-      display: flex;
-      justify-content: space-around;
-      font-size: 0.75rem;
-    }
-
-    .osy-xp-footer__link {
-      color: var(--sdg-mid-gray);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-
-    .osy-xp-footer__link:hover {
-      color: var(--sdg-black);
-    }
-
-    .osy-xp-instructions {
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: var(--sdg-border);
-      font-size: 0.875rem;
-      color: var(--sdg-dark-gray);
-      text-align: left;
-    }
+    NOTA sobre el "TÚ → " del mockup:
+    El upstream NO marca textualmente "TÚ" — usa borde + tamaño mayor
+    del avatar para destacar al usuario actual (clase con highlight).
+    Si querés el prefijo textual "TÚ → " del mockup, hay dos opciones:
+      a) Agregarlo via CSS pseudo-element ::before en .osy-xp-ranking__avatar-cell--current
+      b) Modificar el plugin para que el context pase un flag adicional
+    Recomendado: opción (a), no requiere tocar PHP.
 }}
