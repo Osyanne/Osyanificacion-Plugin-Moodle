@@ -181,3 +181,36 @@ urls: ## URLs de los servicios locales
 	@echo -e "$(BLUE)Servicios locales:$(RESET)"
 	@echo "  Moodle:  http://localhost:8080"
 	@echo "  Mailhog: http://localhost:8025"
+	@if docker compose exec moodle test -d /bitnami/moodle/mockups 2>/dev/null; then \
+		echo "  Mockups: http://localhost:8080/mockups/dashboard-mockup.html"; \
+		echo "           http://localhost:8080/mockups/leaderboard-mockup.html"; \
+	fi
+
+.PHONY: mockups
+mockups: ## Publicar mockups HTML en el Apache del container Moodle (URL localhost:8080/mockups/)
+	@if [ ! -d "presentation/mockups" ]; then \
+		echo "$(RED)✗ No existe la carpeta presentation/mockups/$(RESET)"; exit 1; \
+	fi
+	@if ! docker compose ps moodle | grep -q "Up"; then \
+		echo "$(RED)✗ Container moodle no está corriendo. Ejecutá 'make up' primero.$(RESET)"; exit 1; \
+	fi
+	@echo -e "$(BLUE)Publicando mockups en el Apache del container...$(RESET)"
+	docker compose exec moodle sh -c 'mkdir -p /bitnami/moodle/mockups && chown daemon:daemon /bitnami/moodle/mockups'
+	@for f in presentation/mockups/*.html; do \
+		name=$$(basename "$$f"); \
+		echo "  ↑ $$name"; \
+		docker cp "$$f" osyanificacion-moodle:/bitnami/moodle/mockups/$$name; \
+	done
+	@docker compose exec moodle sh -c 'chown -R daemon:daemon /bitnami/moodle/mockups && chmod 644 /bitnami/moodle/mockups/*.html'
+	@echo ""
+	@echo -e "$(GREEN)✓ Mockups disponibles:$(RESET)"
+	@for f in presentation/mockups/*.html; do \
+		name=$$(basename "$$f"); \
+		echo "  http://localhost:8080/mockups/$$name"; \
+	done
+
+.PHONY: mockups-clean
+mockups-clean: ## Borrar los mockups publicados del Apache del container
+	@docker compose exec moodle sh -c 'rm -rf /bitnami/moodle/mockups' 2>/dev/null && \
+		echo -e "$(GREEN)✓ Mockups eliminados del container$(RESET)" || \
+		echo "$(YELLOW)(no había mockups que limpiar)$(RESET)"
