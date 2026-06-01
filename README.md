@@ -119,11 +119,11 @@ docker compose down -v           # ⚠️ Apagar y BORRAR todos los datos
 
 **"Cannot connect to the Docker daemon"** → Docker Desktop no está corriendo. Abrilo desde el menú Inicio.
 
-**Moodle tarda mucho la primera vez** → Es normal, Bitnami inicializa BD + admin user. Esperá 5 min. Si pasaron 10 min, mirá `docker-compose logs moodle`.
+**Moodle tarda mucho la primera vez** → Es normal, Bitnami inicializa BD + admin user. Esperá 5 min. Si pasaron 10 min, mirá `docker compose logs moodle`.
 
 **Puerto 8080 ocupado** → Cambialo en `docker-compose.yml` (ej. `"8090:8080"`).
 
-**Quiero empezar de cero** → `docker-compose down -v` y volvé al paso 4.
+**Quiero empezar de cero** → `docker compose down -v` y volvé al paso 4.
 
 ### Plugins del proyecto (Sprint 3+)
 
