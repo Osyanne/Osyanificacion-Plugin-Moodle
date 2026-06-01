@@ -434,7 +434,7 @@ docker compose exec mariadb sh -c \
 
 - [`docs/plan-fase-1.md`](plan-fase-1.md) — roadmap general
 - [`docs/benchmarking-level-up-xp.md`](benchmarking-level-up-xp.md) — por qué wrappeamos
-- [`docs/architecture.md`](architecture.md) — TBD Sprint 2
+- [`docs/architecture.md`](architecture.md) — ✅ creado (Sprint 2): data flow + verificación nativa + matriz de decisión
 
 ---
 
