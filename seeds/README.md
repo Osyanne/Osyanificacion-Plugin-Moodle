@@ -7,8 +7,12 @@
 
 ## 📁 Archivos
 
-- **`users.json`** — admin + 5 cuentas estudiante de prueba
+- **`users.json`** — admin + 5 cuentas estudiante de prueba (setup manual base)
 - **`courses.json`** — 1 curso genérico de prueba (`PROG1-DEMO`) con formato Tiles y 5 actividades
+- **`sprint2-seed-xp.php`** — script automatizado: crea 30 estudiantes con XP variado
+  y los matricula en `PROG1-DEMO`, usando las APIs oficiales de Moodle. Útil para
+  probar el leaderboard ±5 (que necesita muchos usuarios). Ver
+  [Seed automatizado](#-seed-automatizado-30-estudiantes-con-xp).
 
 ## 🛠️ Cómo crear los seeds en tu Moodle local
 
@@ -98,19 +102,33 @@ Cerrar sesión y entrar como `estudiante01` (password `Estudiante01.demo`):
 
 Si SÍ → seeds listos. Si NO → debug (probable que no se inscribió bien).
 
-## 🚀 Automatización futura
+## 🤖 Seed automatizado (30 estudiantes con XP)
 
-En **Sprint 3** vamos a automatizar la creación de seeds vía script CLI:
+Para probar features que necesitan muchos usuarios (como el leaderboard ±5), el
+flujo manual de 5 cuentas no alcanza. El script **`sprint2-seed-xp.php`** crea 30
+estudiantes (`verif01`..`verif30`) con XP variado y los matricula en `PROG1-DEMO`,
+usando las **APIs oficiales de Moodle** (`user_create_user`, enrol API) + la API del
+plugin `block_xp` para asignar el XP. Es **idempotente**: correrlo de nuevo no
+duplica, solo actualiza el XP.
 
 ```bash
-# Ejemplo de cómo será (pseudocódigo, no implementado todavía)
-docker compose exec moodle php admin/cli/install_seed.php \
-  --users seeds/users.json \
-  --courses seeds/courses.json
+# 1. Copiar el script al container Moodle
+docker cp seeds/sprint2-seed-xp.php osyanificacion-moodle:/tmp/seed.php
+
+# 2. Ejecutarlo como daemon (evita el problema de permisos INFRA-002)
+docker compose exec -u daemon moodle sh -c 'php /tmp/seed.php'
+
+# 3. Purgar caches para que el bloque XP refleje los datos
+docker compose exec -u daemon moodle sh -c 'php /bitnami/moodle/admin/cli/purge_caches.php'
 ```
 
-Por ahora el flujo manual está bien — solo 6 cuentas + 5 actividades,
-~25 min de setup por persona del equipo.
+Salida esperada: `Estudiantes creados: 30 · XP asignado a: 30 estudiantes`.
+
+> Requiere que el curso `PROG1-DEMO` ya exista (creado por el flujo manual de arriba,
+> pasos 2-3). El script solo agrega estudiantes y XP, no crea el curso.
+
+Para el flujo manual base (5 cuentas + curso + actividades), seguir los pasos de la
+sección anterior — es suficiente para un primer arranque del entorno.
 
 ## 🏛️ Adaptación a otras instituciones
 

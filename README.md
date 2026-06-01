@@ -9,21 +9,32 @@
 
 Sistema de Ranking Académico y Gamificación basado en la arquitectura
 **PBL+F (Points, Badges, Leaderboards + Feedback)**. Construye sobre
-**Level Up XP** y agrega dos diferenciadores clave validados por
+**Level Up XP** y agrega diferenciadores clave validados por
 literatura científica:
 
 1. **Leaderboards relativos ±5 posiciones** — evita los efectos
-   desmotivadores documentados de rankings absolutos (Hanus & Fox 2015)
-2. **Recompensas institucionales escalonadas en 3 niveles** — más allá
+   desmotivadores documentados de rankings absolutos (Hanus & Fox 2015).
+   *Disponible nativo en Level Up XP* (config `neighbours`), con la paleta
+   institucional UTA aplicada vía template.
+2. **Anonimato opcional vía nickname elegido por el alumno** — el estudiante
+   decide con qué alias aparece en el ranking (el plugin base solo ofrece
+   "nombre real" o "anónimo genérico").
+3. **Recompensas institucionales escalonadas en 3 niveles** — más allá
    de badges digitales: certificados, menciones del consejo, vinculación
-   con empresas
+   con empresas.
 
 ## 📌 Estado del proyecto
 
-**Fase actual**: Fase 1 — Validación Técnica (LOCAL) · Sprint 0 (setup)
+**Fase actual**: Fase 1 — Validación Técnica (LOCAL) · **Sprint 2 cerrado**
+(verificación de capacidades nativas).
 
-Roadmap completo en el documento académico principal del proyecto y en
-la nota de Obsidian del equipo (`12-Plan-Fase-1-Local.md`).
+Hallazgo clave del Sprint 2 (ver [`docs/architecture.md`](./docs/architecture.md)):
+el **leaderboard relativo ±5 ya es nativo** en Level Up XP (campo `neighbours`),
+verificado en vivo con 30 estudiantes. El esfuerzo se redirige a los dos
+diferenciadores que el plugin base NO cubre: **nickname elegido por el alumno** y
+**recompensas escalonadas**.
+
+Roadmap completo en [`docs/plan-fase-1.md`](./docs/plan-fase-1.md).
 
 ### Plan en 3 fases
 
@@ -46,8 +57,9 @@ la nota de Obsidian del equipo (`12-Plan-Fase-1-Local.md`).
 - **Charts**: Chart.js 4.x
 - **Tests**: PHPUnit + Behat
 - **Infra dev**: Docker + Cloudflare Tunnel ($0 costo)
-- **Base del plugin**: fork wrapper de
-  [Level Up XP](https://github.com/FMCorz/moodle-block_xp) (GPL v3)
+- **Base del plugin**: **wrapper** de
+  [Level Up XP](https://github.com/FMCorz/moodle-block_xp) (GPL v3) — extiende vía
+  DI container + override de templates, sin forkear ni modificar el core upstream
 
 ## 🚀 Quick start
 
@@ -73,10 +85,10 @@ cp .env.example .env
 docker info  # debe responder sin error
 
 # 4. Levantar el stack (primera vez tarda ~3-5 min)
-docker-compose up -d
+docker compose up -d
 
 # 5. Ver logs hasta que Moodle termine de inicializar
-docker-compose logs -f moodle
+docker compose logs -f moodle
 # Esperar mensaje: "moodle 09:XX:XX ** Starting Moodle **"
 # Ctrl+C para salir del log (sigue corriendo en background)
 ```
@@ -91,13 +103,17 @@ docker-compose logs -f moodle
 ### Comandos útiles
 
 ```bash
-docker-compose ps                # Ver estado de servicios
-docker-compose logs -f moodle    # Ver logs de Moodle en tiempo real
-docker-compose restart moodle    # Reiniciar solo Moodle
-docker-compose exec moodle bash  # Entrar al container Moodle
-docker-compose down              # Apagar todo (preserva datos)
-docker-compose down -v           # ⚠️ Apagar y BORRAR todos los datos
+docker compose ps                # Ver estado de servicios
+docker compose logs -f moodle    # Ver logs de Moodle en tiempo real
+docker compose restart moodle    # Reiniciar solo Moodle
+docker compose exec moodle bash  # Entrar al container Moodle
+docker compose down              # Apagar todo (preserva datos)
+docker compose down -v           # ⚠️ Apagar y BORRAR todos los datos
 ```
+
+> 💡 Hay atajos en el `Makefile` (`make up`, `make logs`, `make exec CMD='...'`)
+> si tenés `make` instalado. Para correr comandos PHP/CLI dentro del container de
+> forma segura, ver [`docs/operacion-cli-moodle.md`](./docs/operacion-cli-moodle.md).
 
 ### Resolver problemas comunes
 
@@ -109,11 +125,13 @@ docker-compose down -v           # ⚠️ Apagar y BORRAR todos los datos
 
 **Quiero empezar de cero** → `docker-compose down -v` y volvé al paso 4.
 
-### Plugins del proyecto (Sprint 2+)
+### Plugins del proyecto (Sprint 3+)
 
-El `docker-compose.yml` tiene comentado los bind mounts para los
-plugins propios. Cuando arranquemos Sprint 2 (fork Level Up XP +
-plugin propio), los descomentamos en el `docker-compose.yml`.
+El `docker-compose.yml` tiene comentados los bind mounts para los plugins propios
+(`code/local/osyanificacion/`). Cuando arranque el desarrollo del plugin (Sprint 3),
+se descomentan para montar el código en el container. Level Up XP se instala desde
+el directorio de plugins de Moodle (no se forkea — se wrappea, ver
+[`docs/architecture.md`](./docs/architecture.md)).
 
 ## 👥 Equipo
 
@@ -181,15 +199,23 @@ Ver [`CONTRIBUTING.md`](./CONTRIBUTING.md) para guía del equipo.
 - [`KNOWN_ISSUES.md`](./KNOWN_ISSUES.md) — Bugs conocidos con workaround (INFRA-001, etc.)
 - [`STATUS.md`](./STATUS.md) — Status board del equipo (qué está haciendo cada uno ahora mismo)
 
+### Arquitectura + verificación
+
+- [`docs/architecture.md`](./docs/architecture.md) — **Cómo wrappeamos Level Up XP**:
+  data flow del plugin base, qué features son nativas vs a construir, y la matriz de
+  decisión que guía Sprints 3-4 (entregable del Sprint 2).
+- [`docs/level-up-xp-deep-dive.md`](./docs/level-up-xp-deep-dive.md) — Esquema de BD y
+  estructura interna del plugin base.
+
 ### Deployment + infra
 
 - [`docs/deployment.md`](./docs/deployment.md) — Cómo desplegar el stack Docker localmente
+- [`docs/operacion-cli-moodle.md`](./docs/operacion-cli-moodle.md) — Correr comandos PHP/CLI dentro del container sin romper permisos (INFRA-002)
 - [`docs/plan-a-cloudflare-tunnel.md`](./docs/plan-a-cloudflare-tunnel.md) — Exposición pública opción A (Cloudflare Tunnel, gratis)
 - [`docs/plan-b-oracle-cloud.md`](./docs/plan-b-oracle-cloud.md) — Exposición pública opción B (Oracle Cloud Free Tier, gratis)
 
 ### Documentación que se completa en sprints futuros
 
-- `docs/architecture.md` — Sprint 2 (cómo wrappeamos Level Up XP)
 - `docs/user-guide.md` — Sprint 6 (paso a paso para docentes y estudiantes)
 - `docs/api-reference.md` — Sprint 6 (hooks, eventos, configuración)
 - `docs/research-context.md` — Sprint 6 (marco teórico PBL+F + link al doc académico)
