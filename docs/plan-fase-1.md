@@ -171,6 +171,11 @@ demuestre paridad visual razonable.
 
 ### Sprint 2 — Fork de Level Up XP + estudio del código (semanas 3-4)
 
+> 🔄 **AJUSTADO (2026-05-31)**: ver [`docs/architecture.md`](architecture.md).
+> La verificación confirmó **wrappeo (NO fork)** y el code-reading ya está hecho
+> en ese documento. El hallazgo clave: el leaderboard ±5 es **nativo** — ver
+> impacto en Sprint 3 abajo.
+
 **Objetivo**: el equipo entiende el código de Level Up XP y tiene su fork
 operativo.
 
@@ -204,6 +209,13 @@ operativo.
 de datos en Level Up XP + decisión de wrappeo vs fork modificado.
 
 ### Sprint 3 — Leaderboard relativo ±5 (semanas 5-6)
+
+> 🔄 **AJUSTADO (2026-05-31)**: ver [`docs/architecture.md`](architecture.md).
+> El ±5 **NO se implementa desde cero** — es nativo (`neighbours=5`, verificado
+> con 30 estudiantes). El Sprint 3 se reduce a: (a) aplicar el template UTA al ±5
+> nativo (ya está en `main`), y (b) construir el **nickname elegido por el alumno**
+> (esfuerzo S-M, vía override de `anonymise_rank()` + DI), que es lo único que el
+> plugin nativo NO cubre (solo ofrece "Otra persona" genérico).
 
 **Objetivo**: el primer diferenciador real del plugin está funcionando.
 
