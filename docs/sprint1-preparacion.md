@@ -563,6 +563,13 @@ Edison cuando aplique los SCSS y override de templates.
 
 ### Override de templates Mustache: cómo funciona
 
+> ⚠️ **Corrección (2026-10-20)**: lo que sigue es incorrecto. En Moodle solo los
+> **temas** pueden sobrescribir plantillas de otro plugin
+> (`theme/<tema>/templates/block_xp/<nombre>.mustache`); un plugin `local_` no.
+> La plantilla UTA se aplicará con un tema hijo de Boost. Ver
+> `docs/architecture.md`, "Puntos de extensión reales". Se conserva el texto
+> original como registro histórico.
+
 Moodle 4.x permite **sobrescribir templates de cualquier plugin** sin
 modificar el código original. La convención:
 
@@ -750,8 +757,8 @@ decisiones de scope):
 10. **Validar checklist** sección 8 (~20 min)
 11. **Screenshots comparativos** sección 9 (~30 min)
 12. **Copiar templates Mustache propuestos** de `presentation/mockups/templates/`
-    a `code/local/osyanificacion/templates/block_xp/` cuando Imanol haya
-    creado el plugin en Sprint 2
+    a `theme/osyanificacion/templates/block_xp/` cuando exista el tema hijo de
+    Boost (corregido 2026-10-20: no van en el plugin `local_`)
 
 **Tiempo total estimado**: ~2.5 horas para todo el Sprint 1 visual.
 

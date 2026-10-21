@@ -72,13 +72,16 @@ Después abrí http://localhost:5500/dashboard-mockup.html. Para parar:
    `docs/sprint1-preparacion.md` sección 4
 5. **Hacé tus propios mockups originales** si querés algo distinto
 
-### Para Imanol (Sprint 2 cuando arranque el plugin)
+### Para Imanol (cuando arranque el tema hijo)
 
-1. Crear plugin propio: `code/local/osyanificacion/`
-2. **Copiar templates de esta carpeta** a `templates/block_xp/` del
-   plugin propio
+> ⚠️ **Corrección (2026-10-20)**: un plugin `local_` no puede sobrescribir
+> plantillas de otro plugin; solo los temas pueden. Ver `docs/architecture.md`.
+
+1. Crear el tema hijo de Boost: `theme/osyanificacion/`
+2. **Copiar templates de esta carpeta** a
+   `theme/osyanificacion/templates/block_xp/`
 3. Moodle los priorizará sobre los originales de `blocks/xp/templates/`
-   automáticamente (sin tocar core)
+   cuando el tema esté activo (sin tocar core)
 4. Verificar visualmente que el look matchea con los mockups HTML
 
 ## 🎨 Filosofía visual

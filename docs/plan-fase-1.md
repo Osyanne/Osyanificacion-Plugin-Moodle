@@ -13,7 +13,8 @@
 | **Duración** | 8-10 semanas (~2 meses de trabajo de equipo a tiempo parcial) |
 | **Entorno principal** | Moodle 4.x con theme `moove` + `format_tiles` (replica del UTA real) |
 | **Hosting** | **Docker local en cada laptop** (todos los sprints) · Cloudflare Tunnel para exponer demo pública cuando se necesite (Sprint 5+) · **0 costo** |
-| **Base del plugin** | Fork de [`FMCorz/moodle-block_xp`](https://github.com/FMCorz/moodle-block_xp) (Level Up XP, GPL) — ver [`docs/benchmarking-level-up-xp.md`](./benchmarking-level-up-xp.md) |
+| **Base del plugin** | Extensión sin fork (wrappeo) de [`FMCorz/moodle-block_xp`](https://github.com/FMCorz/moodle-block_xp) (Level Up XP, GPL) — ver [`docs/architecture.md`](./architecture.md) y [`docs/benchmarking-level-up-xp.md`](./benchmarking-level-up-xp.md) |
+| **Base de los puntos** | **Actividad registrada en Moodle** (reglas por evento de Level Up XP: ver recursos, entregar tareas, intentar cuestionarios, foros…), **no calificaciones**. Decisión del director (2026-10-20); los puntos por calificación son función de XP+ (pago) |
 | **Stack del plugin** | PHP 8.1+ · Mustache · Chart.js · MariaDB |
 | **Equipo** | Imanol (Director + Lead Técnico) + Álvaro (Colaborador Infra/QA) + Edison (Colaborador UI/Docs) |
 | **Repositorio** | GitHub privado (futuro público bajo GPL al cierre de Fase 1) |
@@ -213,9 +214,16 @@ de datos en Level Up XP + decisión de wrappeo vs fork modificado.
 > 🔄 **AJUSTADO (2026-05-31)**: ver [`docs/architecture.md`](architecture.md).
 > El ±5 **NO se implementa desde cero** — es nativo (`neighbours=5`, verificado
 > con 30 estudiantes). El Sprint 3 se reduce a: (a) aplicar el template UTA al ±5
-> nativo (ya está en `main`), y (b) construir el **nickname elegido por el alumno**
-> (esfuerzo S-M, vía override de `anonymise_rank()` + DI), que es lo único que el
-> plugin nativo NO cubre (solo ofrece "Otra persona" genérico).
+> nativo (propuesta en `presentation/mockups/templates/`, se aplica con un tema hijo
+> de Boost), y (b) construir el **nickname elegido por el alumno**, que es lo único
+> que el plugin nativo NO cubre (solo ofrece "Otra persona" genérico).
+>
+> 🔄 **CORRECCIÓN (2026-10-20)**: la vía "override de `anonymise_rank()` + DI" no es
+> viable (el contenedor DI de `block_xp` no admite clases externas y un plugin
+> `local_` no puede sobrescribir plantillas de otro plugin). El Sprint 3 **empieza
+> con un spike** para elegir entre tema hijo (renderer) y bloque propio; el
+> esfuerzo del nickname se re-estima tras el spike. Ver
+> [`docs/architecture.md`](architecture.md).
 
 **Objetivo**: el primer diferenciador real del plugin está funcionando.
 
@@ -519,6 +527,26 @@ Osyanificacion-Plugin-Moodle/
     ├── deck-fase-2.pdf                ← (Sprint 6)
     └── video-demo-link.md             ← (Sprint 6)
 ```
+
+## 🔭 Visión a futuro (post Fase 1)
+
+Funciones que forman parte de la visión del proyecto pero **no del producto mínimo
+viable** de la Fase 1. Quedan en el roadmap para hacerlas más adelante; ninguna se
+presenta como compromiso inmediato. Decisión del director (2026-10-20), alineada
+con el documento académico v21.
+
+| Función | Requisito principal | Datos o autorizaciones | Momento tentativo |
+|---|---|---|---|
+| Rankings por equipos | Desarrollo propio o licencia de Level Up XP+ | Grupos del curso en Moodle | Después de la Fase 2 |
+| Misiones o retos con dificultad adaptativa | Diseño pedagógico con docentes + desarrollo propio | Planificación de la asignatura | Después de la Fase 2 |
+| Panel analítico para docentes | Definir indicadores de compromiso + desarrollo propio | LOPDP | Después de la Fase 2 |
+| Ranking completo como opción individual (opt-in) | Desarrollo propio sobre el ranking nativo | Datos de actividad ya registrados; LOPDP | Después de la Fase 2 |
+| Publicación semanal del ranking (en vez de tiempo real) | Desarrollo propio + prueba de su efecto | Datos de actividad ya registrados; LOPDP | Después de la Fase 2 |
+| Logros por mentoría, eventos (p. ej. hackatones) y contribuciones de código | Criterios verificables + validación por docentes | Autorización institucional; LOPDP | Después de la Fase 2 |
+| Insignias por calificaciones o por trayectoria en varios semestres | Integración con el libro de calificaciones o registros académicos | Autorización institucional; LOPDP | Fase 3 |
+| Ranking agregado de varios cursos o de la Facultad | Normalización de puntos entre cursos y reglas de comparación | Autorización institucional | Fase 3 |
+| Recompensas de mayor alcance (convenios, acceso a recursos) | Convenios, normativa y evaluación de equidad | Autoridades competentes | Fase 3 o posterior |
+| Renovación periódica de retos e insignias de temporada | Diseño de contenidos + desarrollo propio | — | Después de la Fase 2 |
 
 ## 🔗 Conexión con Fase 2 y Fase 3
 

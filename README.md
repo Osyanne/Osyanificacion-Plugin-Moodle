@@ -58,8 +58,10 @@ Roadmap completo en [`docs/plan-fase-1.md`](./docs/plan-fase-1.md).
 - **Tests**: PHPUnit + Behat
 - **Infra dev**: Docker + Cloudflare Tunnel ($0 costo)
 - **Base del plugin**: **wrapper** de
-  [Level Up XP](https://github.com/FMCorz/moodle-block_xp) (GPL v3) — extiende vía
-  DI container + override de templates, sin forkear ni modificar el core upstream
+  [Level Up XP](https://github.com/FMCorz/moodle-block_xp) (GPL v3) — extiende con un
+  tema hijo de Boost, observers de eventos y componentes propios, sin forkear ni
+  modificar el código upstream (ver [`docs/architecture.md`](./docs/architecture.md))
+- **Base de los puntos**: actividad registrada en Moodle (no calificaciones)
 
 ## 🚀 Quick start
 

@@ -110,6 +110,12 @@ Si Edison va a customizar UI del plugin (templates Mustache o estilos),
 
 **Implicancia para Sprint 2 (decisión wrappeo vs fork)**:
 
+> ⚠️ **Corrección (2026-10-20)**: el contenedor DI **no** admite clases externas
+> (`di::make_container()` es fijo y `set_container()` lanza fuera de PHPUnit/Behat),
+> y un plugin `local_` no puede sobrescribir plantillas de otro plugin. Ver
+> `docs/architecture.md`, "Puntos de extensión reales". Se conserva el texto
+> original como registro histórico.
+
 El plugin está diseñado para ser extendido sin tocar core. Wrappear en
 `local_osyanificacion` es la jugada correcta:
 
@@ -330,6 +336,11 @@ Herramientas:
 
 ### Para customizar UI desde nuestro wrapper
 
+> ⚠️ **Corrección (2026-10-20)**: los niveles 2 y 3 de esta tabla no funcionan como
+> están escritos. El override de plantillas va en un tema hijo, no en
+> `local_osyanificacion`, y el contenedor DI no acepta clases propias. Ver
+> `docs/architecture.md`.
+
 3 niveles de customización, de menor a mayor invasivo:
 
 | Nivel | Cómo | Cuándo usar |
@@ -371,7 +382,9 @@ modificado del upstream). El plugin está diseñado para extensión.
 
 **Si NO basta** → plan original del query custom, pero ahora:
 
-- Sobreescribir el método del leaderboard via DI container (no monkey-patch)
+- ~~Sobreescribir el método del leaderboard via DI container (no monkey-patch)~~
+  No viable (corrección 2026-10-20): usar un bloque propio que lea los datos de
+  `block_xp`, ver `docs/architecture.md`
 - Mantener compatibilidad con el campo `neighbours` (si admin quiere desactivarlo, fallback al ranking absoluto)
 
 ### Sprint 4 — Recompensas escalonadas
