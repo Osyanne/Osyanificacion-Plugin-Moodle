@@ -2,14 +2,16 @@
     Template Mustache PROPUESTO para override del bloque XP de Level Up XP.
 
     Override de: blocks/xp/templates/xp-widget.mustache (upstream FMCorz/moodle-block_xp)
-    Ubicación cuando exista el plugin:
-      code/local/osyanificacion/templates/block_xp/xp-widget.mustache
+    Ubicación cuando exista el tema hijo de Boost:
+      theme/osyanificacion/templates/block_xp/xp-widget.mustache
 
-    Moodle 4.x prioriza este template sobre el original sin necesidad
-    de modificar el plugin upstream (wrappeo limpio).
+    En Moodle solo los temas pueden sobrescribir plantillas de otro plugin
+    (mustache_template_finder busca en theme/<tema>/templates/<componente>/,
+    temas padre y el propio componente). Un plugin local_ NO puede hacerlo.
+    Ver docs/architecture.md, "Puntos de extensión reales".
 
     PALETA: UTA — Universidad Técnica de Ambato (azul #233A83 + acento dorado puntual).
-    Variables CSS definidas en code/local/osyanificacion/styles.css
+    Variables CSS en el SCSS del tema hijo
     (clases con prefijo osy-xp- para no colisionar con el upstream).
 
     ┌──────────────────────────────────────────────────────────────────────┐

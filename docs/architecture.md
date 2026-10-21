@@ -11,6 +11,14 @@
 > **Pareja con**: [`level-up-xp-deep-dive.md`](level-up-xp-deep-dive.md) (esquema
 > BD del upstream) y [`plan-fase-1.md`](plan-fase-1.md) (roadmap — ver nota de
 > reconciliación al final).
+>
+> ⚠️ **Corrección (2026-10-20)**: la versión inicial de este documento asumía dos
+> puntos de extensión que **no existen** (verificado en el código instalado de
+> Moodle 4.3.8 y Level Up XP 20.0): un plugin `local_` no puede sobrescribir
+> plantillas de otro plugin, y el contenedor DI de `block_xp` no acepta clases
+> externas. Ver [Puntos de extensión reales](#puntos-de-extensión-reales-verificados-en-el-código-instalado).
+> Los veredictos de verificación (±5 nativo, nickname y recompensas por construir)
+> no cambian; cambia **cómo** se construye el nickname.
 
 ## 📋 Tabla de contenidos
 
@@ -64,20 +72,38 @@
 | `classes/local/leaderboard/anonymised_leaderboard.php` | Reemplaza nombres por un texto genérico | Feature 2 (nickname) |
 | `classes/event/user_leveledup.php` | Evento que se dispara al subir de nivel | Feature 3 (recompensas) |
 
-### El plugin está hecho para extenderse
+### Puntos de extensión reales (verificados en el código instalado)
 
-Level Up XP usa **Dependency Injection** (`classes/di.php`) y **patrón decorator**
-en el leaderboard. Eso permite **sustituir piezas sin tocar el core**: se registra
-una clase propia en el DI container y el plugin la usa en lugar de la suya. Esta es
-la base técnica que hace viable el **wrappeo** (vs forkear y mantener divergencia).
+Level Up XP usa un contenedor de dependencias (`classes/di.php`) y el **patrón
+decorator** en el leaderboard, pero ese contenedor **no es un punto de extensión
+para plugins de terceros**:
 
-Tres niveles de customización, de menos a más invasivo:
+- `di::make_container()` elige entre `\block_xp\local\default_container` y el
+  contenedor del addon de pago (`\local_xp\local\container`); no hay forma de
+  registrar una clase propia.
+- `di::set_container()` lanza `coding_exception` fuera de PHPUnit/Behat.
 
-1. **CSS override** — `styles.css` en `local_osyanificacion` (cosmético: paleta UTA).
-2. **Template override** — `templates/block_xp/*.mustache` en nuestro plugin; Moodle
-   lo prioriza sobre el del upstream (cambios de estructura visual).
-3. **PHP override vía DI** — sustituir una clase del upstream por una subclase nuestra
-   (lógica: leaderboard, anonimización).
+Tampoco un plugin `local_` puede sobrescribir plantillas de otro componente:
+`lib/classes/output/mustache_template_finder.php` (Moodle 4.3) busca la plantilla
+solo en `theme/<tema>/templates/<componente>/`, en los temas padre y en la carpeta
+del propio componente.
+
+Lo que **sí** permite extender sin tocar el código de `block_xp`:
+
+1. **Tema hijo de Boost** (`theme_osyanificacion`, por crear) — SCSS con la paleta
+   UTA y override de plantillas en `theme/osyanificacion/templates/block_xp/`
+   (cambios de estructura visual). Los temas también pueden sustituir renderers de
+   plugins; si sirve para `block_xp` está por verificar.
+2. **Observers de eventos** en `local_osyanificacion/db/events.php` — por ejemplo,
+   `\block_xp\event\user_leveledup` para las recompensas.
+3. **Componentes propios que leen los datos de `block_xp`** (tablas `block_xp`,
+   `block_xp_config`) — por ejemplo, un bloque propio `block_osyanificacion`.
+4. **Callback `xp_points_increased`** — `default_state_store_observer.php` llama a
+   `get_plugin_list_with_function('block', 'xp_points_increased')`; solo aplica a
+   plugins de tipo `block`.
+
+El **wrappeo** (extender sin forkear) sigue siendo viable, pero a través de estos
+cuatro mecanismos, no del contenedor DI.
 
 ---
 
@@ -110,8 +136,9 @@ UPDATE mdl_block_xp_config SET neighbours=5 WHERE courseid=2;
 **Veredicto**: **NATIVO ALCANZA**. El comportamiento matchea el mockup UTA
 (`presentation/mockups/leaderboard-mockup.html`): 11 filas, destaca al usuario
 actual, muestra posición/nombre/XP (y de yapa, nivel y barra de progreso). El
-highlight nativo es amarillo; el dorado UTA se logra con CSS override del template
-ya existente en `main`. **Esfuerzo de construcción: 0.**
+highlight nativo es amarillo; el dorado UTA se logra con la plantilla propuesta
+(`presentation/mockups/templates/`) aplicada mediante un tema hijo de Boost.
+**Esfuerzo de construcción: 0** en lógica; solo presentación.
 
 ### Feature 2 — Anonimato (nickname elegido por el alumno) → ⚙️ CONSTRUIR
 
@@ -134,17 +161,29 @@ como **"Otra persona"** (texto genérico idéntico para todos, indistinguibles).
 
 **Veredicto**: **NATIVO NO ALCANZA**. El requisito del proyecto es *nickname
 elegido por el alumno* (alias propio). Lo nativo solo ofrece todo-o-nada: nombre
-real, o anónimo genérico. **Hay que construirlo** — pero el upstream tiene un punto
-de extensión limpio:
+real, o anónimo genérico. **Hay que construirlo.**
 
-- Clase a extender: `classes/local/leaderboard/anonymised_leaderboard.php`.
-- Método a sobrescribir: **`anonymise_rank(rank $rank)`** — es donde se reemplaza
-  el nombre. En lugar del string genérico, inyecta el alias del alumno.
+El nombre se reemplaza en `anonymise_rank(rank $rank)` de
+`classes/local/leaderboard/anonymised_leaderboard.php`, pero **no se puede inyectar
+una subclase** (ver [Puntos de extensión reales](#puntos-de-extensión-reales-verificados-en-el-código-instalado)).
+Alternativas a evaluar en un **spike al inicio del Sprint 3**:
+
+- **A. Tema hijo de Boost**: sustituir el renderer o la plantilla del ranking para
+  mostrar el alias. Riesgo: la plantilla `xp-widget` recibe nombres ya resueltos
+  (`name`, `picurl`), sin `userid`, así que el alias tendría que resolverse en un
+  renderer del tema.
+- **B. Bloque propio** (`block_osyanificacion`): construye el ranking relativo
+  leyendo los datos de `block_xp` y aplicando el alias; replica la lógica de vecinos
+  ±N en lugar de reutilizar el decorator.
+
+Común a ambas:
+
 - Tabla propia: `local_osyanificacion_nickname (userid, courseid, alias)`.
-- Registro: sustituir `anonymised_leaderboard` por nuestra subclase vía DI container.
 - UI: form mínimo para que el alumno setee su alias.
 
-**Esfuerzo estimado: S-M** (chico-medio). Sin tocar el core, vía decorator + DI.
+**Criterio de salida del spike**: el ranking ±5 de `PROG1-DEMO` muestra alias de
+prueba sin modificar `block_xp`. **Esfuerzo**: se re-estima tras el spike (la
+estimación inicial S-M asumía la vía DI).
 
 ### Feature 3 — Recompensas escalonadas → ⚙️ CONSTRUIR (100% nuestro)
 
@@ -174,15 +213,15 @@ es limpio: el upstream **ya dispara el evento `\block_xp\event\user_leveledup`**
 
 ## Decisión de arquitectura
 
-**Wrappeo confirmado** (no fork modificado). El upstream está diseñado para
-extensión (DI + decorator), así que `local_osyanificacion` sustituye/agrega piezas
-sin divergir del código base — minimiza el costo de mantenimiento ante updates
-upstream. Punto de extensión por feature:
+**Wrappeo confirmado** (no fork modificado): no se modifica el código de
+`block_xp`, lo que minimiza el costo de mantenimiento ante updates upstream. La
+extensión se hace con tema hijo, observers y componentes propios, no con el
+contenedor DI. Punto de extensión por feature:
 
 | Feature | Nivel de customización | Mecanismo concreto |
 |---------|------------------------|--------------------|
-| ±5 (visual UTA) | Template + CSS override | `xp-widget.mustache` (ya en `main`) + `styles.css` |
-| Nickname | PHP override vía DI | subclase de `anonymised_leaderboard`, override `anonymise_rank()` |
+| ±5 (visual UTA) | Tema hijo de Boost (plantilla + SCSS) | `theme/osyanificacion/templates/block_xp/xp-widget.mustache` (propuesta en `presentation/mockups/templates/`) |
+| Nickname | Tema hijo (renderer) o bloque propio — se decide en el spike del Sprint 3 | tabla `local_osyanificacion_nickname` + alias en la presentación del ranking |
 | Recompensas | Plugin propio + observer | tablas `_rewards`/`_user_rewards` + observer de `user_leveledup` |
 
 ---
@@ -191,8 +230,8 @@ upstream. Punto de extensión por feature:
 
 | Feature | ¿Nativo? | Esfuerzo si construir | Punto de extensión | Sprint destino |
 |---------|----------|----------------------|--------------------|----------------|
-| Leaderboard ±5 | ✅ Sí (`neighbours=5`) | 0 (solo activar + template UTA ya hecho) | config + template override | 3 (mínimo) |
-| Anonimato nickname | ❌ No (solo "Otra persona") | S-M | `anonymise_rank()` + tabla + DI | 3 |
+| Leaderboard ±5 | ✅ Sí (`neighbours=5`) | 0 (solo activar + plantilla UTA vía tema hijo) | config + tema hijo | 3 (mínimo) |
+| Anonimato nickname | ❌ No (solo "Otra persona") | Por re-estimar tras el spike | tabla propia + tema hijo (renderer) o bloque propio | 3 |
 | Recompensas escalonadas | ❌ No (solo badges visuales) | M | tablas + observer de `user_leveledup` | 4 |
 
 ---
@@ -208,6 +247,10 @@ Esta verificación **ajusta el plan original** (`plan-fase-1.md`):
   que sí requiere código, esfuerzo S-M).
 - **Sprint 4 (recompensas) se mantiene**: es 100% construcción, pero ahora con el
   enganche identificado (evento `user_leveledup`).
+- **Corrección 2026-10-20**: el Sprint 3 empieza con un spike para elegir cómo
+  construir el nickname (tema hijo o bloque propio), porque la vía DI documentada
+  originalmente no es viable. La plantilla UTA se aplica mediante un tema hijo de
+  Boost, no desde `local_osyanificacion`.
 
 Resultado neto: el proyecto **ahorra** el trabajo más grande que el plan asumía
 (±5 desde cero) y redirige ese esfuerzo al nickname y las recompensas, que son los

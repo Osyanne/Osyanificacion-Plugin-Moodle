@@ -8,7 +8,7 @@
 > `chore(status): <tu update>` y push directo a `main` (cambios chicos
 > de STATUS.md están exentos del flujo de PR — son metadata, no código).
 
-**Última actualización**: 2026-06-01
+**Última actualización**: 2026-10-20
 
 ---
 
@@ -20,8 +20,9 @@
 **Próximo**:
 - **Sprint 3**: arrancar el desarrollo del plugin `local_osyanificacion`:
   - Aplicar el template UTA al leaderboard ±5 nativo (ya está el `.mustache` en el repo)
-  - Construir el **nickname elegido por el alumno** (tabla propia + override de
-    `anonymise_rank()` vía DI container — esfuerzo S-M, ver `docs/architecture.md`)
+  - Construir el **nickname elegido por el alumno**: primero un spike para elegir
+    entre tema hijo de Boost (renderer) y bloque propio, porque la vía DI no es
+    viable; esfuerzo a re-estimar (ver `docs/architecture.md`)
 - **Sprint 4**: recompensas escalonadas (observer del evento `user_leveledup`)
 
 **Recientemente cerrado**:
@@ -102,8 +103,14 @@
   para el highlight "TÚ". Theme de referencia: `docs/uta-boost-scss.css`.
 - **El leaderboard ±5 es NATIVO** (campo `neighbours` de Level Up XP), verificado en
   Sprint 2. NO reimplementar desde cero. Ver `docs/architecture.md`.
-- **Wrappeo, no fork**: `local_osyanificacion` extiende Level Up XP vía DI container +
-  override de templates. No se modifica el código del plugin base.
+- **Wrappeo, no fork**: no se modifica el código del plugin base. La extensión es con
+  un tema hijo de Boost (plantillas y SCSS), observers de eventos en
+  `local_osyanificacion` y componentes propios. **No** vía el contenedor DI de
+  `block_xp` (no admite clases externas) ni con plantillas dentro de un plugin `local_`
+  (solo los temas pueden sobrescribirlas). Ver `docs/architecture.md`.
+- **Puntos por actividad registrada en Moodle**, no por calificaciones (decisión
+  2026-10-20). Las funciones fuera del MVP están en `docs/plan-fase-1.md`,
+  sección "Visión a futuro".
 - **INFRA-001**: `bitnami/moodle:4.3` no es pulleable sin Bitnami Secure → usamos
   `bitnamilegacy/*` (ver `KNOWN_ISSUES.md`).
 - **INFRA-002**: nunca correr `php` como root en el container. Usar
